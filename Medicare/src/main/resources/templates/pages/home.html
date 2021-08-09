@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="hhtp://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+
+<body>
+
+    <nav th:replace="layouts :: navBar"></nav>
+<div class="container">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <h4>Class List</h4>
+
+            <a th:href="@{/classes/new}">
+                <button class="btn btn-primary"> Add New</button></a>
+            <table class="table table-bordered table striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <!-- <th>S.No</th> -->
+                        <th>Class Id</th>
+                        <th>Class Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="aclass : ${classList}">
+                        <td th:text="${aclass.classId}" />
+                        <td th:text="${aclass.class_name}" />
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <h4>Student List</h4>
+
+            <a th:href="@{/students/new}">
+                <button class="btn btn-primary"> Add New</button></a>
+            <table class="table table-bordered table striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <!-- <th>S.No</th> -->
+                        <th>Student Id</th>
+                        <th>Student Name</th>
+                        <th>Student Age</th>
+                        <th>Student Gender</th>
+                        <th>Standard</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="astudent:${studentList}">
+                        <td th:text="${astudent.stId}" />
+                        <td th:text="${astudent.stName}" />
+                        <td th:text="${astudent.age}" />
+                        <td th:text="${astudent.gender}" />
+                        <td th:text="${astudent.classId}" />
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    </div>
+
+</body>
+
+</html>
