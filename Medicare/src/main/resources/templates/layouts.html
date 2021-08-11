@@ -9,22 +9,64 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    	
+    	
     <title>Medicare </title>
 </head>
 
 
-<nav th:fragment="navBar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">BASHA'S LEARNERS ACADEMY</a>
+<nav th:fragment="navBar" class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:100px;">
+    <a class="navbar-brand" href="#">MEDICARE</a>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+           
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+            style="width: 50vw;">
+
+           
+         
+            
+         <!--   <a class="nav-item nav-link" th:href="@{/classes/new}">Classes</a>
+            <a class="nav-item nav-link" th:href="@{/teachers/new}">Teachers</a>
+            <a class="nav-item nav-link" th:href="@{/subjects/new}">Subjects</a>  -->
+        </div>
+         <div class="navbar-nav " style="float: right;">
+          <a class="nav-item nav-link" th:href="@{/login/new}" style="float:right">Login</a></div>
+    </div>
+</nav>
+<nav th:fragment="userNavBar" class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:100px;">
+    <a class="navbar-brand" href="#">MEDICARE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link active" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
-             <a class="nav-item nav-link" th:href="@{/login/new}">Login</a>
-         <!--   <a class="nav-item nav-link" th:href="@{/classes/new}">Classes</a>
-            <a class="nav-item nav-link" th:href="@{/teachers/new}">Teachers</a>
-            <a class="nav-item nav-link" th:href="@{/subjects/new}">Subjects</a>  -->
+             
+        </div>
+        <div class="navbar-nav">
+            
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+              style="width: 50vw;">
+        </div>
+    </div>
+</nav>
+<nav th:fragment="adminNavBar" class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:100px;">
+    <a class="navbar-brand" href="#">MEDICARE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+             <a class="nav-item nav-link active" th:href="@{/admin/add-madicine}">Add Medicine </a>
+             <a class="nav-item nav-link active" th:href="@{/admin/add-products}">Add MedicalProducts </a>
+             
         </div>
     </div>
 </nav>
