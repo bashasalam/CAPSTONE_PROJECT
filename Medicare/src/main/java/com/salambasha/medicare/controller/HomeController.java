@@ -12,4 +12,8 @@ public class HomeController {
 	public String showHome() {
 		return "pages/home";
 	}
+    @GetMapping("index")
+  	public String showindex() {
+  		return "index";
+  	}
 }

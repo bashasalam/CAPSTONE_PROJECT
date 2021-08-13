@@ -43,23 +43,11 @@
 
     <nav th:replace="layouts :: adminNavBar" ></nav>
 <div class="container">
-<h3> Add Madicine</h3>
-    <form action="/admin/save" method="post">
-        <label for="fname">Madicine Name</label>
-        <input type="text" id="madicineName" name="madicineName" placeholder="Madicine name..">
-    
-        <label for="lname">Brand Name</label>
-        <input type="text" id="brandName" name="brandName" placeholder="Brand name..">
-    
-        <label for="country">Category</label>
-        <select id="category" name="category">
-          <option value="australia">Australia</option>
-          <option value="canada">Canada</option>
-          <option value="usa">USA</option>
-        </select>
-    
-        <label for="subject">Subject</label>
-        <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+<h3> Add Category</h3>
+    <form action="/category/save" method="post" th:object="${categoryFormData}">
+        <label for="fname">Category Name</label>
+        <input type="text" id="madicineName" name="categoryName" placeholder="category name.." th:field="${categoryFormData.categoryName}">
+          
     
         <input type="submit" value="Submit">
       </form>

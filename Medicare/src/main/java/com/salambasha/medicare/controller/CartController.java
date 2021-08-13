@@ -16,13 +16,19 @@ public class CartController {
 		
 		return "pages/cart/cart-page";
 	}
-	
-	//@PostMapping("/checkout")
-	@GetMapping("/checkout")
-	public String showCheckout() {
+	@GetMapping("/address")
+	public String showUserddressForm() {
 		
-		return "pages/cart/check-out";
+		return "pages/cart/cart-address";
 	}
+	
+	
+//	@PostMapping("/orderder")
+//
+//	public String showCheckout() {
+//		
+//		return "pages/cart/order-summary";
+//	}
 	
 	//@PostMapping("/checkout")
 	@GetMapping("/payment")
@@ -31,8 +37,8 @@ public class CartController {
 		return "pages/cart/payment";
 	}
 	
-	//@PostMapping("/checkout")
-	@GetMapping("/order-details")
+	@PostMapping("/order-details")
+	//@GetMapping("/order-details")
 	public String showOrderDetails() {
 		
 		return "pages/cart/order-summary";

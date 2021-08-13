@@ -13,7 +13,7 @@ public class UserController {
 		
 		return "pages/users/home";
 	}
-	
+	 
 	
 
 }
