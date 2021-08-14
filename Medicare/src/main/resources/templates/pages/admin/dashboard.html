@@ -85,7 +85,8 @@ body {
   </div> -->
 
 <div class="container">
-  <div class="col-md-6" style="margin-top: 2vh;">
+  
+  <div class="col-md-12" style="margin-top: 2vh;">
     <a th:href="@{/admin/add-category}"><button class="btn btn-primary"> Add Category</button></a>
 
     
@@ -93,21 +94,72 @@ body {
 <table class="table table-bordered table-striped">
   <thead class="thead-dark">
      <tr>
+       <th>S.No</th>
        <th>Category Id</th>
        <th>Category Name</th>
+       <th>Actions</th>
      </tr>
   </thead>
   <tbody>
 
-    <tr th:each="acategory:${categoryList}">
+    <tr th:each="acategory,iterationStatus:${categoryList}">
+      <td th:text=${iterationStatus.count}></td>
       <td th:text="${acategory.categoryId}" />
       <td th:text="${acategory.categoryName}" />
+      <td> 
+        <button class="btn btn-sm btn-outline-danger"> Edit</button> 
+        <button class="btn btn-sm btn-danger"> Delete</button> 
+      </td>
    
 
   </tr>
 
     
   </tbody>
+
+</table>
+</div>
+<div class="col-md-12" style="margin-top: 2vh;">
+  <a th:href="@{/admin/add-madicine}"><button class="btn btn-primary"> Add Product</button></a>
+
+  
+
+<table class="table table-bordered table-striped">
+<thead class="thead-dark">
+   <tr>
+     <th>S.No</th>
+     <th>Product Id</th>
+     <th>Product Name</th>
+     <th>Brand Name</th>
+     <th>Description</th>
+     <th>Image</th>
+     <th>Actions</th>
+   </tr>
+</thead>
+<tbody>
+  <!-- <tr th:each="item,iterationStatus : ${items}">
+    <td th:text=${iterationStatus.count}></td>
+ </tr> -->
+
+  <tr th:each="aproduct,iterationStatus:${productList}">
+    <td th:text=${iterationStatus.count}></td>
+    <td th:text="${aproduct.productId}" />
+    <td th:text="${aproduct.productName}" />
+    <td th:text="${aproduct.brandName}" />
+    <td th:text="${aproduct.description}" />
+    <td th:text="${aproduct.image}" /> 
+    <td> 
+      <input type="hidden" th:value="${aproduct.productId}" id="productId">
+      <button class="btn btn-sm btn-outline-danger" onclick="productEdit()"> Edit</button> 
+      <button class="btn btn-sm btn-danger" onclick="productInActivate()" > InActivate</button> 
+      <button class="btn btn-sm btn-primary"  onclick="productActivate()"> Activate</button> 
+    </td>
+ 
+
+</tr>
+
+  
+</tbody>
 
 </table>
 </div>

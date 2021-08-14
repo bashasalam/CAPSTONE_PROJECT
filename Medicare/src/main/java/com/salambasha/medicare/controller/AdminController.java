@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.salambasha.medicare.dao.CategoryRepository;
+import com.salambasha.medicare.dao.ProductRepository;
 import com.salambasha.medicare.entities.Category;
+import com.salambasha.medicare.entities.Product;
 
 @Controller
 @RequestMapping("/admin")
@@ -19,8 +21,13 @@ public class AdminController {
 	
 	Category category = new Category();
 	
+	Product product = new Product();
+	
 	@Autowired
 	CategoryRepository cateRepo;
+	
+	@Autowired
+	ProductRepository proRepo;
 	
 	@GetMapping("/login")
 	public String showAdminLogin() {
@@ -37,10 +44,11 @@ public class AdminController {
 	@GetMapping
 	public String showAdminDashboards(Model model) {
 	List<Category> categories = cateRepo.findAll();
-		
-		
-		
+	
 		model.addAttribute("categoryList", categories);
+		
+		List<Product> products = proRepo.findAll();
+		model.addAttribute("productList", products);
 		
 		return "pages/admin/dashboard";
 	}
@@ -52,7 +60,12 @@ public class AdminController {
 	}
 
 	@GetMapping("/add-madicine")
-	public String showAddMadicine() {
+	public String showAddMadicine(Model model) {
+		
+     List<Category> categories = cateRepo.findAll();
+     model.addAttribute("categoryList", categories);
+     
+     model.addAttribute("productFormData", product);
 		
 		return "pages/admin/add-madicine";
 	}

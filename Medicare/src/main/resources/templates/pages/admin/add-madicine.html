@@ -44,22 +44,28 @@
     <nav th:replace="layouts :: adminNavBar" ></nav>
 <div class="container">
 <h3> Add Madicine</h3>
-    <form action="/admin/save" method="post">
+    <form action="/products/save" method="post" th:object="${productFormData}" enctype="multipart/form-data">
         <label for="fname">Madicine Name</label>
-        <input type="text" id="madicineName" name="madicineName" placeholder="Madicine name..">
+        <input type="text" id="productName" name="productName" placeholder="Madicine name.." th:field="*{productName}"/>
     
         <label for="lname">Brand Name</label>
-        <input type="text" id="brandName" name="brandName" placeholder="Brand name..">
+        <input type="text" id="brandName" name="brandName" placeholder="Brand name.." th:field="*{brandName}">
+
+        <label for="subject">Description</label>
+        <textarea id="description" name="description" placeholder="Write something.." style="height:200px" th:field="*{description}"></textarea>
+    
+        <label for="lname">Unit Price</label>
+        <input type="text" id="unitPrice" name="price" placeholder="Unit price.." th:field="*{price}">
     
         <label for="country">Category</label>
-        <select id="category" name="category">
-          <option value="australia">Australia</option>
-          <option value="canada">Canada</option>
-          <option value="usa">USA</option>
+        <select id="category" name="theCategory" th:field="*{theCategory}">
+         <option th:each="acategory:${categoryList}" th:value="${acategory.categoryId}" th:text="${acategory.categoryName}" > 
         </select>
     
-        <label for="subject">Subject</label>
-        <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+        
+        
+        <legend for="fileToUpload">Image</legend>
+			<input class="form-control" type="file" name="image" id="imageId" th:field="*{image}">
     
         <input type="submit" value="Submit">
       </form>
