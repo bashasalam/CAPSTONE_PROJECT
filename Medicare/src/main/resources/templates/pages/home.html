@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="hhtp://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+
+<body>
+    <nav th:replace="layouts :: navBar"></nav>
+   <div class="container-fluid" style="width: 100vw;">
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+        <!-- Indicators -->
+        <ul class="carousel-indicators" style="float:right">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ul>
+        
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <img src="/images/corosal2.jpg" alt="Los Angeles"  style="width: 100vw; height: 30vh;">
+            </div>
+            <div class="carousel-item">
+            <img src="/images/corosal3.jpg" alt="Chicago"  style="width: 100vw; height: 30vh;" >
+            </div>
+            <div class="carousel-item">
+            <img src="/images/corosal4.jpg" alt="New York"  style="width: 100vw; height: 30vh;" >
+            </div>
+        </div>
+        
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+</div>
+</div>
+
+   <div class="container-fluid " style="margin-left: 0px;">
+<div class="col-md-8 mt-3 center container">
+    <form action="/admin/selectedCategory" method="POST" >
+        <select id="selectCategroyId" onchange="getCategoryId()" class="form-control">
+            <table class="table table-bordered table-striped">
+                <tbody >
+                    <tr><Option>Select Category</Option></tr>
+                    <tr th:each="acategory:${categoryList}">
+                        <td> <option  th:value="${acategory.categoryId}" th:text="${acategory.categoryName}" > 
+        </select>
+    
+    
+    </form>
+</div>
+<div class="row">
+    <div class="col-md-2" style="height: auto; background-color:#FF8F17; margin-top:2vw; border-radius:10px">
+    	<h4>Categories</h4>
+    	<hr>
+
+     
+            <table class="table table-striped">
+                <tbody >
+                    <tr th:each="acategory:${categoryList}">
+                        <td> <input type="hidden" name="" th:value="${acategory.categoryId}"th:text="${acategory.categoryName}" onclick="getCatgoryValue(this.val())" style="font-weight:500"/>
+
+                    </tr>
+
+                </tbody>
+            </table>
+    
+    	     
+        
+    </div>
+
+  
+  
+          
+            <div class="col-md-10 row " style="margin: left 5vw; margin-top: 5vw;">
+
+            
+            
+                <div class="col-md-3" style="background-color: rgb(126, 71, 214); border-radius: 5px; height:50vh; margin:3vw;">
+
+                </div>
+                <div class="col-md-3" style="background-color: rgb(46, 78, 219);  border-radius: 5px; height:50vh;margin:3vw;">
+                    
+                </div>
+                <div class="col-md-3" style="background-color: rgb(134, 207, 15);  border-radius: 5px;height:50vh;margin:3vw;">
+                    
+                </div>
+              
+            
+            
+           
+
+
+
+            </div>
+
+
+
+        </div>
+    
+
+
+
+
+   </div>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script>
+      function getCategoryId(){
+
+        //alert("function call");
+      var categoryValue = $("#selectCategroyId").val();
+
+      alert(categoryValue);
+
+      console.log(categoryValue);
+
+      }
+
+   </script>
+
+
+
+
+
+</body>
+
+</html>
