@@ -44,28 +44,28 @@
     <nav th:replace="layouts :: adminNavBar" ></nav>
 <div class="container">
 <h3> Add Madicine</h3>
-    <form action="/products/save" method="post"  enctype="multipart/form-data">
+    <form action="/products/save" method="post" th:object="${productFormData}" enctype="multipart/form-data">
         <label for="fname">Madicine Name</label>
-        <input type="text" id="productName" name="productName" placeholder="Madicine name.." />
+        <input type="text" id="productName" name="productName" placeholder="Madicine name.." th:field="*{productName}"/>
     
         <label for="lname">Brand Name</label>
-        <input type="text" id="brandName" name="brandName" placeholder="Brand name.." >
+        <input type="text" id="brandName" name="brandName" placeholder="Brand name.." th:field="*{brandName}">
 
         <label for="subject">Description</label>
-        <textarea id="description" name="description" placeholder="Write something.." style="height:200px" ></textarea>
+        <textarea id="description" name="description" placeholder="Write something.." style="height:200px" th:field="*{description}"></textarea>
     
         <label for="lname">Unit Price</label>
-        <input type="text" id="unitPrice" name="price" placeholder="Unit price.." />
+        <input type="text" id="unitPrice" name="price" placeholder="Unit price.." th:field="*{price}">
     
         <label for="country">Category</label>
-        <select id="category" name="theCategory" >
+        <select id="category" name="theCategory" th:field="*{theCategory}">
          <option th:each="acategory:${categoryList}" th:value="${acategory.categoryId}" th:text="${acategory.categoryName}" > 
         </select>
     
         
         
         <legend for="fileToUpload">Image</legend>
-			<input class="form-control" type="file" name="fileToUpload" id="imageId" >
+			<input class="form-control" type="file" name="image" id="imageId" th:field="*{image}">
     
         <input type="submit" value="Submit">
       </form>

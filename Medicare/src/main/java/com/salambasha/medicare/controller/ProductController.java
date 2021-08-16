@@ -42,39 +42,29 @@ public class ProductController {
 	}
 	
 	@PostMapping("/save")
-	public String saveProduct(Model model,@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory, @RequestParam("image") MultipartFile[] files, String image) throws Exception {
+	public String saveProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory, @RequestParam("fileToUpload") MultipartFile[] files, String image) throws Exception {
 		System.out.println("Working here-1");
 		
 		
 
 		 StringBuilder fileName = new StringBuilder();
 		 
-//		 for(MultipartFile file : files) {
-//			 System.out.println("Working here1");
-//		  Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
-//		  fileName.append(file.getOriginalFilename()+" ");
-//		  
-//		  try {
-//			Files.write(fileNameAndPath,file.getBytes());
-//			System.out.println("Working here1");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("Working here0");
-//		}
-//		}
-		
-		 String folder = "/uploads/";
-		for(MultipartFile file : files) {
-			byte[] bytes = file.getBytes();
-		Path path = Paths.get(uploadDirectory+file.getOriginalFilename());
-		Files.write(path,bytes);
-			
+		 for(MultipartFile file : files) {
+			 System.out.println("Working here1");
+		  Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+		  fileName.append(file.getOriginalFilename()+" ");
+		  
+		  try {
+			Files.write(fileNameAndPath,file.getBytes());
+			System.out.println("Working here1");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Working here0");
 		}
-		 
-		 
-
-		 
+	}
+		
+			 
 		image =  fileName.toString();
 		System.out.println("Working here3");
 		

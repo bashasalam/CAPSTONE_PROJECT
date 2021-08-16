@@ -147,7 +147,7 @@ body {
     <td th:text="${aproduct.productName}" />
     <td th:text="${aproduct.brandName}" />
     <td th:text="${aproduct.description}" />
-    <td th:text="${aproduct.image}" /> 
+    <td ><img th:src="@{${'/'+ aproduct.image}}" alt=" Madicine image" style="height: 100px; width: 100px;"> </td>
     <td> 
       <input type="hidden" th:value="${aproduct.productId}" id="productId">
       <button class="btn btn-sm btn-outline-danger" onclick="productEdit()"> Edit</button> 
