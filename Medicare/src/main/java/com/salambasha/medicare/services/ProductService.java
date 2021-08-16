@@ -14,9 +14,9 @@ public class ProductService {
 	ProductRepository prorepo;
 
 	public boolean addProduct(String productName, String brandName, String description, double price,
-			Category theCategory, String image) {
+			Category theCategory, int quantity, String image) {
 		
-if(prorepo.save(new Product(productName,brandName, description, price,theCategory,image)) != null) {
+if(prorepo.save(new Product(productName,brandName, description, price,theCategory,quantity,image)) != null) {
 			
 			return true;
 		}else {

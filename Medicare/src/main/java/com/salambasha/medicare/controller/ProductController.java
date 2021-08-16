@@ -42,7 +42,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/save")
-	public String saveProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory, @RequestParam("fileToUpload") MultipartFile[] files, String image) throws Exception {
+	public String saveProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile[] files, String image) throws Exception {
 		System.out.println("Working here-1");
 		
 		
@@ -72,7 +72,7 @@ public class ProductController {
 		
 		System.out.println("Working here4");
 		  		
-		   if(productService.addProduct(productName,brandName,description,price,theCategory,image)) {
+		   if(productService.addProduct(productName,brandName,description,price,theCategory,quantity,image)) {
 			   System.out.println("Working here5");
 			   return "redirect:/admin" ;
 		   }else {

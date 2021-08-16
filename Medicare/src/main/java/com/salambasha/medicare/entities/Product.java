@@ -17,6 +17,7 @@ public class Product {
 	private String brandName;
 	private String description;
 	private double price;
+	private int quantity;
 	private String image;
 	
 	@ManyToOne()
@@ -37,13 +38,14 @@ public class Product {
 		super();
 	}
 	public Product(String productName, String brandName, String description, double price,
-			Category theCategory, String image) {
+			Category theCategory, int quantity, String image) {
 		super();
 		this.productName = productName;
 		this.brandName = brandName;
 		this.description = description;
 		this.price = price;
 		this.theCategory = theCategory;
+		this.quantity = quantity;
 		this.image = image;
 	}
 	
@@ -83,6 +85,14 @@ public class Product {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	@Override
 	public String toString() {
