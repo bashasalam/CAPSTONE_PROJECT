@@ -41,14 +41,18 @@ public class ProductController {
 		return "/pages/products/product-page";
 	}
 	
+//	@PostMapping("/delete")
+//	public String deleteProduct(@PathVariable long productId) {
+//		productService.deleteProduct(productId);
+//		
+//		return "redirect:/admin";
+//	}
+//	
+	
 	@PostMapping("/save")
 	public String saveProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile[] files, String image) throws Exception {
 		System.out.println("Working here-1");
-		
-		
-
 		 StringBuilder fileName = new StringBuilder();
-		 
 		 for(MultipartFile file : files) {
 			 System.out.println("Working here1");
 		  Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
@@ -64,8 +68,7 @@ public class ProductController {
 		}
 	}
 		
-			 
-		image =  fileName.toString();
+	  image =  fileName.toString();
 		System.out.println("Working here3");
 		
 		image =  "uploads/" + image;

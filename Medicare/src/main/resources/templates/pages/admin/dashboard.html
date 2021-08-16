@@ -109,7 +109,10 @@ body {
       <td> 
         <input type="hidden" th:value="${acategory.categoryId}" id=${acategory.categoryId}>
         <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:categoryEdit(' + ${acategory.categoryId} + ');'"> Edit</button> 
-        <button class="btn btn-sm btn-danger" th:onclick="'javascript:categoryDelete(' + ${acategory.categoryId} + ');'"> Delete</button> 
+        <!-- <button class="btn btn-sm btn-danger" th:onclick="'javascript:categoryDelete(' + ${acategory.categoryId} + ');'"> Delete</button>  -->
+<!-- <a th:href="@{/category/${acategory.categoryId}" class="btn btn-sm btn-outline-danger">Edit</a>
+<a th:href="@{/delete/acategory.categoryId}" class="btn btn-sm btn-danger">Delete</a> -->
+
       </td>
    
 
@@ -190,18 +193,26 @@ $(document).ready(function(){
 
 function categoryEdit(id){
 var categoryId = id;
-alert(categoryId);
+//alert(categoryId);
+
+window.location.replace("/category?editId="+categoryId);
 
 }
 function categoryDelete(id){
 var categoryId = id;
-alert(categoryId);
+//alert(categoryId);
+if (confirm("Are you sure ?") == true) {
+
+  window.location.replace("/category?deleteId="+categoryId);
+
+}
 
 }
 
 function productEdit(id){
 var productId = id;
 alert(productId);
+window.location.replace("/products?editId="+productId);
 
 }
 
@@ -216,6 +227,24 @@ var productId = id;
 alert(productId);
 
 }
+
+// function delete_datas(id, tablename)
+//                                                             {
+//                                                                 if (confirm("Are you sure ?") == true) {
+//                                                                     $('#loading_gif').show();
+//                                                                     $.post("dashboard.php",
+//                                                                             {
+//                                                                                 deleterid: id,
+//                                                                                 tablenames: tablename
+//                                                                             },
+//                                                                             function (data, status) {
+//                                                                                 console.log(data);
+//                                                                                 if (data == "yes") {
+//                                                                                     window.location.replace("dashboard.php?msg=4");
+//                                                                                 }
+//                                                                             });
+//                                                                 }
+//                                                             }
 
 
 </script>

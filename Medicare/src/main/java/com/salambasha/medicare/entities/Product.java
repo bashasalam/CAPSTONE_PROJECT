@@ -1,6 +1,8 @@
 package com.salambasha.medicare.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +22,8 @@ public class Product {
 	private int quantity;
 	private String image;
 	
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, 
+			CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinColumn(name="category_id")
 	private Category theCategory;
 	

@@ -27,6 +27,13 @@ if(prorepo.save(new Product(productName,brandName, description, price,theCategor
 		
 	}
 
+//	public void deleteProduct(long productId) {
+//		// TODO Auto-generated method stub
+//		
+//		prorepo.deleteById(productId);
+//		
+//		}
+
 	
 	
 
