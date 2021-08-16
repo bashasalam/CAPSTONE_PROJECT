@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 //import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,32 +42,51 @@ public class ProductController {
 	}
 	
 	@PostMapping("/save")
-	public String saveProduct(Model model,@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") 
-	Category theCategory, @RequestParam("image") MultipartFile[] files, String image) {
+	public String saveProduct(Model model,@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory, @RequestParam("image") MultipartFile[] files, String image) throws Exception {
+		System.out.println("Working here-1");
+		
 		
 
 		 StringBuilder fileName = new StringBuilder();
-		 for(MultipartFile file : files) {
-		  Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
-		  fileName.append(file.getOriginalFilename()+" ");
-		  
-		  try {
-			Files.write(fileNameAndPath,file.getBytes());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		 
+//		 for(MultipartFile file : files) {
+//			 System.out.println("Working here1");
+//		  Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+//		  fileName.append(file.getOriginalFilename()+" ");
+//		  
+//		  try {
+//			Files.write(fileNameAndPath,file.getBytes());
+//			System.out.println("Working here1");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("Working here0");
+//		}
+//		}
+		
+		 String folder = "/uploads/";
+		for(MultipartFile file : files) {
+			byte[] bytes = file.getBytes();
+		Path path = Paths.get(uploadDirectory+file.getOriginalFilename());
+		Files.write(path,bytes);
+			
 		}
-		}
-		//image =  fileName.toString();
+		 
+		 
+
+		 
 		image =  fileName.toString();
+		System.out.println("Working here3");
 		
 		image =  "uploads/" + image;
+		
+		System.out.println("Working here4");
 		  		
 		   if(productService.addProduct(productName,brandName,description,price,theCategory,image)) {
-		
+			   System.out.println("Working here5");
 			   return "redirect:/admin" ;
 		   }else {
-			   
+			   System.out.println("Working here6");
 			   return "pages/products/add-madicine";
 		   }
 	}
