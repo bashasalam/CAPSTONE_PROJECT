@@ -3,91 +3,15 @@
 <html lang="en" xmlns:th="hhtp://www.thymeleaf.org">
 
 <head th:replace="layouts :: header"></head>
-<style>
-body {
-  font-family: "Lato", sans-serif;
-}
-
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: #f1f1f1;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #444;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
-</style>
+<link rel ="stylesheet"  th:href= "@{/css/dashboard.css}"> 
 
 <body>
   <nav th:replace="layouts :: adminNavBar"  id="navBarId"></nav>
    
-    
-    <div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
-</div>
-
-
-<!-- <div id="main">
-  <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>  
-  </div> -->
-
 <div class="container">
   
   <div class="col-md-12" style="margin-top: 2vh;">
-    <a th:href="@{/admin/add-category}"><button class="btn btn-primary"> Add Category</button></a>
+    <h3 style="text-align: center;"><a th:href="@{/admin/add-category}" ><button class="btn btn-primary" style="text-align: center;"> Add Category</button></a></h3>
 
     
 
@@ -95,7 +19,7 @@ body {
   <thead class="thead-dark">
      <tr>
        <th>S.No</th>
-       <th>Category Id</th>
+       <!-- <th>Category Id</th> -->
        <th>Category Name</th>
        <th>Actions</th>
      </tr>
@@ -104,11 +28,15 @@ body {
 
     <tr th:each="acategory,iterationStatus:${categoryList}">
       <td th:text=${iterationStatus.count}></td>
-      <td th:text="${acategory.categoryId}" />
+      <!-- <td th:text="${acategory.categoryId}" /> -->
       <td th:text="${acategory.categoryName}" />
       <td> 
-        <button class="btn btn-sm btn-outline-danger"> Edit</button> 
-        <button class="btn btn-sm btn-danger"> Delete</button> 
+        <input type="hidden" th:value="${acategory.categoryId}" id=${acategory.categoryId}>
+        <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:categoryEdit(' + ${acategory.categoryId} + ');'"> Edit</button> 
+        <!-- <button class="btn btn-sm btn-danger" th:onclick="'javascript:categoryDelete(' + ${acategory.categoryId} + ');'"> Delete</button>  -->
+<!-- <a th:href="@{/category/${acategory.categoryId}" class="btn btn-sm btn-outline-danger">Edit</a>
+<a th:href="@{/delete/acategory.categoryId}" class="btn btn-sm btn-danger">Delete</a> -->
+
       </td>
    
 
@@ -119,16 +47,15 @@ body {
 
 </table>
 </div>
+<hr>
+<h3 style="text-align: center;"><a th:href="@{/admin/add-madicine}"><button class="btn btn-primary"> Add Product</button></a></h3>
 <div class="col-md-12" style="margin-top: 2vh;">
-  <a th:href="@{/admin/add-madicine}"><button class="btn btn-primary"> Add Product</button></a>
-
-  
-
+                           <h3 style="text-align: center;">Active Products</h3>
 <table class="table table-bordered table-striped">
 <thead class="thead-dark">
    <tr>
      <th>S.No</th>
-     <th>Product Id</th>
+     <!-- <th>Product Id</th> -->
      <th>Product Name</th>
      <th>Brand Name</th>
      <th>Description</th>
@@ -139,20 +66,73 @@ body {
 <tbody>
   <!-- <tr th:each="item,iterationStatus : ${items}">
     <td th:text=${iterationStatus.count}></td>
- </tr> -->
+ </tr> th:style="${iterationStatus.odd}? 'background-color: blue;'"-->
 
-  <tr th:each="aproduct,iterationStatus:${productList}">
+  <tr th:each="aproduct,iterationStatus:${enabledProductList}">
     <td th:text=${iterationStatus.count}></td>
-    <td th:text="${aproduct.productId}" />
+    <!-- <td th:text="${aproduct.productId}" /> -->
     <td th:text="${aproduct.productName}" />
     <td th:text="${aproduct.brandName}" />
     <td th:text="${aproduct.description}" />
-    <td ><img th:src="@{${'/'+ aproduct.image}}" alt=" Madicine image" style="height: 100px; width: 100px;"> </td>
-    <td> 
+    <td ><img th:src="@{${'/'+ aproduct.image}}" alt=" Madicine image" style="height: 50px; width: 50px;"> </td>
+    <td > 
+      
       <input type="hidden" th:value="${aproduct.productId}" id="productId">
-      <button class="btn btn-sm btn-outline-danger" onclick="productEdit()"> Edit</button> 
-      <button class="btn btn-sm btn-danger" onclick="productInActivate()" > InActivate</button> 
-      <button class="btn btn-sm btn-primary"  onclick="productActivate()"> Activate</button> 
+      <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:productEdit(' + ${aproduct.productId} + ');'"> Edit</button>
+   
+      <button class="btn btn-sm btn-danger" th:onclick="'javascript:productInActivate(' + ${aproduct.productId} + ');'" id="disableId"  > Disable</button> 
+   
+      
+     
+    </td>
+ 
+
+</tr>
+
+  
+</tbody>
+
+</table>
+</div>
+<hr>
+<div class="col-md-12" style="margin-top: 2vh;">
+  <!-- <a th:href="@{/admin/add-madicine}"><button class="btn btn-primary"> Add Product</button></a> -->
+
+  <h3 style="text-align: center;">InActive Product List</h3>
+
+<table class="table table-bordered table-striped">
+<thead class="thead-dark">
+   <tr>
+     <th>S.No</th>
+     <!-- <th>Product Id</th> -->
+     <th>Product Name</th>
+     <th>Brand Name</th>
+     <th>Description</th>
+     <th>Image</th>
+     <th>Actions</th>
+   </tr>
+</thead>
+<tbody>
+  <!-- <tr th:each="item,iterationStatus : ${items}">
+    <td th:text=${iterationStatus.count}></td>
+ </tr> th:style="${iterationStatus.odd}? 'background-color: blue;'"-->
+
+  <tr th:each="aproduct1,iterationStatus:${disabledProductList}">
+    <td th:text=${iterationStatus.count}></td>
+    <!-- <td th:text="${aproduct1.productId}" /> -->
+    <td th:text="${aproduct1.productName}" />
+    <td th:text="${aproduct1.brandName}" />
+    <td th:text="${aproduct1.description}" />
+    <td ><img th:src="@{${'/'+ aproduct1.image}}" alt=" Madicine image" style="height: 50px; width: 50px;"> </td>
+    <td> 
+      <input type="hidden" th:value="${aproduct1.productId}" id="productId">
+      <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:productEdit(' + ${aproduct1.productId} + ');'"> Edit</button> 
+      <button class="btn btn-sm btn-primary"  th:onclick="'javascript:productActivate(' + ${aproduct1.productId} + ');'" id="enableId"> Enable</button>
+      <!-- <button class="btn btn-sm btn-danger" th:onclick="'javascript:productInActivate(' + ${aproduct.productId} + ');'" id="disableId"  > Disable</button>  -->
+      <!-- Default disabled -->
+
+      
+     
     </td>
  
 
@@ -165,20 +145,90 @@ body {
 </div>
 
 
-
     </div>
     <script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-  document.getElementById("navBarId").style.marginLeft = "250px";
+
+
+
+
+$(document).ready(function(){
+ 
+//   let toogled= boolean;
+// firstFuntion(){}  
+// secondFuntion(){}
+//   toggle()  {
+
+  // return this.toggled ? this.firstFuntion() : this.secondFuntion();
+
+//}
+
+});
+
+
+
+function categoryEdit(id){
+var categoryId = id;
+//alert(categoryId);
+
+window.location.replace("/category?editId="+categoryId);
+
+}
+function categoryDelete(id){
+var categoryId = id;
+//alert(categoryId);
+if (confirm("Are you sure ?") == true) {
+
+  window.location.replace("/category?deleteId="+categoryId);
+
 }
 
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-  document.getElementById("navBarId").style.marginLeft = "0";
 }
+
+function productEdit(id){
+var productId = id;
+//alert(productId);
+window.location.replace("/products?editId="+productId);
+
+}
+
+function productInActivate(id){
+var productId = id;
+//alert(productId);
+window.location.replace("/products/disable?disableId="+productId);
+//$("#activateId").css
+$('#disableId').css('display', 'none');
+$('#enableId').css('display', 'block');
+
+}
+
+function productActivate(id){
+var productId = id;
+//alert(productId);
+window.location.replace("/products/enable?enableId="+productId);
+$('#enableId').css('display', 'none');
+$('#disableId').css('display', 'block');
+
+}
+
+// function delete_datas(id, tablename)
+//                                                             {
+//                                                                 if (confirm("Are you sure ?") == true) {
+//                                                                     $('#loading_gif').show();
+//                                                                     $.post("dashboard.php",
+//                                                                             {
+//                                                                                 deleterid: id,
+//                                                                                 tablenames: tablename
+//                                                                             },
+//                                                                             function (data, status) {
+//                                                                                 console.log(data);
+//                                                                                 if (data == "yes") {
+//                                                                                     window.location.replace("dashboard.php?msg=4");
+//                                                                                 }
+//                                                                             });
+//                                                                 }
+//                                                             }
+
+
 </script>
 
 </body>
