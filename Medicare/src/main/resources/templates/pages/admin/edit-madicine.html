@@ -44,32 +44,34 @@
     <nav th:replace="layouts :: adminNavBar" ></nav>
 <div class="container" style="margin-top: 2vh; border-radius: 10px; background-color: #007BFF; ">
   <div class="col-md-12" style="margin-top: 1vh;">
-<h3 style="text-align: center;"> Add Madicine</h3>
-    <form action="/products/save" method="post"  enctype="multipart/form-data">
+<h3 style="text-align: center;"> Edit Madicine</h3>
+    <form action="/products/update" method="post"  enctype="multipart/form-data" th:each="aproduct:${editProduct}">
       <div class="row">
         <div class="col-md-6">
         <label for="fname">Madicine Name</label>
-        <input type="text" id="productName" name="productName" placeholder="Madicine name.." />
+        <input type="text" id="productName" name="productName"  th:value="${aproduct.productName}" />
+        <input type="hidden" id="productId" name="productId"  th:value="${aproduct.productId}" />
     
         <label for="lname">Brand Name</label>
-        <input type="text" id="brandName" name="brandName" placeholder="Brand name.." >
+        <input type="text" id="brandName" name="brandName"  th:value="${aproduct.brandName}" >
 
         <label for="subject">Description</label>
-        <textarea id="description" name="description" placeholder="Madicine Details .. " style="height:6vh" ></textarea>
+        <textarea id="description" name="description"  style="height:6vh"  th:value="${aproduct.description}" th:text="${aproduct.description}" ></textarea>
       </div>
       <div class="col-md-6">
     
         <label for="lname">Unit Price</label>
-        <input type="text" id="unitPrice" name="price" placeholder="Unit price.." />
+        <input type="text" id="unitPrice" name="price"  th:value="${aproduct.price}"   />
     
         <label for="country">Category</label>
         <select id="category" name="theCategory" >
+         <option  th:value="${aproduct.theCategory.categoryId}" th:text="${aproduct.theCategory.categoryName}" > 
          <option th:each="acategory:${categoryList}" th:value="${acategory.categoryId}" th:text="${acategory.categoryName}" > 
         </select>
     
         <label for="quantity">Quantity</label>
        
-			<input class="form-control" type="text" name="quantity" id="quantityId" >
+			<input class="form-control" type="text" name="quantity" id="quantityId"  th:value="${aproduct.quantity}" >
          
     </div>
   </div>
@@ -77,11 +79,11 @@
     <div class="col-md-6">
       <label for="fileToUpload">Image</label>
         
-			<input class="form-control" type="file" name="fileToUpload" id="imageId" >
+			<input class="form-control" type="file" name="fileToUpload" id="imageId"  th:value="${aproduct.image}" >
     </div>
       <div class="col-md-6">
     
-        <input type="submit" value="Submit" class="btn btn-primary" style="text-align: center; margin-top: 5vh; margin-left: 10vw;">
+        <input type="submit" value="Update" class="btn btn-primary" style="text-align: center; margin-top: 5vh; margin-left: 10vw;">
 
       </div>
     </div>
@@ -97,3 +99,4 @@
 </body>
 
 </html>
+
