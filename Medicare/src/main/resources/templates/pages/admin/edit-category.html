@@ -46,7 +46,7 @@
 <h3> Add Category</h3>
     <form action="/category/update" method="post"  >
         <label for="fname">Category Name</label>
-        <input type="text" id="categoryName" name="categoryName" th:each="acategory:${editCategory}"   th:value="${acategory.categoryName}"/> 
+        <input type="text" id="categoryName" name="categoryName" th:each="acategory:${editCategory}" th:value="${acategory.categoryName}"/> 
         <input type="hidden" id="categoryId" name="categoryId" th:each="acategory:${editCategory}"   th:value="${acategory.categoryId}"/> 
           
     
