@@ -62,7 +62,7 @@ public class ProductController {
 		int value = 0;
 		productService.enableProduct(enableValue,enableId);	
 		
-		return "redirect:/admin";
+		return "redirect:/admin/";
 	}
 	@GetMapping("/disable")
 	public String productDisable(@RequestParam long disableId,Model model) {
@@ -72,7 +72,7 @@ public class ProductController {
 		
 		//System.out.print(disabledproducts);
 		
-		return "redirect:/admin";
+		return "redirect:/admin/";
 	}
 	
 	
