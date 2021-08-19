@@ -4,6 +4,8 @@ package com.salambasha.medicare.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +48,7 @@ public class AdminController {
 		return "pages/admin/login";
 	}
 	@PostMapping("/loginCheck")
-	public String loginCheck(@RequestParam("username") String username,@RequestParam("password") String password) {
+	public String loginCheck(@RequestParam("username") String username,@RequestParam("password") String password,HttpSession session) {
 //
 //		HttpSession session=request.getSession();
 //		session.setAttribute("userName", userName);
@@ -54,7 +56,7 @@ public class AdminController {
 		
 		//System.out.print(admin.getUserName());
 		if(admin != null) {
-				
+				session.setAttribute("userName", admin.getUserName());
 			
 			return "redirect:/admin/"; 
 		}else {
@@ -68,7 +70,7 @@ public class AdminController {
 
 		if(newPassword.equals(confirmPassword) ) {
 			Admin admin = adminService.loginCheck(username,password);
-			
+			 
 			
 		if(admin != null) {
 			int admin_id = admin.getAdminId();
@@ -104,9 +106,12 @@ public class AdminController {
 //	}
 
 	@GetMapping("/")
-	public String showAdminDashboards(Model model) {
+	public String showAdminDashboards(Model model,HttpSession session) {
 		int value = 0;
 		int enableValue=1;
+		
+		if(session.getAttribute("userName")!=null) {
+		
 	List<Category> categories = cateRepo.findAll();
 	
 		model.addAttribute("categoryList", categories);
@@ -119,14 +124,21 @@ public class AdminController {
 		
 		List<Product> disabledproducts = productService.findDisabledProducts(value);
 		model.addAttribute("disabledProductList", disabledproducts );
+		System.out.println(session.getAttribute("userName"));
 		
 		return "pages/admin/dashboard";
+		}else {
+			
+			return "pages/admin/login";
+		}
 	}
 	
-	@GetMapping("/table") 
-	public String showTables() {
+	@GetMapping("/logout") 
+	public String logout(HttpSession session) {
 		
-		return "pages/admin/tables";
+		session.setAttribute("userName", null);
+		
+		return "pages/admin/login";
 	}
 
 	@GetMapping("/add-madicine")
