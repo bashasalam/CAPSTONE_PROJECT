@@ -26,7 +26,9 @@ public class Product {
 	private double price;
 	private int quantity;
 	private String image;
-	//private String extraImage1;
+	private String extraImage1;
+	private String extraImage2;
+	private String extraImage3;
 	@Column(name="is_active", columnDefinition="int(10) default '1'")
 	private int isActive;
 	
@@ -50,7 +52,7 @@ public class Product {
 	}
 	
 	public Product(String productName, String brandName, String description, double price,
-			Category theCategory, int quantity,int isActive, String image) {
+			Category theCategory, int quantity, String image,  String extraImage1,String extraImage2,String extraImage3) {
 		super();
 		this.productName = productName;
 		this.brandName = brandName;
@@ -58,8 +60,9 @@ public class Product {
 		this.price = price;
 		this.theCategory = theCategory;
 		this.quantity = quantity;
-		this.isActive = isActive;
+		//this.isActive = isActive;
 		this.image = image;
+		
 	}
 	public Product(String productName, String brandName, String description, double price,
 			Category theCategory, int quantity, String image) {
@@ -74,6 +77,41 @@ public class Product {
 		this.image = image;
 	}
 	
+	
+	
+	public Product(String productName, String brandName, String description, double price, int quantity, String image,
+			String extraImage1, String extraImage2, String extraImage3, int isActive, Category theCategory) {
+		super();
+		this.productName = productName;
+		this.brandName = brandName;
+		this.description = description;
+		this.price = price;
+		this.quantity = quantity;
+		this.image = image;
+		this.extraImage1 = extraImage1;
+		this.extraImage2 = extraImage2;
+		this.extraImage3 = extraImage3;
+		this.isActive = isActive;
+		this.theCategory = theCategory;
+	}
+		public String getExtraImage1() {
+		return extraImage1;
+	}
+	public void setExtraImage1(String extraImage1) {
+		this.extraImage1 = extraImage1;
+	}
+	public String getExtraImage2() {
+		return extraImage2;
+	}
+	public void setExtraImage2(String extraImage2) {
+		this.extraImage2 = extraImage2;
+	}
+	public String getExtraImage3() {
+		return extraImage3;
+	}
+	public void setExtraImage3(String extraImage3) {
+		this.extraImage3 = extraImage3;
+	}
 	public long getProductId() {
 		return productId;
 	}
@@ -127,12 +165,16 @@ public class Product {
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
 	}
+	
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", brandName=" + brandName
 				+ ", description=" + description + ", price=" + price + ", quantity=" + quantity + ", image=" + image
+				+ ", extraImage1=" + extraImage1 + ", extraImage2=" + extraImage2 + ", extraImage3=" + extraImage3
 				+ ", isActive=" + isActive + ", theCategory=" + theCategory + "]";
 	}
+	
+	
 	
 	
 	
