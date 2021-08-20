@@ -77,34 +77,53 @@ public class ProductController {
 	
 	
 	@PostMapping("/save")	
-	public String updateProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile[] files, String image) throws Exception {
-		System.out.println("Working here-1");
+	public String saveProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile file, String image,
+	@RequestParam("extraImage1") MultipartFile file1, String image1,@RequestParam("extraImage2") MultipartFile file2, String image2,@RequestParam("extraImage3") MultipartFile file3, String image3) throws Exception {
+		
 		 StringBuilder fileName = new StringBuilder();
-		 for(MultipartFile file : files) {
-			 System.out.println("Working here1");
+		 StringBuilder fileName1 = new StringBuilder();
+		 StringBuilder fileName2 = new StringBuilder();
+		 StringBuilder fileName3 = new StringBuilder();
+		// for(MultipartFile file : files) {
+			
 		  Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+		  Path fileNameAndPath1 = Paths.get(uploadDirectory, file1.getOriginalFilename());
+		  Path fileNameAndPath2 = Paths.get(uploadDirectory, file2.getOriginalFilename());
+		  Path fileNameAndPath3 = Paths.get(uploadDirectory, file3.getOriginalFilename());
 		  fileName.append(file.getOriginalFilename()+" ");
+		  fileName1.append(file1.getOriginalFilename()+" ");
+		  fileName2.append(file2.getOriginalFilename()+" ");
+		  fileName3.append(file3.getOriginalFilename()+" ");
 		  
 		  try {
 			Files.write(fileNameAndPath,file.getBytes());
-			System.out.println("Working here1");
+			Files.write(fileNameAndPath,file1.getBytes());
+			Files.write(fileNameAndPath,file2.getBytes());
+			Files.write(fileNameAndPath,file3.getBytes());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Working here0");
+			
 		}
-	}
+//}
 		
 	  image =  fileName.toString();
-		System.out.println("Working here3");
+	  image1 =  fileName1.toString();
+	  image2 =  fileName2.toString();
+	  image3 =  fileName3.toString();
 		
-		image =  "uploads/" + image;
+		
+//		image =  "uploads/" + image;
+//		image1 =  "uploads/" + image1;
+//		image2 =  "uploads/" + image2;
+//		image3=  "uploads/" + image3;
 		
 		System.out.println("Working here4");
 		  		
-		   if(productService.addProduct(productName,brandName,description,price,theCategory,quantity,image)) {
+		   if(productService.addProduct(productName,brandName,description,price,theCategory,quantity,image,image1,image2,image3)) {
 			   System.out.println("Working here5");
-			   return "redirect:/admin" ;
+			   return "redirect:/admin/" ;
 		   }else {
 			   System.out.println("Working here6");
 			   return "pages/products/addd-madicine";
@@ -115,35 +134,53 @@ public class ProductController {
 	
 	
 	@PostMapping("/update")
-	public String saveProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile[] files, String image,@RequestParam("productId") long productId) throws Exception {
-		System.out.println("Working here-5");
+	public String updateProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile file, String image,
+	@RequestParam("extraImage1") MultipartFile file1, String image1,@RequestParam("extraImage2") MultipartFile file2, String image2,@RequestParam("extraImage3") MultipartFile file3, String image3, @RequestParam("productId") long productId) throws Exception {
+		
 		 StringBuilder fileName = new StringBuilder();
-		 for(MultipartFile file : files) {
-			 System.out.println("Working here6");
+		 StringBuilder fileName1 = new StringBuilder();
+		 StringBuilder fileName2 = new StringBuilder();
+		 StringBuilder fileName3 = new StringBuilder();
+		// for(MultipartFile file : files) {
+			
 		  Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+		  Path fileNameAndPath1 = Paths.get(uploadDirectory, file1.getOriginalFilename());
+		  Path fileNameAndPath2 = Paths.get(uploadDirectory, file2.getOriginalFilename());
+		  Path fileNameAndPath3 = Paths.get(uploadDirectory, file3.getOriginalFilename());
 		  fileName.append(file.getOriginalFilename()+" ");
+		  fileName1.append(file1.getOriginalFilename()+" ");
+		  fileName2.append(file2.getOriginalFilename()+" ");
+		  fileName3.append(file3.getOriginalFilename()+" ");
 		  
 		  try {
 			Files.write(fileNameAndPath,file.getBytes());
-			System.out.println("Working here7");
+			Files.write(fileNameAndPath,file1.getBytes());
+			Files.write(fileNameAndPath,file2.getBytes());
+			Files.write(fileNameAndPath,file3.getBytes());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Working here8");
+			
 		}
-	}
+//}
 		
 	  image =  fileName.toString();
-		System.out.println("Working here9");
+	  image1 =  fileName1.toString();
+	  image2 =  fileName2.toString();
+	  image3 =  fileName3.toString();
 		
-		image =  "uploads/" + image;
+//		
+//		image =  "uploads/" + image;
+//		image1 =  "uploads/" + image1;
+//		image2 =  "uploads/" + image2;
+//		image3=  "uploads/" + image3;
 		
-		System.out.println("Working here10");
-		  		
-		   productService.updateProduct(productName,brandName,description,price,theCategory,quantity,image,productId);
-			   System.out.println("Working here11");
-			   return "redirect:/admin" ;
+		System.out.println("Working here4");
+		productService.updateProduct(productName,brandName,description,price,theCategory,quantity,image,image1,image2,image3,productId);
+		return "redirect:/admin/" ;
 		 
 	}
+
 	
 }

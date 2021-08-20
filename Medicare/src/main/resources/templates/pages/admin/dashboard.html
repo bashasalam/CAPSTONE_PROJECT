@@ -74,7 +74,7 @@
     <td th:text="${aproduct.productName}" />
     <td th:text="${aproduct.brandName}" />
     <td th:text="${aproduct.description}" />
-    <td ><img th:src="@{${'/'+ aproduct.image}}" alt=" Madicine image" style="height: 50px; width: 50px;"> </td>
+    <td ><img th:src="@{${'/uploads/'+ aproduct.image}}" alt=" Madicine image" style="height: 100px; width: 100px;"> </td>
     <td > 
       
       <input type="hidden" th:value="${aproduct.productId}" id="productId">
@@ -123,7 +123,7 @@
     <td th:text="${aproduct1.productName}" />
     <td th:text="${aproduct1.brandName}" />
     <td th:text="${aproduct1.description}" />
-    <td ><img th:src="@{${'/'+ aproduct1.image}}" alt=" Madicine image" style="height: 50px; width: 50px;"> </td>
+    <td ><img th:src="@{${'/uploads/'+ aproduct1.image}}" alt=" Madicine image" style="height: 100px; width: 100px;"> </td>
     <td> 
       <input type="hidden" th:value="${aproduct1.productId}" id="productId">
       <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:productEdit(' + ${aproduct1.productId} + ');'"> Edit</button> 

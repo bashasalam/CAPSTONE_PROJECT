@@ -76,16 +76,32 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
-      <label for="fileToUpload">Image</label>
+    <div class="col-md-3">
+      <label for="fileToUpload">Main Image</label>
         
-			<input class="form-control" type="file" name="fileToUpload" id="imageId"  th:value="${aproduct.image}" >
+			<input class="form-control" type="file" name="fileToUpload" id="imageId" >
     </div>
-      <div class="col-md-6">
+    <div class="col-md-3">
+      <label for="fileToUpload">Extra Image 1</label>
+        
+			<input class="form-control" type="file" name="extraImage1" id="imageId" >
+    </div>
+    <div class="col-md-3">
+      <label for="fileToUpload">Extra Image 2</label>
+        
+			<input class="form-control" type="file" name="extraImage2" id="imageId" >
+    </div>
+    <div class="col-md-3">
+      <label for="fileToUpload">Extra Image 3</label>
+        
+			<input class="form-control" type="file" name="extraImage3" id="imageId" >
+    </div>
     
-        <input type="submit" value="Update" class="btn btn-primary" style="text-align: center; margin-top: 5vh; margin-left: 10vw;">
+    </div>
+    <div class="col-md-12" style="text-align: center;">
+    
+      <input type="submit" value="Update" class="btn btn-primary" style="text-align: center; margin-top: 5vh;">
 
-      </div>
     </div>
       </form>
 

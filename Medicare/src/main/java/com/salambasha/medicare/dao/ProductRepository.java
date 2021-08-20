@@ -22,9 +22,9 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 	
 	@Transactional
 	@Modifying
-	@Query(nativeQuery = true, value="UPDATE `product` SET `product_name` = ?,  `brand_name` = ?,`description` = ?, `price` = ?, `category_id` = ?, `quantity` =?, `image` = ?  WHERE `product_id` = ?;")
+	@Query(nativeQuery = true, value="UPDATE `product` SET `product_name` = ?,  `brand_name` = ?,`description` = ?, `price` = ?, `category_id` = ?, `quantity` =?, `image` = ?,`extra_image1` = ?,`extra_image2` = ?,`extra_image3` = ? WHERE `product_id` = ?;")
 	 void updateProduct(String productName, String brandName, String description, double price, Category theCategory,
-			int quantity, String image, long productId);
+			int quantity, String image, String image1, String image2, String image3, long productId);
 
 	@Transactional
 	@Modifying
