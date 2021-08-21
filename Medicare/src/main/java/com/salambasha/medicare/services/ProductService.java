@@ -66,6 +66,13 @@ prorepo.updateProduct(productName,brandName, description, price,offer,offerPrice
 		
 	}
 
+	public List<Product> getProducts(long categoryId) {
+
+		List<Product> products = prorepo.getProducts(categoryId);
+		
+		return products;
+	}
+
 //	public void deleteProduct(long productId) {
 //		// TODO Auto-generated method stub
 //		

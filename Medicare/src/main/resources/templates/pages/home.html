@@ -4,6 +4,15 @@
 
 <head th:replace="layouts :: header"></head>
 
+<style>
+
+.ccc:hover{
+    background-color: #00f;
+     cursor: pointer;
+}
+
+
+</style>
 
 <body>
     <nav th:replace="layouts :: navBar"></nav>
@@ -47,7 +56,7 @@
         <select id="selectCategroyId" onchange="getCategoryId()" class="form-control">
             <table class="table table-bordered table-striped">
                 <tbody >
-                    <tr><Option>Select Category</Option></tr>
+                    <!-- <tr><Option>Select Category</Option></tr> -->
                     <tr th:each="acategory:${categoryList}">
                         <td> <option  th:value="${acategory.categoryId}" th:text="${acategory.categoryName}" > 
         </select>
@@ -77,29 +86,32 @@
 
   
   
-          
-            <div class="col-md-10 row " style="margin: left 5vw; margin-top: 5vw;">
+    <div class="col-md-9 row " style="margin: left 5vw; margin-top: 5vw; " id="ajax_div" >
 
             
             
-                <div class="col-md-3" style="background-color: rgb(126, 71, 214); border-radius: 5px; height:50vh; margin:3vw;">
+        <div class="col-md-3" style=" border-radius: 10px; height:50vh; margin:3vw; background-color:#007BFF" th:each="aproduct: ${productList}">
 
-                </div>
-                <div class="col-md-3" style="background-color: rgb(46, 78, 219);  border-radius: 5px; height:50vh;margin:3vw;">
+            <a > <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image" style="height: 100%; width: 100%; border-radius:10px;" th:onclick="'javascript:showProductPage(' + ${aproduct.productId} + ');'"/>
                     
-                </div>
-                <div class="col-md-3" style="background-color: rgb(134, 207, 15);  border-radius: 5px;height:50vh;margin:3vw;">
-                    
-                </div>
-              
+                
+           </a>
+
+        </div>
+        <!-- <div class="col-md-3" style="background-color: rgb(46, 78, 219);  border-radius: 5px; height:50vh;margin:3vw;">
             
+        </div>
+        <div class="col-md-3" style="background-color: rgb(134, 207, 15);  border-radius: 5px;height:50vh;margin:3vw;">
             
-           
+        </div> -->
+      
+    
+    
+   
 
 
 
-            </div>
-
+    </div>
 
 
         </div>
@@ -111,16 +123,63 @@
    </div>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <script>
+$(document).ready(function(){
+
+  //  getCategoryId();
+
+});
+
+function showProductPage(productId){
+    var productId = productId;
+   alert(productId);
+
+    window.location.replace("/products/"+productId);
+//th:href="@{/products/selectedProduct"
+}
+
       function getCategoryId(){
 
         //alert("function call");
       var categoryValue = $("#selectCategroyId").val();
 
-      alert(categoryValue);
+     // alert(categoryValue);
 
       console.log(categoryValue);
 
+      $.get("home/showMadicines",
+     // $.post("home/showMadicines",
+                                                                            {
+                                                                                category_id: categoryValue,
+                                                                              //  tablenames: tablename
+                                                                            },
+                                                                            function (data, status) {
+                                                                                console.log(data);
+                                                                                $("#ajax_div").html(data);
+                                                                             //   window.location.replace("/");
+                                                                                // if (data == "yes") {
+                                                                                //     window.location.replace("/");
+                                                                                // }
+                                                                            });
+
       }
+
+    //   function delete_datas(id, tablename)
+    //                                                         {
+    //                                                             if (confirm("Are you sure ?") == true) {
+    //                                                                 $('#loading_gif').show();
+    //                                                                 $.post("dashboard.php",
+    //                                                                         {
+    //                                                                             deleterid: id,
+    //                                                                             tablenames: tablename
+    //                                                                         },
+    //                                                                         function (data, status) {
+    //                                                                             console.log(data);
+    //                                                                             if (data == "yes") {
+    //                                                                                 window.location.replace("dashboard.php?msg=4");
+    //                                                                             }
+    //                                                                         });
+    //                                                             }
+    //                                                         }
 
    </script>
 

@@ -3,7 +3,14 @@
 <html lang="en" xmlns:th="hhtp://www.thymeleaf.org">
 
 <head th:replace="layouts :: header"></head>
+<style>
+ .image{
+     width:80% !important;
+     height: 80% !important;
+  
+ }
 
+</style>
 
 <body>
 
@@ -13,38 +20,44 @@
      <hr>
 <div class="container" style="margin-top:5vh;">
 
-    <div class="row">
-        <div class="col-md-3" style="border: 1px solid black; border-radius:5px; height:50vh">
+    <div class="row" th:each="product : ${showProduct}">
+        <div class="col-md-3" style="border: 1px solid black; border-radius:5px; height:60vh">
 
             <div style="height: 40vh;">
-            <img src="" alt="product Image" >
+            <img type="image/webp" class="image" th:srcset="@{${'/'+product.image}}" alt="product Image"  style="margin-top: 2vh;
+            border-radius: 10px;
+            margin-left: 1.5vw;">
            </div>
-            <div class = "row"style="height: 10vh;">
-                <div class="col-md-3" style="border: 1px solid black; border-radius:5px; margin-left: auto;margin-right: auto; margin-bottom:3px;"></div>
-                <div class="col-md-3" style="border: 1px solid black; border-radius:5px;  margin-left: auto;margin-right: auto; margin-bottom:3px;"></div>
-                <div class="col-md-3" style="border: 1px solid black; border-radius:5px; margin-left: auto;margin-right: auto; margin-bottom:3px;"></div>
+            <div class = "row"style="height: 15vh;">
+                <div class="col-md-3" style=" border-radius:5px; margin-left: auto;margin-right: auto; margin-bottom:3px;"> <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage1}}" alt="product Image" ></div>
+                <div class="col-md-3" style=" border-radius:5px;  margin-left: auto;margin-right: auto; margin-bottom:3px;"> <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage2}}" alt="product Image" ></div>
+                <div class="col-md-3" style=" border-radius:5px; margin-left: auto;margin-right: auto; margin-bottom:3px;"> <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage3}}" alt="product Image" ></div>
             </div>
         </div>
         <div  class = "col-md-6"style="margin-top:2vw;margin-left:2vw;border: 1px solid black;border-radius:5px;">
             <div>
-            <h3>Product name</h3>
+            <h3 th:text="${product.productName}" />  
             
-            <h4>Company name</h4>
+            <h4 th:text="${product.brandName}"/>
             
-            <h5>Amount in rupees</h5>
+            <h5 th:text="${product.offerPrice}"/>
            </div>
             <hr>
             <div>
-                <h6>Available variant</h6>
+                <!-- <h6>Available variant</h6>
                 <div class="row">
                     <div>
                         First variant
                     </div>
                     <div>
                         Sceond variant
-                    </div>
+                    </div> -->
                     <div class="">
-                        <button class="btn btn-primary" style="margin-left: 10vw"> Add to Cart</button>
+                        <form action="/cart/cartPage" method="POST">
+                            <input type="hidden" name="productId" th:value="${product.productId}"/>
+                            <input type="number" name="quantity" id="quantityId" placeholder="Enter the quantity" required>
+                        <button type="submit" class="btn btn-primary" style="margin-left: 10vw"> Add to Cart</button>
+                    </form>
                     </div>
 
                 </div>
@@ -52,8 +65,8 @@
          
         </div>
       
-        <div class="col-md-2 col-sm-12" style="background-color: aqua; height: 50vh;margin-left:1vw; border: solid 1px black; border-radius: 5px;">
-        <h5> Offers</h5>
+        <!-- <div class="col-md-2 col-sm-12" style="background-color: aqua; height: 50vh;margin-left:1vw; border: solid 1px black; border-radius: 5px;">
+        <h5> Offers</h5> -->
       
 
         </div>
@@ -68,3 +81,6 @@
 </body>
 
 </html>
+<!-- border: 1px solid black;
+border: 1px solid black;
+border: 1px solid black; -->
