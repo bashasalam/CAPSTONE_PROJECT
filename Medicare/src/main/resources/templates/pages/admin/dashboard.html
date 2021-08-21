@@ -15,37 +15,37 @@
 
     
 
-<table class="table table-bordered table-striped">
-  <thead class="thead-dark">
-     <tr>
-       <th>S.No</th>
-       <!-- <th>Category Id</th> -->
-       <th>Category Name</th>
-       <th>Actions</th>
-     </tr>
-  </thead>
-  <tbody>
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>S.No</th>
+                <!-- <th>Category Id</th> -->
+                <th>Category Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
 
-    <tr th:each="acategory,iterationStatus:${categoryList}">
-      <td th:text=${iterationStatus.count}></td>
-      <!-- <td th:text="${acategory.categoryId}" /> -->
-      <td th:text="${acategory.categoryName}" />
-      <td> 
-        <input type="hidden" th:value="${acategory.categoryId}" id=${acategory.categoryId}>
-        <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:categoryEdit(' + ${acategory.categoryId} + ');'"> Edit</button> 
-        <!-- <button class="btn btn-sm btn-danger" th:onclick="'javascript:categoryDelete(' + ${acategory.categoryId} + ');'"> Delete</button>  -->
-<!-- <a th:href="@{/category/${acategory.categoryId}" class="btn btn-sm btn-outline-danger">Edit</a>
-<a th:href="@{/delete/acategory.categoryId}" class="btn btn-sm btn-danger">Delete</a> -->
+              <tr th:each="acategory,iterationStatus:${categoryList}">
+                <td th:text=${iterationStatus.count}></td>
+                <!-- <td th:text="${acategory.categoryId}" /> -->
+                <td th:text="${acategory.categoryName}" />
+                <td> 
+                  <input type="hidden" th:value="${acategory.categoryId}" id=${acategory.categoryId}>
+                  <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:categoryEdit(' + ${acategory.categoryId} + ');'"> Edit</button> 
+                  <!-- <button class="btn btn-sm btn-danger" th:onclick="'javascript:categoryDelete(' + ${acategory.categoryId} + ');'"> Delete</button>  -->
+          <!-- <a th:href="@{/category/${acategory.categoryId}" class="btn btn-sm btn-outline-danger">Edit</a>
+          <a th:href="@{/delete/acategory.categoryId}" class="btn btn-sm btn-danger">Delete</a> -->
 
-      </td>
-   
+                </td>
+            
 
-  </tr>
+            </tr>
 
-    
-  </tbody>
+              
+            </tbody>
 
-</table>
+          </table>
 </div>
 <hr>
 <h3 style="text-align: center;"><a th:href="@{/admin/add-madicine}"><button class="btn btn-primary"> Add Product</button></a></h3>
@@ -74,7 +74,7 @@
     <td th:text="${aproduct.productName}" />
     <td th:text="${aproduct.brandName}" />
     <td th:text="${aproduct.description}" />
-    <td ><img th:src="@{${'/uploads/'+ aproduct.image}}" alt=" Madicine image" style="height: 100px; width: 100px;"> </td>
+    <td ><img type="image/webp"   th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image" style="height: 100px; width: 100px;" /> </td>
     <td > 
       
       <input type="hidden" th:value="${aproduct.productId}" id="productId">
@@ -85,7 +85,7 @@
       
      
     </td>
- 
+ <th:block  />
 
 </tr>
 
@@ -123,7 +123,7 @@
     <td th:text="${aproduct1.productName}" />
     <td th:text="${aproduct1.brandName}" />
     <td th:text="${aproduct1.description}" />
-    <td ><img th:src="@{${'/uploads/'+ aproduct1.image}}" alt=" Madicine image" style="height: 100px; width: 100px;"> </td>
+    <td ><img type="image/webp" th:srcset="@{${'/'+aproduct1.image}}" alt=" Madicine image" style="height: 100px; width: 100px;"/> </td>
     <td> 
       <input type="hidden" th:value="${aproduct1.productId}" id="productId">
       <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:productEdit(' + ${aproduct1.productId} + ');'"> Edit</button> 

@@ -108,13 +108,16 @@
 
              <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a class="nav-item nav-link active" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-item nav-link active" th:href="@{/admin/}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item" th:style="${session.userName!= null} ? 'display:block' : 'display:none'">
                   <a class="nav-item nav-link active" th:href="@{/admin/add-madicine}">Add Medicine </a>
                 </li>
                 <li class="nav-item" th:style="${session.userName!= null} ? 'display:block' : 'display:none'">
                   <a class="nav-item nav-link active" th:href="@{/admin/manage-password}">Change Password </a>
+                </li>
+                <li class="nav-item" th:style="${session.userName!= null} ? 'display:block' : 'display:none'">
+                  <a class="nav-item nav-link active" th:href="@{/admin/user-home}">User Home </a>
                 </li>
                 <!-- <li class="nav-item">
                   <a class="nav-link disabled" href="#">Disabled</a>
