@@ -37,18 +37,22 @@ public class ProductController {
 	ProductRepository proRepo;
 	@Autowired
 	CategoryRepository cateRepo;
-
+	
+	
 
 	@GetMapping("/{productId}")
-	public String productDetailsShow(@PathVariable int productId) {
-		
+	public String productDetailsShow(@PathVariable long productId, Model model) {
+		//long product_id = productId;
+		Product product = productService.findByid(productId);
+		System.out.print(product);
+		model.addAttribute("showProduct", product);
 		return "/pages/products/product-page";
 	}
 	
 	@GetMapping("")
 	public String editProductPage(@RequestParam long editId, Model model) {
 	Product product = productService.findByid(editId);
-	System.out.print(product);
+	//System.out.print(product);
 	model.addAttribute("editProduct", product);
 	List<Category> categories = cateRepo.findAll();
 	model.addAttribute("categoryList", categories);
