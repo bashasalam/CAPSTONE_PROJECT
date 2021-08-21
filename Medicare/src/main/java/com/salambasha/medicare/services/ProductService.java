@@ -16,9 +16,9 @@ public class ProductService {
 	ProductRepository prorepo;
 
 	public boolean addProduct(String productName, String brandName, String description, double price,
-			Category theCategory, int quantity, String image,String image1,String image2,String image3) {
+			double offer, double offerPrice, Category theCategory, int quantity, String image,String image1,String image2,String image3) {
 		
-if(prorepo.save(new Product(productName,brandName, description, price,theCategory,quantity,image,image1,image2,image3)) != null) {
+if(prorepo.save(new Product(productName,brandName, description, price,offer,offerPrice,theCategory,quantity,image,image1,image2,image3)) != null) {
 			
 			return true;
 		}else {
@@ -36,8 +36,8 @@ if(prorepo.save(new Product(productName,brandName, description, price,theCategor
 	}
 
 	public void updateProduct(String productName, String brandName, String description, double price,
-			Category theCategory, int quantity, String image,String image1, String image2, String image3, long productId) {
-prorepo.updateProduct(productName,brandName, description, price,theCategory,quantity,image,image1,image2,image3,productId);
+			double offer, double offerPrice, Category theCategory, int quantity, String image,String image1, String image2, String image3, long productId) {
+prorepo.updateProduct(productName,brandName, description, price,offer,offerPrice,theCategory,quantity,image,image1,image2,image3,productId);
 			
 		
 	}

@@ -24,21 +24,46 @@ public class Product {
 	private String brandName;
 	private String description;
 	private double price;
+	private double offer;
+	private double offerPrice;
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, 
+			CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
+	@JoinColumn(name="category_id")
+	private Category theCategory;
 	private int quantity;
 	private String image;
 	private String extraImage1;
 	private String extraImage2;
 	private String extraImage3;
-	@Column(name="is_active", columnDefinition="int(10) default '1'")
-	private int isActive;
+	@Column(name="is_active")
+	private int isActive = 1;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, 
-			CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
-	@JoinColumn(name="category_id")
-	private Category theCategory;
 	
 	 
-	 
+	
+	public Product() {
+		super();
+	}
+
+
+	public Product(String productName, String brandName, String description, double price, double offer,
+			double offerPrice, Category theCategory, int quantity, String image, String extraImage1, String extraImage2,
+			String extraImage3) {
+		super();
+		this.productName = productName;
+		this.brandName = brandName;
+		this.description = description;
+		this.price = price;
+		this.offer = offer;
+		this.offerPrice = offerPrice;
+		this.theCategory = theCategory;
+		this.quantity = quantity;
+		this.image = image;
+		this.extraImage1 = extraImage1;
+		this.extraImage2 = extraImage2;
+		this.extraImage3 = extraImage3;
+		//this.isActive = isActive;
+	}
 	
 	
 	public Category getTheCategory() {
@@ -47,45 +72,21 @@ public class Product {
 	public void setTheCategory(Category theCategory) {
 		this.theCategory = theCategory;
 	}
-	public Product() {
-		super();
-	}
 	
-	public Product(String productName, String brandName, String description, double price,
-			Category theCategory, int quantity, String image,  String extraImage1,String extraImage2,String extraImage3) {
-		super();
-		this.productName = productName;
-		this.brandName = brandName;
-		this.description = description;
-		this.price = price;
-		this.theCategory = theCategory;
-		this.quantity = quantity;
-		//this.isActive = isActive;
-		this.image = image;
+	
 		
-	}
-	public Product(String productName, String brandName, String description, double price,
-			Category theCategory, int quantity, String image) {
+	
+	
+		public Product(String productName, String brandName, String description, double price, double offer,
+			double offerPrice, int quantity, String image, String extraImage1, String extraImage2, String extraImage3,
+			int isActive, Category theCategory) {
 		super();
 		this.productName = productName;
 		this.brandName = brandName;
 		this.description = description;
 		this.price = price;
-		this.theCategory = theCategory;
-		this.quantity = quantity;
-		//this.isActive = isActive;
-		this.image = image;
-	}
-	
-	
-	
-	public Product(String productName, String brandName, String description, double price, int quantity, String image,
-			String extraImage1, String extraImage2, String extraImage3, int isActive, Category theCategory) {
-		super();
-		this.productName = productName;
-		this.brandName = brandName;
-		this.description = description;
-		this.price = price;
+		this.offer = offer;
+		this.offerPrice = offerPrice;
 		this.quantity = quantity;
 		this.image = image;
 		this.extraImage1 = extraImage1;
@@ -166,13 +167,30 @@ public class Product {
 		this.isActive = isActive;
 	}
 	
+	
+	
+	public double getOffer() {
+		return offer;
+	}
+	public void setOffer(double offer) {
+		this.offer = offer;
+	}
+	public double getOfferPrice() {
+		return offerPrice;
+	}
+	public void setOfferPrice(double offerPrice) {
+		this.offerPrice = offerPrice;
+	}
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", brandName=" + brandName
-				+ ", description=" + description + ", price=" + price + ", quantity=" + quantity + ", image=" + image
-				+ ", extraImage1=" + extraImage1 + ", extraImage2=" + extraImage2 + ", extraImage3=" + extraImage3
-				+ ", isActive=" + isActive + ", theCategory=" + theCategory + "]";
+				+ ", description=" + description + ", price=" + price + ", offer=" + offer + ", offerPrice="
+				+ offerPrice + ", quantity=" + quantity + ", image=" + image + ", extraImage1=" + extraImage1
+				+ ", extraImage2=" + extraImage2 + ", extraImage3=" + extraImage3 + ", isActive=" + isActive
+				+ ", theCategory=" + theCategory + "]";
 	}
+	
+	
 	
 	
 	

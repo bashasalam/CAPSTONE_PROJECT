@@ -9,12 +9,23 @@
     
     input[type=text], select, textarea {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
-      margin-top: 6px;
-      margin-bottom: 16px;
+      margin-top: 5px;
+      margin-bottom: 12px;
+      resize: vertical;
+    }
+
+    input[type=number], select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 5px;
+      margin-bottom: 12px;
       resize: vertical;
     }
     
@@ -56,12 +67,15 @@
         <input type="text" id="brandName" name="brandName"  th:value="${aproduct.brandName}" >
 
         <label for="subject">Description</label>
-        <textarea id="description" name="description"  style="height:6vh"  th:value="${aproduct.description}" th:text="${aproduct.description}" ></textarea>
+        <textarea id="description" name="description"  style="height:18vh"  th:value="${aproduct.description}" th:text="${aproduct.description}" ></textarea>
       </div>
       <div class="col-md-6">
     
         <label for="lname">Unit Price</label>
         <input type="text" id="unitPrice" name="price"  th:value="${aproduct.price}"   />
+
+        <label for="offer">Offer</label>
+        <input type="number" id="offer" name="offer"  th:value="${aproduct.offer}"   />
     
         <label for="country">Category</label>
         <select id="category" name="theCategory" >

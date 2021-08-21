@@ -9,12 +9,23 @@
     
     input[type=text], select, textarea {
       width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 5px;
+      margin-bottom: 12px;
+      resize: vertical;
+    }
+    
+        input[type=number], select, textarea {
+      width: 100%;
       padding: 12px;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
-      margin-top: 6px;
-      margin-bottom: 16px;
+      margin-top: 5px;
+      margin-bottom: 12px;
       resize: vertical;
     }
     
@@ -49,23 +60,30 @@
       <div class="row">
         <div class="col-md-6">
         <label for="fname">Madicine Name</label>
-        <input type="text" id="productName" name="productName" placeholder="Madicine name.." />
+        <input type="text" id="productName" name="productName" placeholder="Madicine name.."  required/>
     
         <label for="lname">Brand Name</label>
-        <input type="text" id="brandName" name="brandName" placeholder="Brand name.." >
+        <input type="text" id="brandName" name="brandName" placeholder="Brand name.." required />
 
         <label for="subject">Description</label>
-        <textarea id="description" name="description" placeholder="Madicine Details .. " style="height:6vh" ></textarea>
+        <textarea id="description" name="description" placeholder="Madicine Details .. " style="height:18vh" ></textarea>
+
+        
+        
       </div>
       <div class="col-md-6">
     
         <label for="lname">Unit Price</label>
         <input type="text" id="unitPrice" name="price" placeholder="Unit price.." />
     
+        <label for="lname"> Offer</label>
+        <input type="number" id="offer" name="offer" placeholder=" Offer" />
+
         <label for="country">Category</label>
         <select id="category" name="theCategory" >
          <option th:each="acategory:${categoryList}" th:value="${acategory.categoryId}" th:text="${acategory.categoryName}" > 
         </select>
+       
     
         <label for="quantity">Quantity</label>
        

@@ -77,9 +77,12 @@ public class ProductController {
 	
 	
 	@PostMapping("/save")	
-	public String saveProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile file, String image,
+	public String saveProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("offer") double offer, @RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile file, String image,
 	@RequestParam("extraImage1") MultipartFile file1, String image1,@RequestParam("extraImage2") MultipartFile file2, String image2,@RequestParam("extraImage3") MultipartFile file3, String image3) throws Exception {
 		
+		double offerPrice = price - (price * offer)/100 ;
+
+		System.out.println(offerPrice);
 		 StringBuilder fileName = new StringBuilder();
 		 StringBuilder fileName1 = new StringBuilder();
 		 StringBuilder fileName2 = new StringBuilder();
@@ -97,9 +100,9 @@ public class ProductController {
 		  
 		  try {
 			Files.write(fileNameAndPath,file.getBytes());
-			Files.write(fileNameAndPath,file1.getBytes());
-			Files.write(fileNameAndPath,file2.getBytes());
-			Files.write(fileNameAndPath,file3.getBytes());
+			Files.write(fileNameAndPath1,file1.getBytes());
+			Files.write(fileNameAndPath2,file2.getBytes());
+			Files.write(fileNameAndPath3,file3.getBytes());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -114,14 +117,14 @@ public class ProductController {
 	  image3 =  fileName3.toString();
 		
 		
-//		image =  "uploads/" + image;
-//		image1 =  "uploads/" + image1;
-//		image2 =  "uploads/" + image2;
-//		image3=  "uploads/" + image3;
+		  image =  "uploads/" + image;
+		  image1 =  "uploads/" + image1;
+		  image2 =  "uploads/" + image2;
+		  image3=  "uploads/" + image3;
 		
 		System.out.println("Working here4");
 		  		
-		   if(productService.addProduct(productName,brandName,description,price,theCategory,quantity,image,image1,image2,image3)) {
+		   if(productService.addProduct(productName,brandName,description,price,offer,offerPrice,theCategory,quantity,image,image1,image2,image3)) {
 			   System.out.println("Working here5");
 			   return "redirect:/admin/" ;
 		   }else {
@@ -134,9 +137,11 @@ public class ProductController {
 	
 	
 	@PostMapping("/update")
-	public String updateProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile file, String image,
+	public String updateProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,  @RequestParam("offer") double offer,@RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile file, String image,
 	@RequestParam("extraImage1") MultipartFile file1, String image1,@RequestParam("extraImage2") MultipartFile file2, String image2,@RequestParam("extraImage3") MultipartFile file3, String image3, @RequestParam("productId") long productId) throws Exception {
 		
+		double offerPrice = price - (price * offer)/100 ;
+
 		 StringBuilder fileName = new StringBuilder();
 		 StringBuilder fileName1 = new StringBuilder();
 		 StringBuilder fileName2 = new StringBuilder();
@@ -147,6 +152,7 @@ public class ProductController {
 		  Path fileNameAndPath1 = Paths.get(uploadDirectory, file1.getOriginalFilename());
 		  Path fileNameAndPath2 = Paths.get(uploadDirectory, file2.getOriginalFilename());
 		  Path fileNameAndPath3 = Paths.get(uploadDirectory, file3.getOriginalFilename());
+		  
 		  fileName.append(file.getOriginalFilename()+" ");
 		  fileName1.append(file1.getOriginalFilename()+" ");
 		  fileName2.append(file2.getOriginalFilename()+" ");
@@ -154,9 +160,9 @@ public class ProductController {
 		  
 		  try {
 			Files.write(fileNameAndPath,file.getBytes());
-			Files.write(fileNameAndPath,file1.getBytes());
-			Files.write(fileNameAndPath,file2.getBytes());
-			Files.write(fileNameAndPath,file3.getBytes());
+			Files.write(fileNameAndPath1,file1.getBytes());
+			Files.write(fileNameAndPath2,file2.getBytes());
+			Files.write(fileNameAndPath3,file3.getBytes());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -170,14 +176,14 @@ public class ProductController {
 	  image2 =  fileName2.toString();
 	  image3 =  fileName3.toString();
 		
-//		
-//		image =  "uploads/" + image;
-//		image1 =  "uploads/" + image1;
-//		image2 =  "uploads/" + image2;
-//		image3=  "uploads/" + image3;
+		
+		  image =  "uploads/" + image;
+		  image1 =  "uploads/" + image1;
+		  image2 =  "uploads/" + image2;
+		  image3=  "uploads/" + image3;
 		
 		System.out.println("Working here4");
-		productService.updateProduct(productName,brandName,description,price,theCategory,quantity,image,image1,image2,image3,productId);
+		productService.updateProduct(productName,brandName,description,price,offer,offerPrice,theCategory,quantity,image,image1,image2,image3,productId);
 		return "redirect:/admin/" ;
 		 
 	}
