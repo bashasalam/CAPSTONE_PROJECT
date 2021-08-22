@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="hhtp://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+<link rel ="stylesheet"  th:href= "@{/css/registration.css}"> 
+
+<body>
+
+    <nav th:replace="layouts :: navBar"></nav>
+    <div class="container">
+
+        <form class="form-control" action="/user/save" method="POST" th:object="${userFormData}">
+
+            <table>
+                <tr>
+                    <td><label for="fullName"> FullName</label></td>
+                    <td><input type="text" id="fullName" name="fullName" th:object="${userFormData.fullName}"> FullName</label></td>
+                </tr>
+                <tr>
+                    <td><label for="email"> email</label></td>
+                    <td><input type="text" id="email" name="email" th:object="${userFormData.email}"> Email</label></td>
+                </tr>
+                <tr>
+                    <td><label for="mobile"> mobile</label></td>
+                    <td><input type="text" id="mobile" name="mobile" th:object="${userFormData.mobile}"> Mobile</label></td>
+                </tr>
+                <tr>
+                    <td><label for="password"> password</label></td>
+                    <td><input type="text" id="password" name="password" th:object="${userFormData.password}"> password</label></td>
+                </tr>
+                <tr>
+                    <td><label for="password2"> password2</label></td>
+                    <td><input type="text" id="password2" name="password2" > password2</label></td>
+                </tr>
+
+                <h6 class="mb-0 text-sm" th:each="value : ${passwordsnotmatched}"  style="color:red" > Passwords are not matching</h6>
+
+        </table>
+            
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-block" value="Create Account" /> 
+        </div> <!-- form-group// -->   
+
+        
+        </form>
+
+
+    </div>
