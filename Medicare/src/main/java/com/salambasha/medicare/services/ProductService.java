@@ -29,7 +29,7 @@ if(prorepo.save(new Product(productName,brandName, description, price,offer,offe
 		
 	}
 
-	public Product findByid(long editId) {
+	public Product findById(long editId) {
 	
 		Product product = prorepo.findById(editId);
 		return product;

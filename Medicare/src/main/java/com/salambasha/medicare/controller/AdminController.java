@@ -48,7 +48,7 @@ public class AdminController {
 		return "pages/admin/login";
 	}
 	@PostMapping("/loginCheck")
-	public String loginCheck(@RequestParam("username") String username,@RequestParam("password") String password,HttpSession session) {
+	public String loginCheck(@RequestParam("username") String username,@RequestParam("password") String password,HttpSession session, Model model) {
 //
 //		HttpSession session=request.getSession();
 //		session.setAttribute("userName", userName);
@@ -60,8 +60,9 @@ public class AdminController {
 			
 			return "redirect:/admin/"; 
 		}else {
-			
-			return "redirect:/admin"; 
+			String obj = "Current Username and Password Mismatching";
+			model.addAttribute("currentusernamepasswordmismatch", obj);
+			return "pages/admin/login"; 
 		}
 	} 
 	
