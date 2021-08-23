@@ -91,6 +91,12 @@ public class UserController {
 		 session.setAttribute("userId", null);
 		 return "redirect:/";
 	 }
+
+	public User findById(long userId) {
+		User user = userService.findById(userId);
+		
+		return user;
+	}
 	
 
 } 

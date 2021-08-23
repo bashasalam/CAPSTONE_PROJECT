@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.salambasha.medicare.entities.Cart;
 import com.salambasha.medicare.entities.ProductCount;
+import com.salambasha.medicare.entities.User;
 import com.salambasha.medicare.services.ProductCountService;
 
 @Controller
@@ -25,4 +27,17 @@ public class ProductCountController {
 		return "pages/productCount";
 	}
 	
+	
+	public String saveProductCount(ProductCount productCount)
+	{
+		productCountService.save(productCount);
+		
+		return null;
+	}
+
+
+	public void saveProductCount(long productId, int count, Cart cart, User user) {
+		// TODO Auto-generated method stub
+		productCountService.save(productId,count,cart,user);
+	}
 }

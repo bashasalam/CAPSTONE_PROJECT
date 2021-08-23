@@ -30,7 +30,7 @@ public class Address {
 		super();
 	}
 	
-	
+	 
 	
 public Address(int doorNo, String streetName, String city, String state, long pincode, User theUser) {
 	super();

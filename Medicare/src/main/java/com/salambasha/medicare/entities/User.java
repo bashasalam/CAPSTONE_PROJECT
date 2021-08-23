@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -19,9 +21,17 @@ public class User {
 	private double mobile;
 	private String password;
 	
+	@OneToOne
+	@JoinColumn(name = "cart_id")
+	private Cart cart;
+	
 	
 	@OneToMany(mappedBy="theUser")
 	private List<Address> address;
+	
+	@OneToMany(mappedBy="theUser")
+	private List<ProductCount> productCount;
+	
 	
 	//private Address address;
 	//private Cart theCart;
@@ -37,6 +47,31 @@ public class User {
 		this.email = email;
 		this.mobile = mobile;
 		this.password = password;
+	}
+
+	
+
+
+	public List<Address> getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(List<Address> address) {
+		this.address = address;
+	}
+
+
+
+	public List<ProductCount> getProductCount() {
+		return productCount;
+	}
+
+
+
+	public void setProductCount(List<ProductCount> productCount) {
+		this.productCount = productCount;
 	}
 
 
