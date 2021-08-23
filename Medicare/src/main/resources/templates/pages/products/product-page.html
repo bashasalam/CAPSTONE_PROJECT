@@ -53,9 +53,14 @@
                         Sceond variant
                     </div> -->
                     <div class="">
-                        <form action="/cart/cartPage" method="POST">
-                            <input type="hidden" name="productId" th:value="${product.productId}"/>
-                            <input type="number" name="quantity" id="quantityId" placeholder="Enter the quantity" required>
+                        <form action="/cart/cartPage" method="POST" th:object="${productCountFormData}" >
+                            <input type="hidden" id="productId" name="productId" th:value="${product.productId}" th:field="*{productId}"/>
+                            <input type="number" name="count"  id="quantityId" placeholder="Enter the quantity" required th:field="*{count}">
+
+                      <div id="ajax_div">
+
+                      </div>
+
                         <button type="submit" class="btn btn-primary" style="margin-left: 10vw"> Add to Cart</button>
                     </form>
                     </div>
@@ -66,7 +71,8 @@
         </div>
       
         <!-- <div class="col-md-2 col-sm-12" style="background-color: aqua; height: 50vh;margin-left:1vw; border: solid 1px black; border-radius: 5px;">
-        <h5> Offers</h5> -->
+        <h5> Offers</h5>    	private long productId;
+	private int count; onchange="addToProductCount()"-->
       
 
         </div>
@@ -77,6 +83,38 @@
 
 
     </div>
+
+<script>
+function addToProductCount(){
+    var productId = $("#productId").val();
+    var productCount = $("#quantityId").val();
+
+    //alert(productId);
+  //  alert(productCount);
+
+    $.get("/productCount/save",
+     // $.post("home/showMadicines",
+                                                                            {
+                                                                                productId: productId,
+                                                                                productCount:productCount
+                                                                              //  tablenames: tablename
+                                                                            },
+                                                                            function (data, status) {
+                                                                                console.log(data);
+                                                                                $("#ajax_div").html(data);
+                                                                             //   window.location.replace("/");
+                                                                                // if (data == "yes") {
+                                                                                //     window.location.replace("/");
+                                                                                // }
+                                                                            });
+
+      }
+
+
+
+</script>
+
+
 
 </body>
 

@@ -75,7 +75,7 @@ public class UserController {
 		  				session.setAttribute("userName", user.getFullName());
 		  				session.setAttribute("userId", user.getUserId());
 		  			
-		  			return "redirect:/user/"; 
+		  			return "redirect:/"; 
 		  		}else {
 		  			
 		  			String obj = "Current Username and Password Mismatching";

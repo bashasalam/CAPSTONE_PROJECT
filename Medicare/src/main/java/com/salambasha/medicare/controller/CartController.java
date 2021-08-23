@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.salambasha.medicare.dao.ProductCountRepository;
 import com.salambasha.medicare.entities.Product;
+import com.salambasha.medicare.entities.ProductCount;
 import com.salambasha.medicare.services.ProductService;
 
 @Controller
@@ -19,6 +21,11 @@ public class CartController {
     
 	@Autowired
 	ProductService productService;
+	@Autowired
+	ProductCountController productCountController;
+	
+	@Autowired
+	ProductCountRepository productCountRepository;
 
 //	@PostMapping("/{cart_id}")
 //	public String showUserCart(@PathVariable int cart_id) {
@@ -28,10 +35,14 @@ public class CartController {
 	
 	
 	@PostMapping("/cartPage")
-	public String showCartPage(HttpSession session,Model model, @RequestParam("productId") long productId, @RequestParam("quantity") int quantity) {
+	public String showCartPage(HttpSession session,Model model, ProductCount proudctCount, @RequestParam("productId") long productId, @RequestParam(value="count", required=false) int count) {
 		
 		if(session.getAttribute("userId") != null) {
 		Product product = 	productService.findById(productId);
+		productCountRepository.save(proudctCount);
+		
+		//productCountController.saveProductCount()
+		 
 		
 		model.addAttribute("product", product);
 			
@@ -48,7 +59,9 @@ public class CartController {
 
 	
 	@GetMapping("/address")
-	public String showUserddressForm() {
+	public String showUserddressForm(HttpSession session) {
+		
+		
 		
 		return "pages/cart/cart-address";
 	}
@@ -68,7 +81,7 @@ public class CartController {
 		return "pages/cart/payment";
 	}
 	
-	@PostMapping("/order-details")
+	@GetMapping("/order-details")
 	//@GetMapping("/order-details")
 	public String showOrderDetails() {
 		
