@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.springframework.beans.factory.annotation.Value;
+
 
 
 
@@ -24,7 +24,7 @@ public class Product {
 	private String brandName;
 	private String description;
 	private double price;
-	private double offer;
+	private double offer; 
 	private double offerPrice;
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, 
 			CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)

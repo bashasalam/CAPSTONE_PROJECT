@@ -1,5 +1,7 @@
 package com.salambasha.medicare.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.salambasha.medicare.entities.Admin;
+import com.salambasha.medicare.entities.Cart;
 import com.salambasha.medicare.entities.User;
+import com.salambasha.medicare.services.CartService;
 import com.salambasha.medicare.services.UserService;
 
 @Controller
@@ -20,6 +23,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CartService cartService;
 	
 	@GetMapping("/")
 	public String showUserHome() {
@@ -38,10 +44,12 @@ public class UserController {
 		
 		if(password.equals(password2)) {
 			
-			userService.save(user);
 			
+			userService.save(user);
+		
 			session.setAttribute("userId", user.getUserId());
 			session.setAttribute("userName", user.getFullName());
+			//session.setAttribute("theCart", cart.);
 			
 		//	model.addAttribute("kindlyLoginNow", "Kindly Login Now");
 			
@@ -65,32 +73,113 @@ public class UserController {
 		  //
 //		  		HttpSession session=request.getSession();
 //		  		session.setAttribute("userName", userName);
+		 long existingCartId;
 		 System.out.println(email);
 		 System.out.println(password); 
-		 
+		System.out.println(session.getAttribute("theCart"));
 		  		User user = userService.loginCheck(email,password);
-		  		
 		  		System.out.print(user);
-		  		if(user != null) {
-		  				session.setAttribute("userName", user.getFullName());
-		  				session.setAttribute("userId", user.getUserId());
+		  		
+		  		if(session.getAttribute("theCart")!=null) {
+		            existingCartId = (long)session.getAttribute("theCart");
+		           
+		       }else {
+		           
+		            existingCartId = 0;
+		       }
+		  		
+		  		Cart existingCart = cartService.findByid(existingCartId);
+		  		
+		  		if((user!=null) && (existingCart!=null) ) {
 		  			
-		  			return "redirect:/user/"; 
+		            
+		        //  if user.getUserId() = existingCart.
+		           if(user==existingCart.getTheUser()) {
+		        	   session.setAttribute("userName", user.getFullName());
+			            session.setAttribute("userId", user.getUserId());
+			            session.setAttribute("theCart", existingCart.getCartId());
+			            
+			            System.out.println("Working here user has cart already");
+		           }else {
+		        	   int isActive = 1;
+		        	   session.setAttribute("userName", user.getFullName());
+			            session.setAttribute("userId", user.getUserId());
+			            Cart cart = cartService.findSingleCart(user,isActive);
+				  		session.setAttribute("theCart", cart.getCartId());
+				  		System.out.println("Working here new cart careated");
+		           }
+		            
+		         //   session.setAttribute("theCart", existingCart.getCartId());
+		            return "redirect:/"; 
+		  		}else if((user!=null)&&(existingCart==null)) {
+		  					  		
+		  			int isActive = 1;
+		 	  		Cart exisTingCart = cartService.findSingleCart(user,isActive);
+		 	  		System.out.println("Working here trying to find existing cart");
+		  		
+		  		if(exisTingCart==null) {
+		  			System.out.println("confirmed no existing cart");
+		  			cartService.save(user,isActive);
+		  			Cart newCart = cartService.findSingleCart(user,isActive);
+		  			session.setAttribute("theCart", newCart.getCartId());
+		  			session.setAttribute("userName", user.getFullName());
+		            session.setAttribute("userId", user.getUserId());
+		  		}else {
+		  			
+		  			session.setAttribute("theCart", exisTingCart.getCartId());
+		  			session.setAttribute("userName", user.getFullName());
+		            session.setAttribute("userId", user.getUserId());
+		  		}
+		  		
+		  		
+		  		
+		  		return "redirect:/";
+		  		}else if((user==null) && (existingCart!=null) ) {
+		  			
+		  			//session.setAttribute("theCart", null);
+		  			String obj = "Current Username and Password Mismatching";
+		  	         model.addAttribute("currentusernamepasswordmismatch", obj);
+		  	           return "pages/login/login"; 
+		  			
+		  		
+		  			
 		  		}else {
 		  			
 		  			String obj = "Current Username and Password Mismatching";
-					model.addAttribute("currentusernamepasswordmismatch", obj);
-		  			return "pages/login/login"; 
+		  	         model.addAttribute("currentusernamepasswordmismatch", obj);
+		  	           return "pages/login/login"; 
+		  			
 		  		}
+		  		
+		  
+		  		//return "pages/home";
 		  	} 
 	 
 	 @GetMapping("/logout")
 	 public String logout(HttpSession session) {
 		 
+		 
 		 session.setAttribute("userName", null);
 		 session.setAttribute("userId", null);
+		 session.setAttribute("theCart", null);
+		 //cart need to be change the isActive = 0; cart
+		 
+//		 long theCart = (long) session.getAttribute("theCart");
+//		 
+//		 
+//		 Cart cart = cartService.findByid(theCart);
+//		 
+//		 cart.setIsActive(0);
+//		 session.setAttribute("theCart",null);
+		 
 		 return "redirect:/";
 	 }
+
+	public User findById(long userId) {
+		User user = userService.findById(userId);
+		
+		return user;
+	}
 	
 
 } 

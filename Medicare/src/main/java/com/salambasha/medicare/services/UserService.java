@@ -24,6 +24,13 @@ public class UserService {
 		
 		return user;
 	}
+
+	public User findById(long userId) {
+		
+		User user = userRepo.findByid(userId);
+		
+				return user;
+	}
 	
 
 }

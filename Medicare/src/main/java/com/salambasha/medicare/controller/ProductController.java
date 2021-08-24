@@ -21,6 +21,7 @@ import com.salambasha.medicare.dao.CategoryRepository;
 import com.salambasha.medicare.dao.ProductRepository;
 import com.salambasha.medicare.entities.Category;
 import com.salambasha.medicare.entities.Product;
+import com.salambasha.medicare.entities.ProductCount;
 import com.salambasha.medicare.services.ProductService;
 
 
@@ -41,11 +42,12 @@ public class ProductController {
 	
 
 	@GetMapping("/{productId}")
-	public String productDetailsShow(@PathVariable long productId, Model model) {
+	public String productDetailsShow(@PathVariable long productId, Model model,ProductCount productCount) {
 		//long product_id = productId;
 		Product product = productService.findById(productId);
 		System.out.print(product);
 		model.addAttribute("showProduct", product);
+		model.addAttribute("productCountFormData", productCount);
 		return "/pages/products/product-page";
 	}
 	
