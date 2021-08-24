@@ -30,4 +30,17 @@ public class CartService {
 		
 	}
 
+	public Cart findCart(User user, int isActive) {
+	
+		Cart cart = cartRepo.findCart(user,isActive);
+		
+		return cart;
+	}
+
+	public Cart findByid(long theCart) {
+		
+		Cart cart = cartRepo.findByid(theCart);
+				return cart;
+	}
+
 }

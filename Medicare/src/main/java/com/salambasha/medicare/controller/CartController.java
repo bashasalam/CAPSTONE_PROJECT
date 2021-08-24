@@ -42,24 +42,30 @@ public class CartController {
 	
 	
 	@PostMapping("/cartPage")
-	public String showCartPage(HttpSession session,Model model, ProductCount proudctCount, Cart cart, @RequestParam("productId") long productId, @RequestParam(value="count", required=false) int count) {
+	public String showCartPage(HttpSession session,Model model, ProductCount proudctCount, @RequestParam("productId") long productId, @RequestParam(value="count", required=false) int count) {
 		
 		if(session.getAttribute("userId") != null) {
 			
 			long theUser = (long) session.getAttribute("userId");
+			
+			long theCart = (long) session.getAttribute("theCart");
 			//System.out.println(" User id id" + userId);
 			
-			User user = userController.findById(theUser);
+			User user = userController.findById(theUser); 
+			Cart cart = cartService.findByid(theCart);
 			
-			long theCart = cart.getCartId();
+			//Cart cart 
 			
-			System.out.println(theCart);
+		long theCart1 = cart.getCartId();
+			
+			System.out.println("cart is is "+ theCart1);
 			if(cart.getIsActive()== 0) {
 				int isActive = 1;
-				cartService.save(user,isActive);
+					System.out.println("inside if");
 				productCountController.saveProductCount(productId,count,cart,user);
 			}else {
 				
+				System.out.println("inside else");
 				//cartService.update(theCart);
 				productCountController.saveProductCount(productId,count,cart,user);
 			}
@@ -131,8 +137,18 @@ public class CartController {
 	@GetMapping("/success")
 	public String showSuccess() {
 		
+		
+		
 		return "pages/cart/success";
 	}
+	
+//	public String saveCart() {
+//		
+//		
+//	}
+	
+	// here I need to change the cart as inActive and the session of theCart has to turned to null.
+	
 	
 	
 	

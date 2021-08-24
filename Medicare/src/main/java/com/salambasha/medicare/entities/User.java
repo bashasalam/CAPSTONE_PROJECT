@@ -2,11 +2,13 @@ package com.salambasha.medicare.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -21,8 +23,9 @@ public class User {
 	private double mobile;
 	private String password;
 	
-	@OneToOne
-	@JoinColumn(name = "cart_id")
+	@OneToOne(mappedBy="theUser", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,
+			CascadeType.REFRESH},fetch = FetchType.LAZY, orphanRemoval = true)
+	//@JoinColumn(name = "cart_id")
 	private Cart cart;
 	
 	

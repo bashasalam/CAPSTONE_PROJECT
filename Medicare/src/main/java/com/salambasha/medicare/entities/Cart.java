@@ -20,7 +20,7 @@ public class Cart {
 	private List<ProductCount> productCounts;
 	@OneToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private User theUser;
 //	@OneToMany(mappedBy="")
 //	private List<Product> products;
 	
@@ -41,7 +41,7 @@ public class Cart {
 
 	public Cart(User user, int isActive) {
 		super();
-		this.user = user;
+		this.theUser = user;
 		this.isActive = isActive;
 	}
 
@@ -62,11 +62,11 @@ public class Cart {
 	}
 
 	public User getUser() {
-		return user;
+		return theUser;
 	}
 
 	public void setUser(User user) {
-		this.user = user;
+		this.theUser = user;
 	}
 
 	public int getIsActive() {
