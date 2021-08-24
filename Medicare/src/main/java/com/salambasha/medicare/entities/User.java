@@ -2,15 +2,12 @@ package com.salambasha.medicare.entities;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -23,11 +20,13 @@ public class User {
 	private double mobile;
 	private String password;
 	
-	@OneToOne(mappedBy="theUser", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,
-			CascadeType.REFRESH},fetch = FetchType.LAZY, orphanRemoval = true)
-	//@JoinColumn(name = "cart_id")
-	private Cart cart;
+//	@OneToOne(mappedBy="theUser", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,
+//			CascadeType.REFRESH},fetch = FetchType.LAZY, orphanRemoval = true)
+//	//@JoinColumn(name = "cart_id")
+//	private Cart cart;
 	
+	@OneToMany(mappedBy="theUser")
+	private List<Cart> carts;
 	
 	@OneToMany(mappedBy="theUser")
 	private List<Address> address;
@@ -108,6 +107,27 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", fullName=" + fullName + ", email=" + email + ", mobile=" + mobile
+				+ ", password=" + password + ", carts=" + carts + ", address=" + address + ", productCount="
+				+ productCount + "]";
 	}
 	
 
