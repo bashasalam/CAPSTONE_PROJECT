@@ -33,6 +33,8 @@ public class Cart {
 	
 	private int isActive=1;
 	
+
+	
 	public Cart() {
 		super();
 	}
@@ -91,7 +93,8 @@ public class Cart {
 	public void setTheUser(User theUser) {
 		this.theUser = theUser;
 	}
-	
+
+
 	
 	
 	

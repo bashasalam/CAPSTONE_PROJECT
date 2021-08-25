@@ -10,28 +10,44 @@
     <nav th:replace="layouts :: userNavBar" ></nav>
 <div class="container">
     <div class="heading">
-        <h3>Alhamdhulillaahi rabbil aalameen</h3>
+        <!-- <h3>Alhamdhulillaahi rabbil aalameen</h3> -->
         <h4>Cart Items</h4>
     </div>
-	<div class="row">
-		<div class="col-md-8" style="height: 30vh;border: 1px solid yellow; border-radius: 10px; margin-left: auto;">
+	<div class="row" th:each="product : ${productList}" >
+		<div class="col-md-12" style="height: 30vh;border: 1px solid yellow; border-radius: 10px; margin-left: auto;" >
             <div class="row">
                 <div id="imageDiv" class="col-md-2" style="height: 25vh; border: solid 1px blue;">
-                    <img src="" alt="Madicine Image">
+                    <img type="image/webp" class="image" th:srcset="@{${'/'+product.image}}" alt="product Image" >
 
                 </div>
-                <div id="detailsDiv" class="col-md-8" style="height: 25vh; border: solid 1px rgb(106, 165, 50);">
-                    <h3>Medicine name</h3>
-                    <h5>Company name</h5>
-                    <h6>Count in Strip</h6>
+                <div id="detailsDiv" class="col-md-6" style="height: 25vh; border: solid 1px rgb(106, 165, 50);">
+                    <h3 th:text="${product.productName}"></h3>
+                    <h5 th:text="${product.brandName}"></h5>
+                    <!-- <h5 th:text="${productCount.proCount}"></h5>
+                    <h5 th:text="${price.totalPrice}"></h5> -->
+                    <input type="text" th:oninput="'javascript:changeCount(' + ${product.productId} + ');'" />
                     <div class="col-md-2" style="border: 1px solid rgb(20, 20, 20); height: 5vh;"></div>
 
                 </div>
-                <div id="deleteButtonDiv"class="col-md-2" style="border: 1px solid rgb(20, 20, 20); ">
+                <div id="countButtonDiv"class="col-md-2" style="border: 1px solid rgb(20, 20, 20); " th:each="productCount : ${productCountList}">
+                    <input type="text" th:text="${productCount.proCount}" style="width: 100%; height: 10vh; border-radius: 5px;">
+
+                </div>
+                <div id="totalPriceDiv"class="col-md-2" style="border: 1px solid rgb(20, 20, 20); " th:each=" price: ${priceList}">
+                    
+                    <h3 > Price : <span th:text="${price.totalPrice}"> </span>    </h3>
 
                 </div>
             </div>      
         </div>
+
+        <div style="display: none;" th:each="productCount : ${productCountList}">
+
+            <input type="text" th:text="${productCount.proCount}">
+
+        </div>
+
+        <!-- th:each="productCount : ${productCountList}" th:each=" price: ${priceList}" -->
 		<div class="col-md-4"style="height: 50vh;border: 1px solid yellow; border-radius: 10px; margin-left: auto;">
            <div id="deliveryAddressDiv" style="margin-top:5vh" >
             <a th:href="@{/cart/address}"><button class="btn btn-lg btn-blue" style="background-color: #236865; width:100%;color:white;"> Add Delivery Address</button></a>
@@ -47,6 +63,16 @@
 
 
     </div>
+
+
+    <script>
+
+        function changeCount(productId){
+
+            alert(productId);
+
+        }
+    </script>
 
 </body>
 

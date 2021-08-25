@@ -1,5 +1,8 @@
 package com.salambasha.medicare.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +37,50 @@ public class CartController {
 	@Autowired
 	UserController userController;
 
-//	@PostMapping("/{cart_id}")
-//	public String showUserCart(@PathVariable int cart_id) {
-//		
-//		return "pages/cart/cart-page";
-//	}
+	@GetMapping("/cart")
+	public String showUserCart(HttpSession session,Model model) {
+		long theUser = (long) session.getAttribute("userId");
+		long theCart = (long) session.getAttribute("theCart");
+
+
+
+		 List<ProductCount> productCounts = productCountController.findProducts(theCart,theUser);
+		
+		 List<Product> productList = new ArrayList<Product>();
+			
+			 List<Double> priceList = new ArrayList<Double>();
+			 
+			 for (ProductCount productCount : productCounts) {
+				
+				long cartProductId =  productCount.getProductId();
+				
+			
+				
+				Product cartProduct = productService.findById(cartProductId);
+				
+				productList.add(cartProduct);
+	
+				
+				double productSumPrice = productCount.getMultipliedPrice();
+				priceList.add(productSumPrice);
+				
+				 
+			}
+			 
+			 double Total=0;
+			 for (Double price : priceList) {
+				 
+				 Total = Total + price;
+			 }
+			 
+			 model.addAttribute("productCountList", productCounts);	
+			 model.addAttribute("productList", productList);	
+			 model.addAttribute("sumTotal", Total);
+		
+		return "pages/cart/order-summary";
+	}
+	
+	
 	
 	
 	@PostMapping("/cartPage")
@@ -47,51 +89,98 @@ public class CartController {
 		if(session.getAttribute("userId") != null) {
 			
 			long theUser = (long) session.getAttribute("userId");
-			
 			long theCart = (long) session.getAttribute("theCart");
-			//System.out.println(" User id id" + userId);
 			
 			User user = userController.findById(theUser); 
 			Cart cart = cartService.findByid(theCart);
+	
+	ProductCount exitingProductCount =	productCountController.findProduct(productId,theCart,theUser);
 			
-			//Cart cart 
+			
 			
 		long theCart1 = cart.getCartId();
 			
 			System.out.println("cart is is "+ theCart1);
-			if(cart.getIsActive()== 0) {
-				int isActive = 1;
-					System.out.println("inside if");
-				productCountController.saveProductCount(productId,count,cart,user);
-			}else {
+			if(exitingProductCount== null) {
 				
+					System.out.println("inside if");
+					
+					Product savingProduct = productService.findById(productId);
+					
+					double offerPrice = savingProduct.getOfferPrice();
+					
+					double totalPrice = offerPrice * count;
+					
+				productCountController.saveProductCount(productId,count,cart,user,offerPrice,totalPrice);
+					
+			}else {
+								
 				System.out.println("inside else");
-				//cartService.update(theCart);
-				productCountController.saveProductCount(productId,count,cart,user);
+				Product savingProduct = productService.findById(productId);
+				
+				double offerPrice = savingProduct.getOfferPrice();
+				
+				double totalPrice = offerPrice * count;
+			long productCountId = productCountController.findPCid(productId);
+			
+			productCountController.updateProductCount(count,offerPrice,totalPrice,productCountId);
+				
+				
 			}
 			
-		//	System.out.println(" User is "+ user);
-			
-		Product product = 	productService.findById(productId);
-		
-		
-		
+				
 		long cartId = cart.getCartId();
 		System.out.println("cart id is" +cartId);
-	//	productCountController.saveProductCount(proudctCount);
+	
 		
+		 List<ProductCount> productCounts = productCountController.findProducts(theCart,theUser);
 		 
-		
-		
-		
-	//	productCountController.findProductCountId()
-		
-		//productCountController.saveProductCount()
+		 List<Product> productList = new ArrayList<Product>();
+	
+		 List<Double> priceList = new ArrayList<Double>();
 		 
-		
-		model.addAttribute("product", product);
+		 for (ProductCount productCount : productCounts) {
 			
-			return "pages/cart/cart-page";
+			long cartProductId =  productCount.getProductId();
+			
+			
+			
+			Product cartProduct = productService.findById(cartProductId);
+			
+			productList.add(cartProduct);
+
+			
+			double productSumPrice = productCount.getMultipliedPrice();
+			priceList.add(productSumPrice);
+			
+			 
+		}
+		 
+		 double Total=0;
+		 for (Double price : priceList) {
+			 
+			 Total = Total + price;
+		 }
+		 
+		 System.out.println("The total is " + Total);
+		 
+		 
+		 
+		 System.out.print( "Product price list is"+priceList);
+
+	System.out.print( "Product Count list is"+productCounts);
+//	model.addAttribute("priceList", priceList);
+	 model.addAttribute("productCountList", productCounts);	
+	 model.addAttribute("productList", productList);	
+	 model.addAttribute("sumTotal", Total);
+		
+		//model.addAttribute("ProductCountList", productCounts);
+session.setAttribute("userId", user.getUserId());
+session.setAttribute("userName", user.getFullName());
+session.setAttribute("theCart", cart.getCartId());
+//session.setAttribute("theProduct", );
+			
+			return "pages/cart/order-summary";
 			
 		}else {
 			
@@ -110,6 +199,7 @@ public class CartController {
 		
 		return "pages/cart/cart-address";
 	}
+	
 	
 	
 //	@PostMapping("/orderder")
@@ -135,8 +225,15 @@ public class CartController {
 	
 	//@PostMapping("/checkout")
 	@GetMapping("/success")
-	public String showSuccess() {
+	public String showSuccess(HttpSession session) {
 		
+		long availableCartId = (long) session.getAttribute("theCart");
+		
+	//	Cart availableCart = cartService.findByid(availableCartId)
+		int isActive = 0;
+		cartService.changeIsActive(isActive,availableCartId);
+		
+		//session.setAttribute("theCart", null);
 		
 		
 		return "pages/cart/success";

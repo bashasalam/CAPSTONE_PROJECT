@@ -28,6 +28,9 @@ public class ProductCount {
 	@JoinColumn(name="user_id")
 	private User theUser;
 	
+	private double singleProductPrice;
+	
+	private double multipliedPrice;
 	
 	
 	 
@@ -44,6 +47,18 @@ public class ProductCount {
 
 	
 	
+
+	public ProductCount(long productId, int count, Cart theCart, User theUser, double singleProductPrice,
+			double multipliedPrice) {
+		super();
+		this.productId = productId;
+		this.count = count;
+		this.theCart = theCart;
+		this.theUser = theUser;
+		this.singleProductPrice = singleProductPrice;
+		this.multipliedPrice = multipliedPrice;
+	}
+
 
 	public ProductCount(long productId, int count, Cart theCart, User theUser) {
 		super();
@@ -103,12 +118,32 @@ public class ProductCount {
 		this.count = count;
 	}
 
-
-	@Override
-	public String toString() {
-		return "ProductCount [countTableId=" + countTableId + ", productId=" + productId + ", count=" + count + "]";
-	}
 	
+
+	public double getSingleProductPrice() {
+		return singleProductPrice;
+	}
+
+
+	public void setSingleProductPrice(double singleProductPrice) {
+		this.singleProductPrice = singleProductPrice;
+	}
+
+
+	public double getMultipliedPrice() {
+		return multipliedPrice;
+	}
+
+
+	public void setMultipliedPrice(double multipliedPrice) {
+		this.multipliedPrice = multipliedPrice;
+	}
+
+
+	
+
+
+
 	
 
 	

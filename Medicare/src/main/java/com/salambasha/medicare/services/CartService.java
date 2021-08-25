@@ -52,4 +52,10 @@ public class CartService {
 		return cart;
 	}
 
+	public void changeIsActive( int isActive,long availableCartId) {
+		
+		cartRepo.changeIsActive(isActive,availableCartId);
+		
+	}
+
 }

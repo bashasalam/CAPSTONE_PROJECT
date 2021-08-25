@@ -133,7 +133,7 @@ public class UserController {
 		  		
 		  		
 		  		
-		  		return "redirect:/";
+		  		return "redirect:/MEDICARE/";
 		  		}else if((user==null) && (existingCart!=null) ) {
 		  			
 		  			//session.setAttribute("theCart", null);
@@ -172,7 +172,7 @@ public class UserController {
 //		 cart.setIsActive(0);
 //		 session.setAttribute("theCart",null);
 		 
-		 return "redirect:/";
+		 return "redirect:/MEDICARE/";
 	 }
 
 	public User findById(long userId) {
