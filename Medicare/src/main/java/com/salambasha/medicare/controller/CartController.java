@@ -37,11 +37,48 @@ public class CartController {
 	@Autowired
 	UserController userController;
 
-//	@PostMapping("/{cart_id}")
-//	public String showUserCart(@PathVariable int cart_id) {
-//		
-//		return "pages/cart/cart-page";
-//	}
+	@GetMapping("/cart")
+	public String showUserCart(HttpSession session,Model model) {
+		long theUser = (long) session.getAttribute("userId");
+		long theCart = (long) session.getAttribute("theCart");
+
+
+
+		 List<ProductCount> productCounts = productCountController.findProducts(theCart,theUser);
+		
+		 List<Product> productList = new ArrayList<Product>();
+			
+			 List<Double> priceList = new ArrayList<Double>();
+			 
+			 for (ProductCount productCount : productCounts) {
+				
+				long cartProductId =  productCount.getProductId();
+				
+			
+				
+				Product cartProduct = productService.findById(cartProductId);
+				
+				productList.add(cartProduct);
+	
+				
+				double productSumPrice = productCount.getMultipliedPrice();
+				priceList.add(productSumPrice);
+				
+				 
+			}
+			 
+			 double Total=0;
+			 for (Double price : priceList) {
+				 
+				 Total = Total + price;
+			 }
+			 
+			 model.addAttribute("productCountList", productCounts);	
+			 model.addAttribute("productList", productList);	
+			 model.addAttribute("sumTotal", Total);
+		
+		return "pages/cart/order-summary";
+	}
 	
 	
 	
@@ -53,11 +90,11 @@ public class CartController {
 			
 			long theUser = (long) session.getAttribute("userId");
 			long theCart = (long) session.getAttribute("theCart");
-			//System.out.println(" User id id" + userId);
+			
 			User user = userController.findById(theUser); 
 			Cart cart = cartService.findByid(theCart);
-		//	long productId = productCountController.
-	ProductCount exitingProductCount =	productCountController.findProduct(productId);
+	
+	ProductCount exitingProductCount =	productCountController.findProduct(productId,theCart,theUser);
 			
 			
 			
@@ -68,17 +105,27 @@ public class CartController {
 				
 					System.out.println("inside if");
 					
-				productCountController.saveProductCount(productId,count,cart,user);
+					Product savingProduct = productService.findById(productId);
+					
+					double offerPrice = savingProduct.getOfferPrice();
+					
+					double totalPrice = offerPrice * count;
+					
+				productCountController.saveProductCount(productId,count,cart,user,offerPrice,totalPrice);
 					
 			}else {
 								
 				System.out.println("inside else");
+				Product savingProduct = productService.findById(productId);
+				
+				double offerPrice = savingProduct.getOfferPrice();
+				
+				double totalPrice = offerPrice * count;
 			long productCountId = productCountController.findPCid(productId);
 			
-			productCountController.updateProductCount(count,productCountId);
+			productCountController.updateProductCount(count,offerPrice,totalPrice,productCountId);
 				
-				//cartService.update(theCart);
-				//productCountController.saveProductCount(productId,count,cart,user);
+				
 			}
 			
 				
@@ -89,23 +136,22 @@ public class CartController {
 		 List<ProductCount> productCounts = productCountController.findProducts(theCart,theUser);
 		 
 		 List<Product> productList = new ArrayList<Product>();
-		 List<Integer> productcountList = new ArrayList<Integer>();
+	
 		 List<Double> priceList = new ArrayList<Double>();
 		 
 		 for (ProductCount productCount : productCounts) {
 			
 			long cartProductId =  productCount.getProductId();
 			
-			int proCount = productCount.getCount();
-			productcountList.add(proCount);
+			
 			
 			Product cartProduct = productService.findById(cartProductId);
 			
 			productList.add(cartProduct);
-			double offerPrice = cartProduct.getOfferPrice();
+
 			
-			priceList.add(offerPrice);
-			
+			double productSumPrice = productCount.getMultipliedPrice();
+			priceList.add(productSumPrice);
 			
 			 
 		}
@@ -122,15 +168,17 @@ public class CartController {
 		 
 		 System.out.print( "Product price list is"+priceList);
 
-	System.out.print( "Product Count list is"+productcountList);
-	model.addAttribute("priceList", priceList);
-	 model.addAttribute("productCountList", productcountList);	
+	System.out.print( "Product Count list is"+productCounts);
+//	model.addAttribute("priceList", priceList);
+	 model.addAttribute("productCountList", productCounts);	
 	 model.addAttribute("productList", productList);	
+	 model.addAttribute("sumTotal", Total);
 		
 		//model.addAttribute("ProductCountList", productCounts);
 session.setAttribute("userId", user.getUserId());
 session.setAttribute("userName", user.getFullName());
 session.setAttribute("theCart", cart.getCartId());
+//session.setAttribute("theProduct", );
 			
 			return "pages/cart/order-summary";
 			
@@ -185,7 +233,7 @@ session.setAttribute("theCart", cart.getCartId());
 		int isActive = 0;
 		cartService.changeIsActive(isActive,availableCartId);
 		
-		session.setAttribute("theCart", null);
+		//session.setAttribute("theCart", null);
 		
 		
 		return "pages/cart/success";

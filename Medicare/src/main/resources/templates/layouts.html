@@ -53,9 +53,9 @@
             <li class="nav-item" th:style="${session.userName!= null} ? 'display:block' : 'display:none'">
               <a class="nav-item nav-link active" th:href="@{/user/logout}">Logout </a>
             </li>
-            <!-- <li class="nav-item" th:style="${session.userName!= null} ? 'display:block' : 'display:none'">
-              <a class="nav-item nav-link active btn-facebook" th:href="@{/cart/cartPage}"><button style="font-size:24px">Cart <i class="fa fa-shopping-cart"></i></button> </a>
-            </li> -->
+             <li class="nav-item" th:style="${session.userName!= null} ? 'display:block' : 'display:none'">
+              <a class="nav-item nav-link active btn-facebook" th:href="@{/cart/cart}">Cart <i class="fa fa-shopping-cart"></i> </a>
+            </li> 
           
           </ul>
         </div>

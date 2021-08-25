@@ -41,10 +41,10 @@ public class ProductCountService {
 		return productCounts;
 	}
 
-	public ProductCount findProduct(long productId) {
+	public ProductCount findProduct(long productId, long theCart, long theUser) {
 		
 		
-		ProductCount existingProductCount = productCountRepo.findProduct(productId);
+		ProductCount existingProductCount = productCountRepo.findProduct(productId,theCart,theUser);
 		return existingProductCount;
 	}
 
@@ -55,9 +55,14 @@ public class ProductCountService {
 		return productCountId;
 	}
 
-	public void updateProductCount(int count, long productCountId) {
+	public void updateProductCount(int count, double offerPrice, double totalPrice, long productCountId) {
 	
-		productCountRepo.updateProductCount(count,productCountId);
+		productCountRepo.updateProductCount(count,offerPrice,totalPrice,productCountId);
+	}
+
+	public void save(long productId, int count, Cart cart, User user, double offerPrice, double totalPrice) {
+		// TODO Auto-generated method stub
+		productCountRepo.save(new ProductCount(productId,count,cart,user,offerPrice,totalPrice));
 	}
 	
 	//productCountRepo.save()

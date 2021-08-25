@@ -172,7 +172,7 @@ public class UserController {
 //		 cart.setIsActive(0);
 //		 session.setAttribute("theCart",null);
 		 
-		 return "redirect:/";
+		 return "redirect:/MEDICARE/";
 	 }
 
 	public User findById(long userId) {

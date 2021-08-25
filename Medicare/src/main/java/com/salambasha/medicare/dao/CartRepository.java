@@ -25,7 +25,7 @@ public interface CartRepository extends CrudRepository<Cart,Long> {
 
 	@Transactional
 	@Modifying
-	@Query(nativeQuery = true, value="UPDATE `cart` SET `is_active` = ? WHERE `availableCartId` = ?;")
+	@Query(nativeQuery = true, value="UPDATE `cart` SET `is_active` = ? WHERE `cart_id`=?;")
 	void changeIsActive(int isActive,long availableCartId);
 
 }

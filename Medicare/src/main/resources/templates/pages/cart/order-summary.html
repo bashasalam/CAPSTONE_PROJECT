@@ -105,10 +105,10 @@
                                         <p><b>179 SEK</b></p>
                                     </div>
                                 </div> -->
-                                <div class="row justify-content-between">
-                                    <div class="col-md-4" style="display: flex; flex-direction: column;" th:each="aproduct : ${productList}">
-                                        <div class="row">
-                                            <div id="image" class="media flex-column flex-sm-row">
+                                <div class="row ">
+                                    <div class="col-md-4"  th:each="aproduct : ${productList}">
+                                        <div style="display: flex; flex-direction: column;">
+                                            <div id="image" class="media flex-column">
                                                 <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image"  width="62" height="62" style="border-radius:10px;" />
                                             </div>
                                             <div id="details" class="media-body my-auto">
@@ -123,18 +123,19 @@
 
 
                                     </div>
-                                    <div class="pl-0 flex-sm-col col-auto my-auto" style="display: flex; flex-direction: column;" th:each="proCount : ${productCountList}">
-
-                                        <p class="boxed-1" th:text="${proCount}"></p>
+                                    <div th:each="proCount : ${productCountList}" style="display: flex; flex-direction: column;">
+                                    <div class="pl-0 flex-sm-col col-auto my-auto"  >
+                                    
+                                        <p class="boxed-1" th:text="${proCount.count}"></p>
 
                                     </div>
-                                    <div class=" pl-0 flex-sm-col col-auto my-auto " style="display: flex; flex-direction: column;"th:each=" productprice: ${priceList}">
-                                        <p><b th:text="${productprice}"></b></p>
+                                    <div class=" pl-0 flex-sm-col col-auto my-auto " >
+                                        <p><b th:text="${proCount.multipliedPrice}"></b></p>
 
-                                           <!-- <th:block th:with="proCount = ${proCount}, productprice = ${productprice}, var = ${proCount * productprice}">
-    <p th:text="${var}"></p> -->
-</th:block>
+                                         
+
                                     </div>
+                                </div>
                                 </div>
 
 
@@ -150,11 +151,11 @@
                                             <div class="col-4">
                                                 <p class="mb-1"><b>Subtotal</b></p>
                                             </div>
-                                            <div class="flex-sm-col col-auto">
-                                                <p class="mb-1"><b>179 SEK</b></p>
+                                            <div class="flex-sm-col col-auto"th:each=" total: ${sumTotal}">
+                                                <p class="mb-1"><b th:text="${total}"></b></p>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-between">
+                                        <!-- <div class="row justify-content-between">
                                             <div class="col">
                                                 <p class="mb-1"><b>Shipping</b></p>
                                             </div>
@@ -169,7 +170,7 @@
                                             <div class="flex-sm-col col-auto">
                                                 <p class="mb-1"><b>537 SEK</b></p>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <hr class="my-0">
                                     </div>
                                 </div>

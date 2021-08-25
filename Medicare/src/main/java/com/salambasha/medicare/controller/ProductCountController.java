@@ -51,9 +51,9 @@ public class ProductCountController {
 	}
 
 
-	public ProductCount findProduct(long productId) {
+	public ProductCount findProduct(long productId, long theCart, long theUser) {
 		
-	ProductCount existingProductCount = productCountService.findProduct(productId);
+	ProductCount existingProductCount = productCountService.findProduct(productId,theCart,theUser);
 	
 	return existingProductCount;
 		
@@ -68,8 +68,15 @@ public class ProductCountController {
 	}
 
 
-	public void updateProductCount(int count, long productCountId) {
+	public void updateProductCount(int count, double offerPrice, double totalPrice, long productCountId) {
 		
-		productCountService.updateProductCount(count,productCountId);
+		productCountService.updateProductCount(count,offerPrice,totalPrice,productCountId);
+	}
+
+
+	public void saveProductCount(long productId, int count, Cart cart, User user, double offerPrice,
+			double totalPrice) {
+		productCountService.save(productId,count,cart,user,offerPrice,totalPrice);
+		
 	}
 }
