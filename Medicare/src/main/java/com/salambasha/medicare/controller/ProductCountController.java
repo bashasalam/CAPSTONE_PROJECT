@@ -1,5 +1,7 @@
 package com.salambasha.medicare.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,5 +41,35 @@ public class ProductCountController {
 	public void saveProductCount(long productId, int count, Cart cart, User user) {
 		// TODO Auto-generated method stub
 		productCountService.save(productId,count,cart,user);
+	}
+
+
+	public List<ProductCount> findProducts(long theCart, long theUser) {
+		
+		List<ProductCount> productCounts = productCountService.findProducts(theCart,theUser);
+		return productCounts;
+	}
+
+
+	public ProductCount findProduct(long productId) {
+		
+	ProductCount existingProductCount = productCountService.findProduct(productId);
+	
+	return existingProductCount;
+		
+	}
+
+
+	public long findPCid(long exitingProductId) {
+				
+		long productCountId = productCountService.findPCid(exitingProductId);
+		
+		return productCountId;
+	}
+
+
+	public void updateProductCount(int count, long productCountId) {
+		
+		productCountService.updateProductCount(count,productCountId);
 	}
 }

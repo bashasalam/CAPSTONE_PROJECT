@@ -1,5 +1,8 @@
 package com.salambasha.medicare.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,57 +44,95 @@ public class CartController {
 //	}
 	
 	
+	
+	
 	@PostMapping("/cartPage")
 	public String showCartPage(HttpSession session,Model model, ProductCount proudctCount, @RequestParam("productId") long productId, @RequestParam(value="count", required=false) int count) {
 		
 		if(session.getAttribute("userId") != null) {
 			
 			long theUser = (long) session.getAttribute("userId");
-			
 			long theCart = (long) session.getAttribute("theCart");
 			//System.out.println(" User id id" + userId);
-			
 			User user = userController.findById(theUser); 
 			Cart cart = cartService.findByid(theCart);
+		//	long productId = productCountController.
+	ProductCount exitingProductCount =	productCountController.findProduct(productId);
 			
-			//Cart cart 
+			
 			
 		long theCart1 = cart.getCartId();
 			
 			System.out.println("cart is is "+ theCart1);
-			if(cart.getIsActive()== 0) {
-				int isActive = 1;
-					System.out.println("inside if");
-				productCountController.saveProductCount(productId,count,cart,user);
-			}else {
+			if(exitingProductCount== null) {
 				
-				System.out.println("inside else");
-				//cartService.update(theCart);
+					System.out.println("inside if");
+					
 				productCountController.saveProductCount(productId,count,cart,user);
+					
+			}else {
+								
+				System.out.println("inside else");
+			long productCountId = productCountController.findPCid(productId);
+			
+			productCountController.updateProductCount(count,productCountId);
+				
+				//cartService.update(theCart);
+				//productCountController.saveProductCount(productId,count,cart,user);
 			}
 			
-		//	System.out.println(" User is "+ user);
-			
-		Product product = 	productService.findById(productId);
-		
-		
-		
+				
 		long cartId = cart.getCartId();
 		System.out.println("cart id is" +cartId);
-	//	productCountController.saveProductCount(proudctCount);
+	
 		
+		 List<ProductCount> productCounts = productCountController.findProducts(theCart,theUser);
 		 
-		
-		
-		
-	//	productCountController.findProductCountId()
-		
-		//productCountController.saveProductCount()
+		 List<Product> productList = new ArrayList<Product>();
+		 List<Integer> productcountList = new ArrayList<Integer>();
+		 List<Double> priceList = new ArrayList<Double>();
 		 
-		
-		model.addAttribute("product", product);
+		 for (ProductCount productCount : productCounts) {
 			
-			return "pages/cart/cart-page";
+			long cartProductId =  productCount.getProductId();
+			
+			int proCount = productCount.getCount();
+			productcountList.add(proCount);
+			
+			Product cartProduct = productService.findById(cartProductId);
+			
+			productList.add(cartProduct);
+			double offerPrice = cartProduct.getOfferPrice();
+			
+			priceList.add(offerPrice);
+			
+			
+			 
+		}
+		 
+		 double Total=0;
+		 for (Double price : priceList) {
+			 
+			 Total = Total + price;
+		 }
+		 
+		 System.out.println("The total is " + Total);
+		 
+		 
+		 
+		 System.out.print( "Product price list is"+priceList);
+
+	System.out.print( "Product Count list is"+productcountList);
+	model.addAttribute("priceList", priceList);
+	 model.addAttribute("productCountList", productcountList);	
+	 model.addAttribute("productList", productList);	
+		
+		//model.addAttribute("ProductCountList", productCounts);
+session.setAttribute("userId", user.getUserId());
+session.setAttribute("userName", user.getFullName());
+session.setAttribute("theCart", cart.getCartId());
+			
+			return "pages/cart/order-summary";
 			
 		}else {
 			
@@ -110,6 +151,7 @@ public class CartController {
 		
 		return "pages/cart/cart-address";
 	}
+	
 	
 	
 //	@PostMapping("/orderder")
@@ -135,8 +177,15 @@ public class CartController {
 	
 	//@PostMapping("/checkout")
 	@GetMapping("/success")
-	public String showSuccess() {
+	public String showSuccess(HttpSession session) {
 		
+		long availableCartId = (long) session.getAttribute("theCart");
+		
+	//	Cart availableCart = cartService.findByid(availableCartId)
+		int isActive = 0;
+		cartService.changeIsActive(isActive,availableCartId);
+		
+		session.setAttribute("theCart", null);
 		
 		
 		return "pages/cart/success";

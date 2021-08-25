@@ -1,5 +1,7 @@
 package com.salambasha.medicare.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,32 @@ public class ProductCountService {
 		productCountRepo.save(new ProductCount(productId,count,cart,user));
 		
 		
+	}
+
+	public List<ProductCount> findProducts(long theCart, long theUser) {
+		
+		
+		List<ProductCount> productCounts = productCountRepo.findProducts(theCart,theUser);
+		return productCounts;
+	}
+
+	public ProductCount findProduct(long productId) {
+		
+		
+		ProductCount existingProductCount = productCountRepo.findProduct(productId);
+		return existingProductCount;
+	}
+
+	public long findPCid(long exitingProductId) {
+		
+		long productCountId = productCountRepo.findPCid(exitingProductId);
+		
+		return productCountId;
+	}
+
+	public void updateProductCount(int count, long productCountId) {
+	
+		productCountRepo.updateProductCount(count,productCountId);
 	}
 	
 	//productCountRepo.save()

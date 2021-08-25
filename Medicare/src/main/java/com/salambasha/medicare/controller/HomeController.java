@@ -16,7 +16,7 @@ import com.salambasha.medicare.entities.Product;
 import com.salambasha.medicare.services.ProductService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/MEDICARE")
 public class HomeController {
 	
 	@Autowired
@@ -25,7 +25,7 @@ public class HomeController {
 	@Autowired
 	CategoryRepository cateRepo;
 
-    @GetMapping
+    @GetMapping("/")
 	public String showHome(Model model) {
     	long categoryId = 1;
     	List<Product> products = productService.getProducts(categoryId);

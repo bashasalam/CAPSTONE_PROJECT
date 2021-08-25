@@ -5,14 +5,13 @@
 <head th:fragment="header">
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1">
+     
     <meta name="description" content="">
     <meta name="author" content="">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -38,27 +37,7 @@
            
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
             style="width: 50vw;">
-            <!-- <ul class="navbar-nav">
-                <li class="nav-item active" style="float:right">
-                  <a class="nav-link" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-              </ul> -->
-
            
-         
-            
-         <!--   <a class="nav-item nav-link" th:href="@{/classes/new}">Classes</a>
-            <a class="nav-item nav-link" th:href="@{/teachers/new}">Teachers</a>
-            <a class="nav-item nav-link" th:href="@{/subjects/new}">Subjects</a>  -->
         </div>
         <div  style="float: right;">
           <ul class="navbar-nav">
@@ -74,6 +53,9 @@
             <li class="nav-item" th:style="${session.userName!= null} ? 'display:block' : 'display:none'">
               <a class="nav-item nav-link active" th:href="@{/user/logout}">Logout </a>
             </li>
+            <!-- <li class="nav-item" th:style="${session.userName!= null} ? 'display:block' : 'display:none'">
+              <a class="nav-item nav-link active btn-facebook" th:href="@{/cart/cartPage}"><button style="font-size:24px">Cart <i class="fa fa-shopping-cart"></i></button> </a>
+            </li> -->
           
           </ul>
         </div>
@@ -91,7 +73,7 @@
          
     </div>
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" th:href="@{/MEDICARE/}">Home <span class="sr-only">(current)</span></a>
             <ul class="navbar-nav" >
                 <li class="nav-item active">
                   <a class="nav-link" href=""> </a>

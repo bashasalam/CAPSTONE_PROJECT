@@ -83,10 +83,7 @@
                                 <hr class="my-2">
                             </div>
                             <div class="card-body pt-0">
-                                <!-- <div class="row justify-content-between" th:each=" aproduct: ${productList}" id="products">
-                                    <input type="hidden" name="productId" th:value="${aproduct.productId}" class="productIdClass"th:onclick="'javascript:showProductCount(' + ${aproduct.productId} + ');'" >
-                                    <input type="hidden" name="userId" th:value="${session.userId}" id="userId" >
-                                    <input type="hidden" name="theCart" th:value="${session.theCart}" id="cartId" >
+                                <div class="row justify-content-between">
                                     <div class="col-auto col-md-7">
                                         <div class="media flex-column flex-sm-row"> <img class=" img-fluid" src="https://i.imgur.com/6oHix28.jpg" width="62" height="62">
                                             <div class="media-body my-auto">
@@ -98,52 +95,54 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class=" pl-0 flex-sm-col col-auto my-auto" id="ajax_div">
+                                    <div class=" pl-0 flex-sm-col col-auto my-auto">
                                         <p class="boxed-1">2</p>
                                     </div>
                                     <div class=" pl-0 flex-sm-col col-auto my-auto ">
                                         <p><b>179 SEK</b></p>
                                     </div>
-                                </div> -->
+                                </div>
+                                <hr class="my-2">
                                 <div class="row justify-content-between">
-                                    <div class="col-md-4" style="display: flex; flex-direction: column;" th:each="aproduct : ${productList}">
-                                        <div class="row">
-                                            <div id="image" class="media flex-column flex-sm-row">
-                                                <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image"  width="62" height="62" style="border-radius:10px;" />
+                                    <div class="col-auto col-md-7">
+                                        <div class="media flex-column flex-sm-row"> <img class=" img-fluid " src="https://i.imgur.com/9MHvALb.jpg" width="62" height="62">
+                                            <div class="media-body my-auto">
+                                                <div class="row ">
+                                                    <div class="col">
+                                                        <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">2 Week Subscription</small>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div id="details" class="media-body my-auto">
-                                               
-                                                <p class="mb-0" ><b th:text="${aproduct.productName}"></b></p><small class="text-muted"></small>
-                                                <p class="mb-0" ><b th:text="${aproduct.brandName}"></b></p><small class="text-muted"></small>
-                                               
-
-                                            </div>
-
                                         </div>
-
-
                                     </div>
-                                    <div class="pl-0 flex-sm-col col-auto my-auto" style="display: flex; flex-direction: column;" th:each="proCount : ${productCountList}">
-
-                                        <p class="boxed-1" th:text="${proCount}"></p>
-
+                                    <div class="pl-0 flex-sm-col col-auto my-auto">
+                                        <p class="boxed">3</p>
                                     </div>
-                                    <div class=" pl-0 flex-sm-col col-auto my-auto " style="display: flex; flex-direction: column;"th:each=" productprice: ${priceList}">
-                                        <p><b th:text="${productprice}"></b></p>
-
-                                           <!-- <th:block th:with="proCount = ${proCount}, productprice = ${productprice}, var = ${proCount * productprice}">
-    <p th:text="${var}"></p> -->
-</th:block>
+                                    <div class="pl-0 flex-sm-col col-auto my-auto">
+                                        <p><b>179 SEK</b></p>
                                     </div>
                                 </div>
-
-
-
-
                                 <hr class="my-2">
-                            
+                                <div class="row justify-content-between">
+                                    <div class="col-auto col-md-7">
+                                        <div class="media flex-column flex-sm-row"> <img class=" img-fluid " src="https://i.imgur.com/6oHix28.jpg" width="62" height="62">
+                                            <div class="media-body my-auto">
+                                                <div class="row ">
+                                                    <div class="col">
+                                                        <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">2 Week Subscription</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pl-0 flex-sm-col col-auto my-auto">
+                                        <p class="boxed-1">2</p>
+                                    </div>
+                                    <div class="pl-0 flex-sm-col col-auto my-auto">
+                                        <p><b>179 SEK</b></p>
+                                    </div>
+                                </div>
                                 <hr class="my-2">
-                         
                                 <div class="row ">
                                     <div class="col">
                                         <div class="row justify-content-between">
@@ -186,69 +185,17 @@
 </div>
     </div>
 
-    <!-- <th:block th:with="variable = 10, controllerVar = 12, var = ${variable * controllerVar}">
-    <p th:text="${var}"></p>
-</th:block> -->
-
-    <script>
-$(document).ready(function(){
-  
-    //$("#productId").click();
-    $(".productIdClass").each(function() {
-        
-  console.log(`${this.val()}`);
-//$(".productIdClass").click();
-// var productId = $(".productIdClass").val();
-// showProduct(productId);
-
-
-});
-
-
-});
-
-function showProduct(productId){
-
-    var productId = productId;
-    var cartId = $("#cartId").val();
-    var userId = $("#userId").val();
-    //console.log(productId);
-    $.get("cart/getProductCount",
-     // $.post("home/showMadicines",
-                                                                            {
-                                                                                productId: productId,
-                                                                                cartId:cartId,
-                                                                                userId:userId
-                                                                              //  tablenames: tablename
-                                                                            },
-                                                                            function (data, status) {
-                                                                                console.log(data);
-                                                                                $("#ajax_div").html(data);
-                                                                             //   window.location.replace("/");
-                                                                                // if (data == "yes") {
-                                                                                //     window.location.replace("/");
-                                                                                // }
-                                                                            });
-
-
-
-}
- 
-
-    </script>
-
-<script th:inline="javascript">
-
-    /*<![CDATA[*/
-      
-       var user = /*[[${session.userName}]]*/ 'User Name';
-       console.log(user);
-
-     /*]]>*/
-</script> 
-
-
-
 </body>
 
 </html>
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    var theList = [[${productList}]]
+    for (i = 0; i < theList.length; i++) {
+        showProduct(theList[i]);
+    }
+
+    /*]]>*/
+</script>
