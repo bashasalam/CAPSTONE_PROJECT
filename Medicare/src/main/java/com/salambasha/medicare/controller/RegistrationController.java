@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.salambasha.medicare.entities.User;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping("MEDICARE/register")
 public class RegistrationController {
 	User user = new User();
 	@GetMapping("/new")

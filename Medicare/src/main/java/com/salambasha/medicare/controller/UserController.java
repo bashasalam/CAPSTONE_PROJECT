@@ -1,7 +1,5 @@
 package com.salambasha.medicare.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ import com.salambasha.medicare.services.CartService;
 import com.salambasha.medicare.services.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("MEDICARE/user")
 public class UserController {
 	
 	@Autowired
@@ -90,7 +88,7 @@ public class UserController {
 		  		
 		  		Cart existingCart = cartService.findByid(existingCartId);
 		  		
-		  		if((user!=null) && (existingCart!=null) ) {
+		  		if((user!=null) && (existingCart!=null)) {
 		  			
 		            
 		        //  if user.getUserId() = existingCart.

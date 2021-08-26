@@ -105,8 +105,7 @@
                                         <p><b>179 SEK</b></p>
                                     </div>
                                 </div> -->
-                                <div class="card-body pt-0">
-                                <div class="row justify-content-between">
+                                <div class="row ">
 
                                     <div th:each="cart : ${cartEmpty}">
 
@@ -115,64 +114,36 @@
 
                                     </div>
 
-<table class="table  col-auto col-md-7" style="padding: 0;margin: 0;" th:each="aproduct : ${productList}">
-   
-    <tbody>
-        <tr >
-            <td>
-                <!-- <div id="image" class="media flex-column">
-                
-            </div> -->
 
-            <div class="media flex-column flex-sm-row"> <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image"  width="62" height="62" style="border-radius:10px;" />
-                <div class="media-body my-auto">
-                    <div class="row ">
-                        <div class="col" style="margin-left: 1vw;padding: 1vh 0.5vw;">
-                            <p class="mb-0"><b th:text="${aproduct.productName}"></b></p><small class="text-muted" th:text="${aproduct.brandName}"></small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </td>
-           
-        </tr>
-    </tbody>
+                                    <div class="col-md-4"  th:each="aproduct : ${productList}">
+                                        <div style="display: flex; flex-direction: column;">
+                                            <div id="image" class="media flex-column">
+                                                <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image"  width="62" height="62" style="border-radius:10px;" />
+                                            </div>
+                                            <div id="details" class="media-body my-auto">
+                                               
+                                                <p class="mb-0" ><b th:text="${aproduct.productName}"></b></p><small class="text-muted"></small>
+                                                <p class="mb-0" ><b th:text="${aproduct.brandName}"></b></p><small class="text-muted"></small>
+                                               
+
+                                            </div>
+
+                                        </div>
 
 
-</table>
-<table class="table ">
-  
-    <tbody>
-
-        <tr th:each="proCount : ${productCountList}">
-            <td> 
-                <!-- <div th:each="proCount : ${productCountList}" class="row"> -->
-                <div class="pl-0 flex-sm-col col-auto my-auto"  >
+                                    </div>
+                                    <div th:each="proCount : ${productCountList}" style="display: flex; flex-direction: column;">
+                                    <div class="pl-0 flex-sm-col col-auto my-auto"  >
                                     
-                <p class="boxed-1" th:text="${proCount.count}"></p>
+                                        <p class="boxed-1" th:text="${proCount.count}"></p>
 
-            </div>
-       
-        </td>
-            <td>
-                
-                <div class=" pl-0 flex-sm-col col-auto my-auto " >
-                    <p><b th:text="${proCount.multipliedPrice}"></b></p>
-               </div>
-            <!-- </div> -->
-
-            </td>
-        </tr>
-
-    </tbody>
-
-</table>
-
-</div>
-
-                         
+                                    </div>
+                                    <div class=" pl-0 flex-sm-col col-auto my-auto " >
+                                        <p><b th:text="${proCount.multipliedPrice}"></b></p>
+                                   </div>
                                 </div>
                                 </div>
+
 
 
 
@@ -184,7 +155,7 @@
                                     <div class="col">
                                         <div class="row justify-content-between">
                                             <div class="col-4">
-                                                <p class="mb-1"><b>Total Amount</b></p>
+                                                <p class="mb-1"><b>Subtotal</b></p>
                                             </div>
                                             <div class="flex-sm-col col-auto"th:each=" total: ${sumTotal}">
                                                 <p class="mb-1"><b th:text="${total}"></b></p>
