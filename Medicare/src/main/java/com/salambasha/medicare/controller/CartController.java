@@ -39,13 +39,48 @@ public class CartController {
 
 	@GetMapping("/cart")
 	public String showUserCart(HttpSession session,Model model) {
-		long theUser = (long) session.getAttribute("userId");
-		long theCart = (long) session.getAttribute("theCart");
+		
+		long theUser=0;
+		long theCart=0;
+		if(session.getAttribute("userId")!=null) {
+			theUser = (long) session.getAttribute("userId");
+		}else {
+			
+			return "redirect:/MEDICARE/login/new";
+		}
+		
+		//long theUser = (long) session.getAttribute("userId");
+		
+		
+		if(session.getAttribute("theCart")!=null) {
+			theCart = (long) session.getAttribute("theCart");
+		}else {
+			
+			return "redirect:/MEDICARE/login/new";
+		}
+		
 
-
+		Cart cart = cartService.findByid(theCart);
+		System.out.println(cart.getCartId());
+		System.out.println(cart);
+		
+		int isActive = cart.getIsActive();
+		System.out.println(isActive);
+		System.out.println(theUser);
+		System.out.println(theCart);
+		 
+		if(isActive==1) {
+		
 
 		 List<ProductCount> productCounts = productCountController.findProducts(theCart,theUser);
-		
+		 
+		if((productCounts==null)||(productCounts.isEmpty())) {
+			model.addAttribute("cartEmpty", "Your Cart is Empty");
+			System.out.println("Empty model attribute added");
+			
+			return "pages/cart/order-summary";
+			
+		}else {
 		 List<Product> productList = new ArrayList<Product>();
 			
 			 List<Double> priceList = new ArrayList<Double>();
@@ -76,8 +111,23 @@ public class CartController {
 			 model.addAttribute("productCountList", productCounts);	
 			 model.addAttribute("productList", productList);	
 			 model.addAttribute("sumTotal", Total);
+			 
+			 System.out.println("model attribute added");
 		
 		return "pages/cart/order-summary";
+		}
+		
+	}else {
+		
+		
+		model.addAttribute("cartEmpty", "Your Cart is Empty");
+		System.out.println("Empty model attribute added");
+		
+		return "pages/cart/order-summary";
+		
+	}
+		
+		
 	}
 	
 	
@@ -220,7 +270,7 @@ session.setAttribute("theCart", cart.getCartId());
 	//@GetMapping("/order-details")
 	public String showOrderDetails() {
 		
-		return "pages/cart/order-summary";
+		return "pages/cart/order-summary copy";
 	}
 	
 	//@PostMapping("/checkout")

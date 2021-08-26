@@ -22,7 +22,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="card2 card border-0 px-4 py-5">
-                <form action="/user/logincheck" method="POST">
+                <form action="/MEDICARE/user/logincheck" method="POST">
                     <!-- <div class="row mb-4 px-3">
                         <h6 class="mb-0 mr-4 mt-2">Sign in with</h6>
                         <div class="facebook text-center mr-3">
@@ -55,7 +55,7 @@
                     <h4 th:style="${currentusernamepasswordmismatch== null} ? 'display:none' : 'display:block' ">  <span  style="color: red;"> Current Username/Password Mismatch </span></h4>
                     <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Login</button> </div>
                     <div class="row mb-4 px-3" th:style="${kindlyLoginNow!= null} ? 'display:none' : 'display:block' "> <small class="font-weight-bold">Don't have an account? <a class="text-danger "
-                        th:href="@{/register/new}">Register</a></small> </div>
+                        th:href="@{/MEDICARE/register/new}">Register</a></small> </div>
                     </form>
                 </div>
             </div>
