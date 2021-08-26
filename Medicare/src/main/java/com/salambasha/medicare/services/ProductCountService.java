@@ -60,9 +60,9 @@ public class ProductCountService {
 		productCountRepo.updateProductCount(count,offerPrice,totalPrice,productCountId);
 	}
 
-	public void save(long productId, int count, Cart cart, User user, double offerPrice, double totalPrice) {
+	public void save(long productId, int count, Cart cart, User user, double offerPrice, double totalPrice, String brandName, String madicineName, String mainImage) {
 		// TODO Auto-generated method stub
-		productCountRepo.save(new ProductCount(productId,count,cart,user,offerPrice,totalPrice));
+		productCountRepo.save(new ProductCount(productId,count,cart,user,offerPrice,totalPrice,mainImage,madicineName,brandName));
 	}
 	
 	//productCountRepo.save()

@@ -53,7 +53,7 @@
                         Sceond variant
                     </div> -->
                     <div class="">
-                        <form action="/cart/cartPage" method="POST" th:object="${productCountFormData}" >
+                        <form action="/MEDICARE/cart/cartPage" method="POST" th:object="${productCountFormData}" >
                             <input type="hidden" id="productId" name="productId" th:value="${product.productId}" th:field="*{productId}"/>
                             <input type="number" name="count"  id="quantityId" placeholder="Enter the quantity" required th:field="*{count}">
 

@@ -8,7 +8,7 @@
 <body>
 
     <nav th:replace="layouts :: userNavBar" ></nav>
-<div class="container">
+<div class="container-fluid">
 
 <div class=" container-fluid my-5 ">
     <div class="row justify-content-center ">
@@ -106,7 +106,7 @@
                                     </div>
                                 </div> -->
                                 <div class="card-body pt-0">
-                                <div class="row justify-content-between">
+                                <div class="">
 
                                     <div th:each="cart : ${cartEmpty}">
 
@@ -115,38 +115,58 @@
 
                                     </div>
 
-<table class="table  col-auto col-md-7" style="padding: 0;margin: 0;" th:each="aproduct : ${productList}">
+<table class="table " style="padding: 0;margin: 0;" th:each="aproduct : ${productCountList}">
    
     <tbody>
         <tr >
+
             <td>
+                <div class=" pl-0 flex-sm-col col-auto my-auto " >
+                   <button class="btn btn-sm btn-danger" th:onclick="'javascript:deleteProduct(' + ${aproduct.productId} + ');'" th:value="${aproduct.count}"> <b> - </b></button>
+               </div>
+              </td>
+            <td style="width: 5vw;">
                 <!-- <div id="image" class="media flex-column">
                 
             </div> -->
 
-            <div class="media flex-column flex-sm-row"> <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image"  width="62" height="62" style="border-radius:10px;" />
+            <div class="media flex-sm-row"> <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.mainImage}}" alt=" Madicine image"  width="75" height="75" style="border-radius:5px;" />
                 <div class="media-body my-auto">
                     <div class="row ">
                         <div class="col" style="margin-left: 1vw;padding: 1vh 0.5vw;">
-                            <p class="mb-0"><b th:text="${aproduct.productName}"></b></p><small class="text-muted" th:text="${aproduct.brandName}"></small>
+                            <p class="mb-0"><b th:text="${aproduct.madicineName}"></b></p><small class="text-muted" th:text="${aproduct.brandName}"></small>
                         </div>
                     </div>
                 </div>
             </div>
           </td>
+          <td style="width:5vw;">
+            <div   >
+                                    
+                <p class="boxed-1" > <input type="text" name="productCount" id="" 
+                    th:onchange="'javascript:changeCount(' + ${aproduct.productId} + ');'" th:value="${aproduct.count}" style="border:none; color:blue;width:2vw;"> </p>
+
+            </div>
+          </td>
+          <td style="width:5vw;">
+            <div >
+                <p style="width:3vw;"><b th:text="${aproduct.multipliedPrice}"></b></p>
+           </div>
+          </td>
+      
            
         </tr>
     </tbody>
 
 
 </table>
-<table class="table ">
+<!-- <table class="table ">
   
     <tbody>
 
         <tr th:each="proCount : ${productCountList}">
             <td> 
-                <!-- <div th:each="proCount : ${productCountList}" class="row"> -->
+                <div th:each="proCount : ${productCountList}" class="row">
                 <div class="pl-0 flex-sm-col col-auto my-auto"  >
                                     
                 <p class="boxed-1" th:text="${proCount.count}"></p>
@@ -159,14 +179,14 @@
                 <div class=" pl-0 flex-sm-col col-auto my-auto " >
                     <p><b th:text="${proCount.multipliedPrice}"></b></p>
                </div>
-            <!-- </div> -->
+            </div>
 
             </td>
         </tr>
 
     </tbody>
 
-</table>
+</table> -->
 
 </div>
 
@@ -243,46 +263,24 @@ $(document).ready(function(){
 
 });
 
-function showProduct(productId){
 
-    var productId = productId;
-    var cartId = $("#cartId").val();
-    var userId = $("#userId").val();
-    //console.log(productId);
-    $.get("cart/getProductCount",
-     // $.post("home/showMadicines",
-                                                                            {
-                                                                                productId: productId,
-                                                                                cartId:cartId,
-                                                                                userId:userId
-                                                                              //  tablenames: tablename
-                                                                            },
-                                                                            function (data, status) {
-                                                                                console.log(data);
-                                                                                $("#ajax_div").html(data);
-                                                                             //   window.location.replace("/");
-                                                                                // if (data == "yes") {
-                                                                                //     window.location.replace("/");
-                                                                                // }
-                                                                            });
+    function changeCount(productId){
+
+        alert(productId);
+
+    }
+
+    function deleteProduct(productId){
+
+       if( confirm("Are you sure to remove this Product?")){
+
+            alert(productId);
+
+       }
 
 
-
-}
- 
-
-    </script>
-
-<script th:inline="javascript">
-
-    /*<![CDATA[*/
-      
-       var user = /*[[${session.userName}]]*/ 'User Name';
-       console.log(user);
-
-     /*]]>*/
-</script> 
-
+    }
+</script>
 
 
 </body>

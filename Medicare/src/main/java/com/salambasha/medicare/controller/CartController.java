@@ -78,7 +78,7 @@ public class CartController {
 			model.addAttribute("cartEmpty", "Your Cart is Empty");
 			System.out.println("Empty model attribute added");
 			
-			return "pages/cart/cart-page";
+			return "pages/cart/order-summary";
 			
 		}else {
 		 List<Product> productList = new ArrayList<Product>();
@@ -114,7 +114,7 @@ public class CartController {
 			 
 			 System.out.println("model attribute added");
 		
-		return "pages/cart/cart-page";
+		return "pages/cart/order-summary";
 		}
 		
 	}else {
@@ -123,7 +123,7 @@ public class CartController {
 		model.addAttribute("cartEmpty", "Your Cart is Empty");
 		System.out.println("Empty model attribute added");
 		
-		return "pages/cart/cart-page";
+		return "pages/cart/order-summary";
 		
 	}
 		
@@ -159,9 +159,17 @@ public class CartController {
 					
 					double offerPrice = savingProduct.getOfferPrice();
 					
-					double totalPrice = offerPrice * count;
+					 
+					   
 					
-				productCountController.saveProductCount(productId,count,cart,user,offerPrice,totalPrice);
+					String brandName = savingProduct.getBrandName();
+					String madicineName = savingProduct.getProductName();
+					String mainImage = savingProduct.getImage();
+					
+					double totalPricewor = offerPrice * count;
+					 double totalPrice = Math.round(totalPricewor * 100D) / 100D;
+					
+				productCountController.saveProductCount(productId,count,cart,user,offerPrice,totalPrice,mainImage,madicineName,brandName);
 					
 			}else {
 								
@@ -206,12 +214,13 @@ public class CartController {
 			 
 		}
 		 
-		 double Total=0;
+		 double Totalwor=0;
 		 for (Double price : priceList) {
 			 
-			 Total = Total + price;
+			 Totalwor = Totalwor + price;
 		 }
 		 
+		 double Total = Math.round(Totalwor * 100D) / 100D;
 		 System.out.println("The total is " + Total);
 		 
 		 
@@ -230,7 +239,7 @@ session.setAttribute("userName", user.getFullName());
 session.setAttribute("theCart", cart.getCartId());
 //session.setAttribute("theProduct", );
 			
-			return "pages/cart/cart-page";
+			return "pages/cart/order-summary";
 			
 		}else {
 			
@@ -256,7 +265,7 @@ session.setAttribute("theCart", cart.getCartId());
 //
 //	public String showCheckout() {
 //		
-//		return "pages/cart/cart-page";
+//		return "pages/cart/order-summary";
 //	}
 	
 	//@PostMapping("/checkout")
@@ -270,7 +279,7 @@ session.setAttribute("theCart", cart.getCartId());
 	//@GetMapping("/order-details")
 	public String showOrderDetails() {
 		
-		return "pages/cart/cart-page";
+		return "pages/cart/order-summary";
 	}
 	
 	//@PostMapping("/checkout")
