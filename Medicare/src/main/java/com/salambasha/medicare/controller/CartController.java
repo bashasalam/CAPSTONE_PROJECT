@@ -21,7 +21,7 @@ import com.salambasha.medicare.services.CartService;
 import com.salambasha.medicare.services.ProductService;
 
 @Controller
-@RequestMapping("/cart")
+@RequestMapping("MEDICARE/cart")
 public class CartController {
     
 	@Autowired
@@ -78,7 +78,7 @@ public class CartController {
 			model.addAttribute("cartEmpty", "Your Cart is Empty");
 			System.out.println("Empty model attribute added");
 			
-			return "pages/cart/order-summary";
+			return "pages/cart/cart-page";
 			
 		}else {
 		 List<Product> productList = new ArrayList<Product>();
@@ -114,7 +114,7 @@ public class CartController {
 			 
 			 System.out.println("model attribute added");
 		
-		return "pages/cart/order-summary";
+		return "pages/cart/cart-page";
 		}
 		
 	}else {
@@ -123,7 +123,7 @@ public class CartController {
 		model.addAttribute("cartEmpty", "Your Cart is Empty");
 		System.out.println("Empty model attribute added");
 		
-		return "pages/cart/order-summary";
+		return "pages/cart/cart-page";
 		
 	}
 		
@@ -230,7 +230,7 @@ session.setAttribute("userName", user.getFullName());
 session.setAttribute("theCart", cart.getCartId());
 //session.setAttribute("theProduct", );
 			
-			return "pages/cart/order-summary";
+			return "pages/cart/cart-page";
 			
 		}else {
 			
@@ -256,7 +256,7 @@ session.setAttribute("theCart", cart.getCartId());
 //
 //	public String showCheckout() {
 //		
-//		return "pages/cart/order-summary";
+//		return "pages/cart/cart-page";
 //	}
 	
 	//@PostMapping("/checkout")
@@ -270,7 +270,7 @@ session.setAttribute("theCart", cart.getCartId());
 	//@GetMapping("/order-details")
 	public String showOrderDetails() {
 		
-		return "pages/cart/order-summary copy";
+		return "pages/cart/cart-page";
 	}
 	
 	//@PostMapping("/checkout")
