@@ -1,5 +1,7 @@
 package com.salambasha.medicare.controller;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.salambasha.medicare.entities.Address;
 import com.salambasha.medicare.entities.Cart;
+import com.salambasha.medicare.entities.PaymentCard;
 import com.salambasha.medicare.entities.Product;
 import com.salambasha.medicare.entities.ProductCount;
 import com.salambasha.medicare.entities.User;
@@ -38,7 +42,7 @@ public class CartController {
 	UserController userController;
 
 	@GetMapping("/cart")
-	public String showUserCart(HttpSession session,Model model) {
+	public String showUserCart(HttpSession session,Model model, PaymentCard paymentCard) {
 		
 		long theUser=0;
 		long theCart=0;
@@ -76,6 +80,7 @@ public class CartController {
 		 
 		if((productCounts==null)||(productCounts.isEmpty())) {
 			model.addAttribute("cartEmpty", "Your Cart is Empty");
+			model.addAttribute("paymentCardFormData", paymentCard);
 			System.out.println("Empty model attribute added");
 			
 			return "pages/cart/order-summary";
@@ -97,20 +102,25 @@ public class CartController {
 	
 				
 				double productSumPrice = productCount.getMultipliedPrice();
+				
+			
 				priceList.add(productSumPrice);
 				
 				 
 			}
 			 
-			 double Total=0;
+			 double Totalwor=0;
 			 for (Double price : priceList) {
 				 
-				 Total = Total + price;
+				 Totalwor = Totalwor + price;
 			 }
+			 
+			 double Total = Math.round(Totalwor * 100D) / 100D;
 			 
 			 model.addAttribute("productCountList", productCounts);	
 			 model.addAttribute("productList", productList);	
 			 model.addAttribute("sumTotal", Total);
+			 model.addAttribute("paymentCardFormData", paymentCard);
 			 
 			 System.out.println("model attribute added");
 		
@@ -119,7 +129,7 @@ public class CartController {
 		
 	}else {
 		
-		
+		 model.addAttribute("paymentCardFormData", paymentCard);
 		model.addAttribute("cartEmpty", "Your Cart is Empty");
 		System.out.println("Empty model attribute added");
 		
@@ -134,7 +144,9 @@ public class CartController {
 	
 	
 	@PostMapping("/cartPage")
-	public String showCartPage(HttpSession session,Model model, ProductCount proudctCount, @RequestParam("productId") long productId, @RequestParam(value="count", required=false) int count) {
+	public String showCartPage(HttpSession session,Model model, 
+			ProductCount proudctCount, @RequestParam("productId") long productId,
+			@RequestParam(value="count", required=false) int count,PaymentCard paymentCard) {
 		
 		if(session.getAttribute("userId") != null) {
 			
@@ -232,12 +244,14 @@ public class CartController {
 	 model.addAttribute("productCountList", productCounts);	
 	 model.addAttribute("productList", productList);	
 	 model.addAttribute("sumTotal", Total);
+	 model.addAttribute("paymentCardFormData", paymentCard);
 		
 		//model.addAttribute("ProductCountList", productCounts);
 session.setAttribute("userId", user.getUserId());
 session.setAttribute("userName", user.getFullName());
 session.setAttribute("theCart", cart.getCartId());
 //session.setAttribute("theProduct", );
+
 			
 			return "pages/cart/order-summary";
 			
@@ -250,14 +264,106 @@ session.setAttribute("theCart", cart.getCartId());
 		
 	}
 
+	@RequestMapping("/changeCount")
+	public String prductCountChange(@RequestParam("cartId") long cartId,
+			@RequestParam("userId") long userId,
+			@RequestParam("changedCount") int count, @RequestParam("countTableId") long countTableId,
+			Model model,HttpSession session,PaymentCard paymentCard) {
+		
+		User user = userController.findById(userId);
+		Cart cart = cartService.findByid(cartId);
+				
+		ProductCount productCount1 = productCountController.findByid(countTableId);
+		
+		long productId = productCount1.getProductId();
+		
+		Product savingProduct = productService.findById(productId);
+		
+		double offerPrice = savingProduct.getOfferPrice();
+		
+	//	double totalPricewor = offerPrice * count;
+	//long productCountId = productCountController.findPCid(productId);
+		
+		double totalPricewor = offerPrice * count;
+		 double totalPrice = Math.round(totalPricewor * 100D) / 100D;
+	
+	productCountController.updateProductCount(count,offerPrice,totalPrice,countTableId);
+	
+	List<ProductCount> productCounts = productCountController.findProducts(cartId,userId);
+	 
+	 List<Product> productList = new ArrayList<Product>();
+
+	 List<Double> priceList = new ArrayList<Double>();
+	 
+	 for (ProductCount productCount : productCounts) {
+		
+		long cartProductId =  productCount.getProductId();
+		
+		
+		
+		Product cartProduct = productService.findById(cartProductId);
+		
+		productList.add(cartProduct);
+
+		
+		double productSumPrice = productCount.getMultipliedPrice();
+		priceList.add(productSumPrice);
+		
+		 
+	}
+	 
+	 double Totalwor=0;
+	 for (Double price : priceList) {
+		 
+		 Totalwor = Totalwor + price;
+	 }
+	 
+	 double Total = Math.round(Totalwor * 100D) / 100D;
+	 System.out.println("The total is " + Total);
+	 
+	 
+	 
+	 System.out.print( "Product price list is"+priceList);
+
+System.out.print( "Product Count list is"+productCounts);
+//model.addAttribute("priceList", priceList);
+model.addAttribute("productCountList", productCounts);	
+model.addAttribute("productList", productList);	
+model.addAttribute("sumTotal", Total);
+model.addAttribute("paymentCardFormData", paymentCard);
+	
+	//model.addAttribute("ProductCountList", productCounts);
+session.setAttribute("userId", user.getUserId());
+session.setAttribute("userName", user.getFullName());
+session.setAttribute("theCart", cart.getCartId());
+//session.setAttribute("theProduct", );
+		
+		
+		
+		return"pages/cart/order-summary";
+	}
+	
+	
+	@RequestMapping("/removeProduct")
+	public String removeProduct(@RequestParam("productId") long productId, @RequestParam("countTableId") long countTableId,HttpSession session, Model model) {
+		
+		productCountController.deleteById(countTableId);
+		
+		
+		return"redirect:/MEDICARE/cart/cart";
+	}
+	
+	
 	
 	@GetMapping("/address")
-	public String showUserddressForm(HttpSession session) {
+	public String showUserddressForm(HttpSession session, Address address,Model model) {
 		
 		
-		
+		model.addAttribute("addressFromData", address);
+		model.addAttribute("paymentSuccessful", "Your Payment is Successfull");
 		return "pages/cart/cart-address";
 	}
+	
 	
 	
 	
@@ -279,7 +385,7 @@ session.setAttribute("theCart", cart.getCartId());
 	//@GetMapping("/order-details")
 	public String showOrderDetails() {
 		
-		return "pages/cart/order-summary";
+		return "pages/cart/cart-page";
 	}
 	
 	//@PostMapping("/checkout")

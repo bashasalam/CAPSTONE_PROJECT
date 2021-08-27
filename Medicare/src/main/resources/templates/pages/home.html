@@ -52,7 +52,7 @@
 
    <div class="container-fluid " style="margin-left: 0px;">
 <div class="col-md-8 mt-3 center container">
-    <form action="/admin/selectedCategory" method="POST" >
+    <form action="/MEDICARE/admin/selectedCategory" method="POST" >
         <select id="selectCategroyId" onchange="getCategoryId()" class="form-control">
             <table class="table table-bordered table-striped">
                 <tbody >
@@ -133,7 +133,7 @@ function showProductPage(productId){
     var productId = productId;
    //alert(productId);
 
-    window.location.replace("/products/"+productId);
+    window.location.replace("/MEDICARE/products/"+productId);
 //th:href="@{/products/selectedProduct"
 }
 
@@ -166,24 +166,7 @@ function showProductPage(productId){
 
       }
 
-    //   function delete_datas(id, tablename)
-    //                                                         {
-    //                                                             if (confirm("Are you sure ?") == true) {
-    //                                                                 $('#loading_gif').show();
-    //                                                                 $.post("dashboard.php",
-    //                                                                         {
-    //                                                                             deleterid: id,
-    //                                                                             tablenames: tablename
-    //                                                                         },
-    //                                                                         function (data, status) {
-    //                                                                             console.log(data);
-    //                                                                             if (data == "yes") {
-    //                                                                                 window.location.replace("dashboard.php?msg=4");
-    //                                                                             }
-    //                                                                         });
-    //                                                             }
-    //                                                         }
-
+   
    </script>
 
 

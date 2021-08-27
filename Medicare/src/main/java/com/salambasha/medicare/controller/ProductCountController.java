@@ -79,4 +79,19 @@ public class ProductCountController {
 		productCountService.save(productId,count,cart,user,offerPrice,totalPrice,mainImage,madicineName,brandName);
 		
 	}
+
+
+	public ProductCount findByid(long countTableId) {
+		
+		
+		ProductCount productCount = productCountService.findByid(countTableId);
+		return productCount;
+	}
+
+
+	public void deleteById(long countTableId) {
+		
+		productCountService.deleteById(countTableId);
+		
+	}
 }

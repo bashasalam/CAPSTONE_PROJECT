@@ -11,7 +11,7 @@
 <div class="container">
   
   <div class="col-md-12" style="margin-top: 2vh;">
-    <h3 style="text-align: center;"><a th:href="@{/admin/add-category}" ><button class="btn btn-primary" style="text-align: center;"> Add Category</button></a></h3>
+    <h3 style="text-align: center;"><a th:href="@{/MEDICARE/admin/add-category}" ><button class="btn btn-primary" style="text-align: center;"> Add Category</button></a></h3>
 
     
 
@@ -48,7 +48,7 @@
           </table>
 </div>
 <hr>
-<h3 style="text-align: center;"><a th:href="@{/admin/add-madicine}"><button class="btn btn-primary"> Add Product</button></a></h3>
+<h3 style="text-align: center;"><a th:href="@{/MEDICARE/admin/add-madicine}"><button class="btn btn-primary"> Add Product</button></a></h3>
 <div class="col-md-12" style="margin-top: 2vh;">
                            <h3 style="text-align: center;">Active Products</h3>
 <table class="table table-bordered table-striped">
@@ -170,7 +170,7 @@ function categoryEdit(id){
 var categoryId = id;
 //alert(categoryId);
 
-window.location.replace("/category?editId="+categoryId);
+window.location.replace("/MEDICARE/category?editId="+categoryId);
 
 }
 function categoryDelete(id){
@@ -178,7 +178,7 @@ var categoryId = id;
 //alert(categoryId);
 if (confirm("Are you sure ?") == true) {
 
-  window.location.replace("/category?deleteId="+categoryId);
+  window.location.replace("?MEDICARE/category?deleteId="+categoryId);
 
 }
 
@@ -187,14 +187,14 @@ if (confirm("Are you sure ?") == true) {
 function productEdit(id){
 var productId = id;
 //alert(productId);
-window.location.replace("/products?editId="+productId);
+window.location.replace("/MEDICARE/products?editId="+productId);
 
 }
 
 function productInActivate(id){
 var productId = id;
 //alert(productId);
-window.location.replace("/products/disable?disableId="+productId);
+window.location.replace("/MEDICARE/products/disable?disableId="+productId);
 //$("#activateId").css
 $('#disableId').css('display', 'none');
 $('#enableId').css('display', 'block');
@@ -204,7 +204,7 @@ $('#enableId').css('display', 'block');
 function productActivate(id){
 var productId = id;
 //alert(productId);
-window.location.replace("/products/enable?enableId="+productId);
+window.location.replace("/MEDICARE/products/enable?enableId="+productId);
 $('#enableId').css('display', 'none');
 $('#disableId').css('display', 'block');
 

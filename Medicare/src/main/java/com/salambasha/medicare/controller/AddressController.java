@@ -9,7 +9,7 @@ import com.salambasha.medicare.entities.Address;
 import com.salambasha.medicare.services.AddressService;
 
 @Controller
-@RequestMapping("/address")
+@RequestMapping("MEDICARE/address")
 public class AddressController {
 
 	@Autowired
@@ -20,7 +20,7 @@ public class AddressController {
 		
 		addressService.save(address);
 		
-		return "redirect:/cart/order-details";
+		return "redirect:/MEDICARE/cart/success";
 	}
 	
 }

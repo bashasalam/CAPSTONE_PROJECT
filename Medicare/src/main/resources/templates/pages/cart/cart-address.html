@@ -10,13 +10,15 @@
 
     <nav th:replace="layouts :: userNavBar"></nav>
     <div class="container mt-2" >
+    
+     <h3 th:each=" payment: ${paymentSuccessful}" th:text="${payment}"></h3>
         <h4 class="card-title mt-3 text-center">Address Details</h4>
      
         <div class="card bg-light">
         <article class="card-body mx-auto" style="max-width: 40vw;">
            
-            <!-- <form action="/cart/order-details" method="post" > -->
-            <form action="/address/save" method="post" >
+            <!-- <form action="/MEDICARE/cart/order-details" method="post" > -->
+            <form action="/MEDICARE/address/save" method="post" >
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>

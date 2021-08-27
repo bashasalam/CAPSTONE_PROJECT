@@ -44,7 +44,7 @@
     <nav th:replace="layouts :: adminNavBar" ></nav>
 <div class="container">
 <h3> Add Category</h3>
-    <form action="/category/save" method="post" th:object="${categoryFormData}">
+    <form action="/MEDICARE/category/save" method="post" th:object="${categoryFormData}">
         <label for="fname">Category Name</label>
         <input type="text" id="madicineName" name="categoryName" placeholder="category name.." th:field="${categoryFormData.categoryName}">
           

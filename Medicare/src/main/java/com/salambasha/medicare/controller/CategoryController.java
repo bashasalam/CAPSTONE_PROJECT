@@ -16,7 +16,7 @@ import com.salambasha.medicare.entities.Category;
 import com.salambasha.medicare.services.CategoryService;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/MEDICARE/category")
 public class CategoryController {
 	
 	@Autowired

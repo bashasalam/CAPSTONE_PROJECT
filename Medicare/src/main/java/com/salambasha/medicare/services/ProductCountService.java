@@ -64,6 +64,19 @@ public class ProductCountService {
 		// TODO Auto-generated method stub
 		productCountRepo.save(new ProductCount(productId,count,cart,user,offerPrice,totalPrice,mainImage,madicineName,brandName));
 	}
+
+	public ProductCount findByid(long countTableId) {
+		
+		
+		ProductCount productCount = productCountRepo.findByid(countTableId);
+		return productCount;
+	}
+
+	public void deleteById(long countTableId) {
+		
+		productCountRepo.deleteById(countTableId);
+		
+	}
 	
 	//productCountRepo.save()
 	

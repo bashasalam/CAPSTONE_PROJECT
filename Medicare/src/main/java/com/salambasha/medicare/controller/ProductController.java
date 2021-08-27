@@ -26,7 +26,7 @@ import com.salambasha.medicare.services.ProductService;
 
 
 @Controller
-@RequestMapping("/products")
+@RequestMapping("MEDICARE/products")
 public class ProductController {
 	
 	public static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
@@ -68,7 +68,7 @@ public class ProductController {
 		int value = 0;
 		productService.enableProduct(enableValue,enableId);	
 		
-		return "redirect:/admin/";
+		return "redirect:/MEDICARE/admin/";
 	}
 	@GetMapping("/disable")
 	public String productDisable(@RequestParam long disableId,Model model) {
@@ -78,7 +78,7 @@ public class ProductController {
 		
 		//System.out.print(disabledproducts);
 		
-		return "redirect:/admin/";
+		return "redirect:/MEDICARE/admin/";
 	}
 	
 	
@@ -132,7 +132,7 @@ public class ProductController {
 		  		
 		   if(productService.addProduct(productName,brandName,description,price,offer,offerPrice,theCategory,quantity,image,image1,image2,image3)) {
 			   System.out.println("Working here5");
-			   return "redirect:/admin/" ;
+			   return "redirect:/MEDICARE/admin/" ;
 		   }else {
 			   System.out.println("Working here6");
 			   return "pages/products/addd-madicine";
@@ -190,7 +190,7 @@ public class ProductController {
 		
 		System.out.println("Working here4");
 		productService.updateProduct(productName,brandName,description,price,offer,offerPrice,theCategory,quantity,image,image1,image2,image3,productId);
-		return "redirect:/admin/" ;
+		return "redirect:/MEDICARE/admin/" ;
 		 
 	}
 
