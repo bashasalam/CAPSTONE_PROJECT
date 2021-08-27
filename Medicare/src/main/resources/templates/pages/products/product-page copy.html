@@ -53,7 +53,7 @@
                         Sceond variant
                     </div> -->
                     <div class="">
-                        <form action="/MEDICARE/cart/cartPage" method="POST" th:object="${productCountFormData}" >
+                        <form action="/cart/cartPage" method="POST" th:object="${productCountFormData}" >
                             <input type="hidden" id="productId" name="productId" th:value="${product.productId}" th:field="*{productId}"/>
                             <input type="number" name="count"  id="quantityId" placeholder="Enter the quantity" required th:field="*{count}">
 
@@ -61,7 +61,7 @@
 
                       </div>
 
-                        <button type="submit" class="btn btn-primary" style="margin-left: 15vw; margin-top:2vh"> Add to Cart</button>
+                        <button type="submit" class="btn btn-primary" style="margin-left: 10vw"> Add to Cart</button>
                     </form>
                     </div>
 

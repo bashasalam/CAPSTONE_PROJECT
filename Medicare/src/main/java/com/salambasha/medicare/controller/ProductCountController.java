@@ -75,8 +75,23 @@ public class ProductCountController {
 
 
 	public void saveProductCount(long productId, int count, Cart cart, User user, double offerPrice,
-			double totalPrice) {
-		productCountService.save(productId,count,cart,user,offerPrice,totalPrice);
+			double totalPrice, String brandName, String madicineName, String mainImage) {
+		productCountService.save(productId,count,cart,user,offerPrice,totalPrice,mainImage,madicineName,brandName);
+		
+	}
+
+
+	public ProductCount findByid(long countTableId) {
+		
+		
+		ProductCount productCount = productCountService.findByid(countTableId);
+		return productCount;
+	}
+
+
+	public void deleteById(long countTableId) {
+		
+		productCountService.deleteById(countTableId);
 		
 	}
 }

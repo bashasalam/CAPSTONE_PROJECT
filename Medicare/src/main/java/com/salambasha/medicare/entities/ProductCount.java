@@ -32,8 +32,28 @@ public class ProductCount {
 	
 	private double multipliedPrice;
 	
+	private String mainImage;
+	private String madicineName;
+	private String brandName;
+	
+	
 	
 	 
+	public ProductCount(long productId, int count, Cart theCart, User theUser, double singleProductPrice,
+			double multipliedPrice, String mainImage, String madicineName, String brandName) {
+		super();
+		this.productId = productId;
+		this.count = count;
+		this.theCart = theCart;
+		this.theUser = theUser;
+		this.singleProductPrice = singleProductPrice;
+		this.multipliedPrice = multipliedPrice;
+		this.mainImage = mainImage;
+		this.madicineName = madicineName;
+		this.brandName = brandName;
+	}
+
+
 	public ProductCount() {
 		super();
 	}
@@ -137,6 +157,36 @@ public class ProductCount {
 
 	public void setMultipliedPrice(double multipliedPrice) {
 		this.multipliedPrice = multipliedPrice;
+	}
+
+
+	public String getMainImage() {
+		return mainImage;
+	}
+
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+
+
+	public String getMadicineName() {
+		return madicineName;
+	}
+
+
+	public void setMadicineName(String madicineName) {
+		this.madicineName = madicineName;
+	}
+
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 
 

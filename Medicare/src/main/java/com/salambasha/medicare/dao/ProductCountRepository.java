@@ -28,5 +28,8 @@ public interface ProductCountRepository extends CrudRepository<ProductCount, Lon
 	@Query(nativeQuery = true, value="UPDATE `product_count` SET `count`=?, `single_product_price`=?, `multiplied_price`=? WHERE `count_table_id`=?;")
 	void updateProductCount(int count, double offerPrice, double totalPrice, long productCountId);
 
+	@Query(nativeQuery = true, value="SELECT * FROM product_count WHERE count_table_id=?")
+	ProductCount findByid(long countTableId);
+
 	
 }

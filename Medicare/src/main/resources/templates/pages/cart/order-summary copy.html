@@ -8,7 +8,7 @@
 <body>
 
     <nav th:replace="layouts :: userNavBar" ></nav>
-<div class="container">
+<div class="container-fluid">
 
 <div class=" container-fluid my-5 ">
     <div class="row justify-content-center ">
@@ -83,7 +83,10 @@
                                 <hr class="my-2">
                             </div>
                             <div class="card-body pt-0">
-                                <div class="row justify-content-between">
+                                <!-- <div class="row justify-content-between" th:each=" aproduct: ${productList}" id="products">
+                                    <input type="hidden" name="productId" th:value="${aproduct.productId}" class="productIdClass"th:onclick="'javascript:showProductCount(' + ${aproduct.productId} + ');'" >
+                                    <input type="hidden" name="userId" th:value="${session.userId}" id="userId" >
+                                    <input type="hidden" name="theCart" th:value="${session.theCart}" id="cartId" >
                                     <div class="col-auto col-md-7">
                                         <div class="media flex-column flex-sm-row"> <img class=" img-fluid" src="https://i.imgur.com/6oHix28.jpg" width="62" height="62">
                                             <div class="media-body my-auto">
@@ -95,65 +98,112 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class=" pl-0 flex-sm-col col-auto my-auto">
+                                    <div class=" pl-0 flex-sm-col col-auto my-auto" id="ajax_div">
                                         <p class="boxed-1">2</p>
                                     </div>
                                     <div class=" pl-0 flex-sm-col col-auto my-auto ">
                                         <p><b>179 SEK</b></p>
                                     </div>
+                                </div> -->
+                                <div class="card-body pt-0">
+                                <div class="">
+
+                                    <div th:each="cart : ${cartEmpty}">
+
+                                        <h6 th:text="${cart}"></h6>
+                                        <a class="btn btn-outline-primary" th:href="@{/MEDICARE/}">  Go to Shop  </a>
+
+                                    </div>
+
+<table class="table " style="padding: 0;margin: 0;" th:each="aproduct : ${productCountList}">
+   
+    <tbody>
+        <tr >
+
+            <td>
+                <div class=" pl-0 flex-sm-col col-auto my-auto " >
+                   <button class="btn btn-sm btn-danger" th:onclick="'javascript:deleteProduct(' + ${aproduct.productId} + ');'" th:value="${aproduct.count}"> <b> - </b></button>
+               </div>
+              </td>
+            <td style="width: 5vw;">
+                <!-- <div id="image" class="media flex-column">
+                
+            </div> -->
+
+            <div class="media flex-sm-row"> <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.mainImage}}" alt=" Madicine image"  width="75" height="75" style="border-radius:5px;" />
+                <div class="media-body my-auto">
+                    <div class="row ">
+                        <div class="col" style="margin-left: 1vw;padding: 1vh 0.5vw;">
+                            <p class="mb-0"><b th:text="${aproduct.madicineName}"></b></p><small class="text-muted" th:text="${aproduct.brandName}"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </td>
+          <td style="width:5vw;">
+            <div id="ajax_div">
+                                    
+                <p class="boxed-1" >
+                     <input type="number" name="productCount" id="inputId" class="inputClass"
+                    th:onchange="'javascript:changeCount(' + ${aproduct.countTableId}+ ');'" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;"> 
+                     <input type="number" name="productCount" id="inputId" 
+                     th:onchange="|changeCount('${aproduct.countTableId}',${aproduct.count})|" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;"> 
+
+                    <input type="hidden" name="userId" th:value="${session.userId}"  id="userId">
+                    <input type="hidden" name="theCart" th:value="${session.theCart}" id="theCart">
+                    <input type="hidden" name="countTableId" th:value="${aproduct.countTableId}" id="countTableId">
+                
+                </p>
+                                    
+             <!--    <p class="boxed-1" > <input type="number" name="productCount" id="inputId" 
+                    oninput="changeCount(this.val())" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;"> 
+                    <input type="hidden" name="userId" th:value="${session.userId}"  id="userId">
+                    <input type="hidden" name="theCart" th:value="${session.theCart}" id="theCart">
+                    <input type="hidden" name="countTableId" th:value="${aproduct.countTableId}" id="countTableId">
+                
+                </p> -->
+
+                   
+
+            </div>
+          </td>
+          <td style="width:5vw;">
+            <div >
+                <p style="width:3vw;"><b th:text="${aproduct.multipliedPrice}"></b></p>
+           </div>
+          </td>
+      
+           
+        </tr>
+    </tbody>
+
+
+</table>
+
+
+</div>
+
+                         
                                 </div>
-                                <hr class="my-2">
-                                <div class="row justify-content-between">
-                                    <div class="col-auto col-md-7">
-                                        <div class="media flex-column flex-sm-row"> <img class=" img-fluid " src="https://i.imgur.com/9MHvALb.jpg" width="62" height="62">
-                                            <div class="media-body my-auto">
-                                                <div class="row ">
-                                                    <div class="col">
-                                                        <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">2 Week Subscription</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pl-0 flex-sm-col col-auto my-auto">
-                                        <p class="boxed">3</p>
-                                    </div>
-                                    <div class="pl-0 flex-sm-col col-auto my-auto">
-                                        <p><b>179 SEK</b></p>
-                                    </div>
                                 </div>
+
+
+
                                 <hr class="my-2">
-                                <div class="row justify-content-between">
-                                    <div class="col-auto col-md-7">
-                                        <div class="media flex-column flex-sm-row"> <img class=" img-fluid " src="https://i.imgur.com/6oHix28.jpg" width="62" height="62">
-                                            <div class="media-body my-auto">
-                                                <div class="row ">
-                                                    <div class="col">
-                                                        <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">2 Week Subscription</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pl-0 flex-sm-col col-auto my-auto">
-                                        <p class="boxed-1">2</p>
-                                    </div>
-                                    <div class="pl-0 flex-sm-col col-auto my-auto">
-                                        <p><b>179 SEK</b></p>
-                                    </div>
-                                </div>
+                            
                                 <hr class="my-2">
+                         
                                 <div class="row ">
                                     <div class="col">
                                         <div class="row justify-content-between">
                                             <div class="col-4">
-                                                <p class="mb-1"><b>Subtotal</b></p>
+                                                <p class="mb-1"><b>Total Amount</b></p>
                                             </div>
-                                            <div class="flex-sm-col col-auto">
-                                                <p class="mb-1"><b>179 SEK</b></p>
+                                            <div class="flex-sm-col col-auto"th:each=" total: ${sumTotal}">
+                                                <p class="mb-1"><b th:text="${total}"></b></p>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-between">
+                                        <!-- <div class="row justify-content-between">
                                             <div class="col">
                                                 <p class="mb-1"><b>Shipping</b></p>
                                             </div>
@@ -168,7 +218,7 @@
                                             <div class="flex-sm-col col-auto">
                                                 <p class="mb-1"><b>537 SEK</b></p>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <hr class="my-0">
                                     </div>
                                 </div>
@@ -185,17 +235,138 @@
 </div>
     </div>
 
+    <!-- <th:block th:with="variable = 10, controllerVar = 12, var = ${variable * controllerVar}">
+    <p th:text="${var}"></p>
+</th:block> -->
+
+    <script>
+$(document).ready(function(){
+  
+    //$("#productId").click();
+    $(".productIdClass").each(function() {
+        //
+  console.log(`${this.val()}`);
+//$(".productIdClass").click();
+// var productId = $(".productIdClass").val();
+// showProduct(productId);
+
+
+});
+
+
+});
+
+
+    // function changeCount(productId){
+
+    //     alert(productId);
+
+    // }
+
+    function changeCount(countTableId){
+
+//alert("function call");
+var cartId = $("#theCart").val();
+var userId = $("#userId").val();
+var count = $("#inputId").val();
+//var count =`${this.val()}`;
+
+//var countTableId = $("#countTableId").val();
+
+ alert(count);
+
+console.log(cartId);
+console.log(userId);
+//console.log(productId);
+
+$.get("/MEDICARE/cart/changeCount",
+// $.post("home/showMadicines",
+                                                                    {
+                                                                        cartId: cartId,
+                                                                        userId:userId,
+                                                                       // productId:productId,
+                                                                        changedCount:count,
+                                                                        countTableId:countTableId
+                                                                      //  tablenames: tablename
+                                                                    },
+                                                                   function (data, status) {
+
+                                                                    window.location.replace("/MEDICARE/cart/cart");
+                                                                        // console.log(data);
+                                                                        // $("#inputId").css("display:none")
+                                                                        // $("#ajax_div").html(data);
+                                                                      //  window.location.replace("/MEDICARE/cart/order-details?data="+data);
+
+                                                                      
+                                                                     //   window.location.replace("/");
+                                                                        // if (data == "yes") {
+                                                                        //     window.location.replace("/");
+                                                                        // }
+                                                                 // 
+                                                                        }  
+                                                                    );
+
+}
+
+function changeCount(countTableId,count){
+
+//alert("function call");
+var cartId = $("#theCart").val();
+var userId = $("#userId").val();
+//var count = $("#inputId").val();
+//var count =`${this.val()}`;
+
+//var countTableId = $("#countTableId").val();
+
+alert(count);
+
+console.log(cartId);
+console.log(count);
+//console.log(productId);
+
+$.get("/MEDICARE/cart/changeCount",
+// $.post("home/showMadicines",
+                                                                    {
+                                                                        cartId: cartId,
+                                                                        userId:userId,
+                                                                       // productId:productId,
+                                                                        changedCount:count,
+                                                                        countTableId:countTableId
+                                                                      //  tablenames: tablename
+                                                                    },
+                                                                   function (data, status) {
+
+                                                                    window.location.replace("/MEDICARE/cart/cart");
+                                                                        // console.log(data);
+                                                                        // $("#inputId").css("display:none")
+                                                                        // $("#ajax_div").html(data);
+                                                                      //  window.location.replace("/MEDICARE/cart/order-details?data="+data);
+
+                                                                      
+                                                                     //   window.location.replace("/");
+                                                                        // if (data == "yes") {
+                                                                        //     window.location.replace("/");
+                                                                        // }
+                                                                 // 
+                                                                        }  
+                                                                    );
+
+}
+
+
+    function deleteProduct(productId){
+
+       if( confirm("Are you sure to remove this Product?")){
+
+            alert(productId);
+
+       }
+
+
+    }
+</script>
+
+
 </body>
 
 </html>
-
-<script type="text/javascript" th:inline="javascript">
-    /*<![CDATA[*/
-
-    var theList = [[${productList}]]
-    for (i = 0; i < theList.length; i++) {
-        showProduct(theList[i]);
-    }
-
-    /*]]>*/
-</script>

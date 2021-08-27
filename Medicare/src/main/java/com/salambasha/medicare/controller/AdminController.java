@@ -24,7 +24,7 @@ import com.salambasha.medicare.services.AdminService;
 import com.salambasha.medicare.services.ProductService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/MEDICARE/admin")
 public class AdminController {
 	
 	Category category = new Category();
@@ -58,7 +58,7 @@ public class AdminController {
 		if(admin != null) {
 				session.setAttribute("userName", admin.getUserName());
 			
-			return "redirect:/admin/"; 
+			return "redirect:/MEDICARE/admin/"; 
 		}else {
 			String obj = "Current Username and Password Mismatching";
 			model.addAttribute("currentusernamepasswordmismatch", obj);

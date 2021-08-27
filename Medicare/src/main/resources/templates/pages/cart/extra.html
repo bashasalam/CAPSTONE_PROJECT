@@ -1,0 +1,92 @@
+<div class="row" th:each="product : ${productList}" >
+    <div class="col-md-12" style="height: 30vh;border: 1px solid yellow; border-radius: 10px; margin-left: auto;" >
+        <div class="row">
+            <div id="imageDiv" class="col-md-2" style="height: 25vh; border: solid 1px blue;">
+                <img type="image/webp" class="image" th:srcset="@{${'/'+product.image}}" alt="product Image" >
+
+            </div>
+            <div id="detailsDiv" class="col-md-6" style="height: 25vh; border: solid 1px rgb(106, 165, 50);">
+                <h3 th:text="${product.productName}"></h3>
+                <h5 th:text="${product.brandName}"></h5>
+                <!-- <h5 th:text="${productCount.proCount}"></h5>
+                <h5 th:text="${price.totalPrice}"></h5> -->
+                <input type="text" th:oninput="'javascript:changeCount(' + ${product.productId} + ');'" />
+                <div class="col-md-2" style="border: 1px solid rgb(20, 20, 20); height: 5vh;"></div>
+
+            </div>
+            <div id="countButtonDiv"class="col-md-2" style="border: 1px solid rgb(20, 20, 20); " th:each="productCount : ${productCountList}">
+                <input type="text" th:text="${productCount.proCount}" style="width: 100%; height: 10vh; border-radius: 5px;">
+
+            </div>
+            <div id="totalPriceDiv"class="col-md-2" style="border: 1px solid rgb(20, 20, 20); " th:each=" price: ${priceList}">
+                
+                <h3 > Price : <span th:text="${price.totalPrice}"> </span>    </h3>
+
+            </div>
+        </div>      
+    </div>
+
+    <div style="display: none;" th:each="productCount : ${productCountList}">
+
+        <input type="text" th:text="${productCount.proCount}">
+
+    </div>
+
+    <!-- th:each="productCount : ${productCountList}" th:each=" price: ${priceList}" -->
+    <div class="col-md-4"style="height: 50vh;border: 1px solid yellow; border-radius: 10px; margin-left: auto;">
+       <div id="deliveryAddressDiv" style="margin-top:5vh" >
+        <a th:href="@{/MEDICARE/cart/address}"><button class="btn btn-lg btn-blue" style="background-color: #236865; width:100%;color:white;"> Add Delivery Address</button></a>
+       </div>
+          <div id="freeDeliveryDiv" style="margin-top:2vh;border:1px dotted #7CBC96;border-radius:15px;background-color:#F2FFF8;" >
+        <p style="margin-top:1.5vh;margin-left:1.5vw;color:#ABBF96;font-weight:500;"> Free Delivery With Cart Value above   ₹1000</p>
+        
+        
+       </div>
+       
+    </div>
+
+    <div id="ajax_div">
+
+    </div>
+
+</div>
+
+function showProduct(productId){
+
+    var productId = productId;
+    var cartId = $("#cartId").val();
+    var userId = $("#userId").val();
+    //console.log(productId);
+    $.get("cart/getProductCount",
+     // $.post("home/showMadicines",
+                                                                            {
+                                                                                productId: productId,
+                                                                                cartId:cartId,
+                                                                                userId:userId
+                                                                              //  tablenames: tablename
+                                                                            },
+                                                                            function (data, status) {
+                                                                                console.log(data);
+                                                                                $("#ajax_div").html(data);
+                                                                             //   window.location.replace("/");
+                                                                                // if (data == "yes") {
+                                                                                //     window.location.replace("/");
+                                                                                // }
+                                                                            });
+
+
+
+}
+ 
+
+    </script>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+      
+       var user = /*[[${session.userName}]]*/ 'User Name';
+       console.log(user);
+
+     /*]]>*/
+</script> 

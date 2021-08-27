@@ -8,7 +8,7 @@
 <body>
 
     <nav th:replace="layouts :: userNavBar" ></nav>
-<div class="container">
+<div class="container-fluid">
 
 <div class=" container-fluid my-5 ">
     <div class="row justify-content-center ">
@@ -46,33 +46,35 @@
                                 <hr class="my-0">
                             </div>
                             <div class="card-body">
-                                <div class="row justify-content-between">
+                                <!-- <div class="row justify-content-between">
                                     <div class="col-auto mt-0">
                                         <p><b>BBBootstrap Team Vasant Vihar 110020 New Delhi India</b></p>
                                     </div>
                                     <div class="col-auto">
                                         <p><b>BBBootstrap@gmail.com</b> </p>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row mt-4">
                                     <div class="col">
                                         <p class="text-muted mb-2">PAYMENT DETAILS</p>
                                         <hr class="mt-0">
                                     </div>
                                 </div>
-                                <div class="form-group"> <label for="NAME" class="small text-muted mb-1">NAME ON CARD</label> <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="BBBootstrap Team"> </div>
-                                <div class="form-group"> <label for="NAME" class="small text-muted mb-1">CARD NUMBER</label> <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="4534 5555 5555 5555"> </div>
+                                <form  action="/MEDICARE/payment/card" method="POST" th:object="${paymentCardFormData}">
+                                <div class="form-group"> <label for="NAME" class="small text-muted mb-1">NAME ON CARD</label> <input type="text" class="form-control form-control-sm" name="nameOnCard" id="nameOnCard" aria-describedby="helpId" placeholder="Name On Card" th:field="*{nameOnCard}"> </div>
+                                <div class="form-group"> <label for="NAME" class="small text-muted mb-1">CARD NUMBER</label> <input type="text" class="form-control form-control-sm" name="cardNumber" id="cardNumber" aria-describedby="helpId" placeholder="4534 5555 5555 5555" oninput="this.value=this.value.replace(/[^\d]/,' ')" maxlength="16" th:field="*{cardNumber}"> </div>
                                 <div class="row no-gutters">
                                     <div class="col-sm-6 pr-sm-2">
-                                        <div class="form-group"> <label for="NAME" class="small text-muted mb-1">VALID THROUGH</label> <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="06/21"> </div>
+                                        <div class="form-group"> <label for="NAME" class="small text-muted mb-1">VALID THROUGH</label> <input type="text" class="form-control form-control-sm" name="validThrough" id="NAME" aria-describedby="helpId" placeholder="06/21" th:field="*{validThrough}"> </div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <div class="form-group"> <label for="NAME" class="small text-muted mb-1">CVC CODE</label> <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="183"> </div>
+                                        <div class="form-group"> <label for="NAME" class="small text-muted mb-1">CVC CODE</label> <input type="text" class="form-control form-control-sm" name="cvcCode" id="NAME" aria-describedby="helpId" placeholder="cvc" oninput="this.value=this.value.replace(/[^\d]/,'')" maxlength="3" th:field="*{csvNumber}"> </div>
                                     </div>
                                 </div>
                                 <div class="row mb-md-5">
-                                    <div class="col"> <a th:href="@{/cart/success}"> <button type="button" name="" id="" class="btn btn-lg btn-block ">PURCHASE $37 SEK</button></a> </div>
+                                    <div class="col"> <a th:href="@{/cart/success}" th:each=" total: ${sumTotal}"> <button type="submit" name="" id="" class="btn btn-lg btn-block " th:text="PURCHASE + ${total}" ></button></a> </div>
                                 </div>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -83,30 +85,9 @@
                                 <hr class="my-2">
                             </div>
                             <div class="card-body pt-0">
-                                <!-- <div class="row justify-content-between" th:each=" aproduct: ${productList}" id="products">
-                                    <input type="hidden" name="productId" th:value="${aproduct.productId}" class="productIdClass"th:onclick="'javascript:showProductCount(' + ${aproduct.productId} + ');'" >
-                                    <input type="hidden" name="userId" th:value="${session.userId}" id="userId" >
-                                    <input type="hidden" name="theCart" th:value="${session.theCart}" id="cartId" >
-                                    <div class="col-auto col-md-7">
-                                        <div class="media flex-column flex-sm-row"> <img class=" img-fluid" src="https://i.imgur.com/6oHix28.jpg" width="62" height="62">
-                                            <div class="media-body my-auto">
-                                                <div class="row ">
-                                                    <div class="col-auto">
-                                                        <p class="mb-0"><b>EC-GO Bag Standard</b></p><small class="text-muted">1 Week Subscription</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class=" pl-0 flex-sm-col col-auto my-auto" id="ajax_div">
-                                        <p class="boxed-1">2</p>
-                                    </div>
-                                    <div class=" pl-0 flex-sm-col col-auto my-auto ">
-                                        <p><b>179 SEK</b></p>
-                                    </div>
-                                </div> -->
+                                
                                 <div class="card-body pt-0">
-                                <div class="row justify-content-between">
+                                <div class="">
 
                                     <div th:each="cart : ${cartEmpty}">
 
@@ -115,58 +96,72 @@
 
                                     </div>
 
-<table class="table  col-auto col-md-7" style="padding: 0;margin: 0;" th:each="aproduct : ${productList}">
+<table class="table " style="padding: 0;margin: 0;" th:each="aproduct : ${productCountList}">
    
     <tbody>
         <tr >
+
             <td>
+                <div class=" pl-0 flex-sm-col col-auto my-auto " >
+                   <button class="btn btn-sm btn-danger" th:onclick="|deleteProduct('${aproduct.productId}',${aproduct.countTableId})|" th:value="${aproduct.count}"> <b> - </b></button>
+                   <!-- <button class="btn btn-sm btn-danger" th:onclick="'javascript:deleteProduct('${aproduct.productId}',${aproduct.countTableId});'" th:value="${aproduct.count}"> <b> - </b></button> -->
+               </div>
+              </td>
+            <td style="width: 5vw;">
                 <!-- <div id="image" class="media flex-column">
                 
             </div> -->
 
-            <div class="media flex-column flex-sm-row"> <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image"  width="62" height="62" style="border-radius:10px;" />
+            <div class="media flex-sm-row"> 
+                <a th:href="@{${'/MEDICARE/products/'+aproduct.productId}}"><img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.mainImage}}" alt=" Madicine image"  width="75" height="75" style="border-radius:5px;" /></a>
                 <div class="media-body my-auto">
                     <div class="row ">
                         <div class="col" style="margin-left: 1vw;padding: 1vh 0.5vw;">
-                            <p class="mb-0"><b th:text="${aproduct.productName}"></b></p><small class="text-muted" th:text="${aproduct.brandName}"></small>
+                            <p class="mb-0"><b th:text="${aproduct.madicineName}"></b></p><small class="text-muted" th:text="${aproduct.brandName}"></small>
                         </div>
                     </div>
                 </div>
             </div>
           </td>
+          <td style="width:5vw;">
+            <div id="ajax_div">
+                                    
+                <p class="boxed-1" >
+                     <!-- <input type="number" name="productCount" id="inputId" 
+                    th:onchange="'javascript:changeCount(' + ${aproduct.countTableId}+ ');'" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;" >  -->
+                     <input type="number" name="productCount" id="inputId" 
+                    th:onchange="'javascript:changeCount(' + ${aproduct.productId}+ ');'" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;" > 
+                    <input type="hidden" name="userId" th:value="${session.userId}"  id="userId">
+                    <input type="hidden" name="theCart" th:value="${session.theCart}" id="theCart">
+                    <input type="hidden" name="countTableId" th:value="${aproduct.countTableId}" id="countTableId">
+                
+                </p>
+                                    
+             <!--    <p class="boxed-1" > <input type="number" name="productCount" id="inputId" 
+                    oninput="changeCount(this.val())" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;"> 
+                    <input type="hidden" name="userId" th:value="${session.userId}"  id="userId">
+                    <input type="hidden" name="theCart" th:value="${session.theCart}" id="theCart">
+                    <input type="hidden" name="countTableId" th:value="${aproduct.countTableId}" id="countTableId">
+                
+                </p> -->
+
+                   
+
+            </div>
+          </td>
+          <td style="width:5vw;">
+            <div >
+                <p style="width:3vw;"><b th:text="${aproduct.multipliedPrice}"></b></p>
+           </div>
+          </td>
+      
            
         </tr>
     </tbody>
 
 
 </table>
-<table class="table ">
-  
-    <tbody>
 
-        <tr th:each="proCount : ${productCountList}">
-            <td> 
-                <!-- <div th:each="proCount : ${productCountList}" class="row"> -->
-                <div class="pl-0 flex-sm-col col-auto my-auto"  >
-                                    
-                <p class="boxed-1" th:text="${proCount.count}"></p>
-
-            </div>
-       
-        </td>
-            <td>
-                
-                <div class=" pl-0 flex-sm-col col-auto my-auto " >
-                    <p><b th:text="${proCount.multipliedPrice}"></b></p>
-               </div>
-            <!-- </div> -->
-
-            </td>
-        </tr>
-
-    </tbody>
-
-</table>
 
 </div>
 
@@ -229,60 +224,86 @@
     <script>
 $(document).ready(function(){
   
-    //$("#productId").click();
-    $(".productIdClass").each(function() {
-        
-  console.log(`${this.val()}`);
-//$(".productIdClass").click();
-// var productId = $(".productIdClass").val();
-// showProduct(productId);
+  // window.location.reload();
 
 
 });
 
 
-});
+    // function changeCount(productId){
 
-function showProduct(productId){
+    //     alert(productId);
 
-    var productId = productId;
-    var cartId = $("#cartId").val();
-    var userId = $("#userId").val();
-    //console.log(productId);
-    $.get("cart/getProductCount",
-     // $.post("home/showMadicines",
-                                                                            {
-                                                                                productId: productId,
-                                                                                cartId:cartId,
-                                                                                userId:userId
-                                                                              //  tablenames: tablename
-                                                                            },
-                                                                            function (data, status) {
-                                                                                console.log(data);
-                                                                                $("#ajax_div").html(data);
-                                                                             //   window.location.replace("/");
-                                                                                // if (data == "yes") {
-                                                                                //     window.location.replace("/");
-                                                                                // }
-                                                                            });
+    // }
+
+    function changeCount(productId){
 
 
+        window.location.replace("/MEDICARE/products/"+productId);   
+
+// //alert("function call");
+// var cartId = $("#theCart").val();
+// var userId = $("#userId").val();
+// var count = $("#inputId").val();
+// //var count = $(this).siblings('#inputId').val();
+// //var countTableId = $("#countTableId").val();
+
+// //alert(count);
+
+// console.log(cartId);
+// console.log(userId);
+// //console.log(productId);
+
+// $.get("/MEDICARE/cart/changeCount",
+// // $.post("home/showMadicines",
+//                                                                     {
+//                                                                         cartId: cartId,
+//                                                                         userId:userId,
+//                                                                        // productId:productId,
+//                                                                         changedCount:count,
+//                                                                         countTableId:countTableId
+//                                                                       //  tablenames: tablename
+//                                                                     },
+//                                                                    function (data, status) {
+
+//                                                                     window.location.replace("/MEDICARE/cart/cart");
+                                                                       
+//                                                                         }  
+//                                                                     );
 
 }
- 
 
-    </script>
 
-<script th:inline="javascript">
+    function deleteProduct(productId,countTableId){
 
-    /*<![CDATA[*/
-      
-       var user = /*[[${session.userName}]]*/ 'User Name';
-       console.log(user);
+       if( confirm("Are you sure to remove this Product?")){
 
-     /*]]>*/
-</script> 
+        $.get("/MEDICARE/cart/removeProduct",
+// $.post("home/showMadicines",
+                                                                    {
+                                                                       // cartId: cartId,
+                                                                        //userId:userId,
+                                                                        productId:productId,
+                                                                       // changedCount:count,
+                                                                        countTableId:countTableId
+                                                                      //  tablenames: tablename
+                                                                    },
+                                                                   function (data, status) {
 
+                                                                    window.location.replace("/MEDICARE/cart/cart");
+                                                                    window.location.reload();
+                                                                       
+                                                                        }  
+                                                                    );
+
+}
+
+
+       }
+
+
+    
+</script>
 
 
 </body>
