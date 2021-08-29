@@ -44,6 +44,9 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
 	@Query(nativeQuery = true, value="SELECT * FROM product WHERE category_id=? limit 3")
 	List<Product> getProducts(long categoryId);
+	
+
+	
 
 	
 

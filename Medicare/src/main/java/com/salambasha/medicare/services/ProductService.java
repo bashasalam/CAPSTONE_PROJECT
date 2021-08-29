@@ -73,6 +73,13 @@ prorepo.updateProduct(productName,brandName, description, price,offer,offerPrice
 		return products;
 	}
 
+	public void deleteProduct(long deleteId) {
+		
+		prorepo.deleteById(deleteId);
+		
+	}
+
+
 //	public void deleteProduct(long productId) {
 //		// TODO Auto-generated method stub
 //		

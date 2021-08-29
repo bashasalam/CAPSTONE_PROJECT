@@ -1,5 +1,6 @@
 package com.salambasha.medicare.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
@@ -30,6 +31,11 @@ public interface ProductCountRepository extends CrudRepository<ProductCount, Lon
 
 	@Query(nativeQuery = true, value="SELECT * FROM product_count WHERE count_table_id=?")
 	ProductCount findByid(long countTableId);
+
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value="UPDATE `product_count` SET `purchase_time`=? WHERE `count_table_id`=?;")
+	void updatePurchaseTime(Timestamp timestamp, long countTableId);
 
 	
 }

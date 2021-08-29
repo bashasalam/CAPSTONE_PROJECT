@@ -26,7 +26,8 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 		
 	
 	
-     
+	@Query(nativeQuery = true, value="SELECT * FROM category WHERE category_id IN (:categoryIdlist)")
+	List<Category> findEngagedCategories(List<Long> categoryIdlist);
 	
 
 }

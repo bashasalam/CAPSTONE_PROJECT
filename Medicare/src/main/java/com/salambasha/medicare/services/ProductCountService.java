@@ -1,5 +1,6 @@
 package com.salambasha.medicare.services;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,12 @@ public class ProductCountService {
 		
 		productCountRepo.deleteById(countTableId);
 		
+	}
+
+
+	public void updatePurchaseTime(Timestamp timestamp, long countTableId) {
+		// TODO Auto-generated method stub
+		productCountRepo.updatePurchaseTime(timestamp,countTableId);
 	}
 	
 	//productCountRepo.save()

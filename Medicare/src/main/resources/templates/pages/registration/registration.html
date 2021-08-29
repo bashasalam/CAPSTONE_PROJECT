@@ -8,7 +8,7 @@
 
 <body>
 
-    <nav th:replace="layouts :: navBar"></nav>
+    <nav th:replace="layouts :: registerNavBar"></nav>
     <div class="container">
        
      
@@ -23,7 +23,7 @@
             <p class="divider-text">
                 <span class="bg-light">OR</span>
             </p> -->
-            <form action="/user/save" method="POST" th:object="${userFormData}">
+            <form action="/MEDICARE/user/save" method="POST" th:object="${userFormData}">
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
@@ -40,25 +40,10 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-phone" ></i> </span>
                 </div>
-                <!-- <select class="custom-select" style="max-width: 120px;">
-                    <option selected="">+971</option>
-                    <option value="1">+972</option>
-                    <option value="2">+198</option>
-                    <option value="3">+701</option>
-                </select> -->
+             
                 <input name="mobile" class="form-control" placeholder="Phone number" type="text" th:field="*{mobile}" oninput="this.value=this.value.replace(/[^\d]/,'')" maxlength="10"/>
             </div> <!-- form-group// -->
-            <!-- <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-                </div>
-                <select class="form-control">
-                    <option selected=""> Select job type</option>
-                    <option>Designer</option>
-                    <option>Manager</option>
-                    <option>Accaunting</option>
-                </select>
-            </div> form-group end.// -->
+           
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>

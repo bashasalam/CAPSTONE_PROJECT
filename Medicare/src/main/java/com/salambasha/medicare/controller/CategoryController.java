@@ -1,12 +1,12 @@
 package com.salambasha.medicare.controller;
 
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,18 +31,20 @@ public class CategoryController {
 		
 		cateRepo.save(category);
 		
-		return "redirect:/admin";
+		return "redirect:/MEDICARE/admin";
 	}
 	
-//	@GetMapping("")
-//	public String deleteCategory(@RequestParam long deleteId) {
-//		
-//		categoryService.deleteCategory(deleteId);
-//		
-//	  return "redirect:/admin";
-//	}
+	@GetMapping("/delete")
+	public String deleteById(@RequestParam long deleteId) {
+		
+		
+		
+		cateRepo.deleteById(deleteId);
+		
+	  return "redirect:/MEDICARE/admin/";
+	}
 	
-	@GetMapping("")
+	@GetMapping("/edit")
 	public String editCategory(@RequestParam long editId, Model model) {
 		
 			
@@ -60,7 +62,7 @@ public class CategoryController {
 		categoryService.updateCategory(categoryName,categoryId);
 		System.out.println("updated");
 		
-		return "redirect:/admin";
+		return "redirect:/MEDICARE/admin/";
 		
 	}
 	

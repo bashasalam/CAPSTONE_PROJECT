@@ -80,6 +80,17 @@ public class ProductController {
 		
 		return "redirect:/MEDICARE/admin/";
 	}
+	@GetMapping("/delete")
+	public String productDelete(@RequestParam long deleteId,Model model) {
+		//int value = 0;
+		productService.deleteProduct(deleteId);	 
+		
+		
+		//System.out.print(disabledproducts);
+		
+		return "redirect:/MEDICARE/admin/";
+	}
+	
 	
 	
 	@PostMapping("/save")	

@@ -2,6 +2,7 @@ package com.salambasha.medicare.controller;
 
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -155,10 +156,9 @@ public class CartController {
 			
 			User user = userController.findById(theUser); 
 			Cart cart = cartService.findByid(theCart);
-	
+			
+	if(cart.getIsActive()!=0) {
 	ProductCount exitingProductCount =	productCountController.findProduct(productId,theCart,theUser);
-			
-			
 			
 		long theCart1 = cart.getCartId();
 			
@@ -254,6 +254,21 @@ session.setAttribute("theCart", cart.getCartId());
 
 			
 			return "pages/cart/order-summary";
+			
+		}else {
+			
+			//Create a new cart
+			int isActive = 1;
+			
+			cartService.save(user,isActive);
+  			Cart newCart = cartService.findSingleCart(user,isActive);
+  			session.setAttribute("theCart", newCart.getCartId());
+  			session.setAttribute("userName", user.getFullName());
+            session.setAttribute("userId", user.getUserId());
+			
+			return "redirect:/MEDICARE/cart/cart/";
+			
+		}
 			
 		}else {
 			
@@ -399,6 +414,21 @@ session.setAttribute("theCart", cart.getCartId());
 		cartService.changeIsActive(isActive,availableCartId);
 		
 		//session.setAttribute("theCart", null);
+//		
+//		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//		   LocalDateTime now = LocalDateTime.now();
+//		   System.out.println(dtf.format(now));
+		 
+		   // 2021-03-24 16:48:05.591
+		//   Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+//		   // 2021-03-24 16:48:05.591
+//		   Date date = new Date();
+//		   Timestamp timestamp2 = new Timestamp(date.getTime());
+//
+//		   // convert Instant to Timestamp
+//		   Timestamp ts = Timestamp.from(Instant.now())
+
 		
 		
 		return "pages/cart/success";
