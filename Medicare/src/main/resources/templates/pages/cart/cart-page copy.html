@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="hhtp://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+
+<body>
+
+    <nav th:replace="layouts :: userNavBar" ></nav>
+<div class="container">
+    <div class="heading">
+        <!-- <h3>Alhamdhulillaahi rabbil aalameen</h3> -->
+        <h4>Cart Items</h4>
+    </div>
+    <div style="display: flex; flex-direction: column;">    
+        <div class="row col-md-5" style="border: 1px solid brown;" th:each="aproduct : ${productList}" >
+     <div class="col-md-3">
+        <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image"  width="100%" height="100%" style="border-radius:10px;" />
+
+     </div>
+    
+      <div class="col-md-3">
+        <div class="media-body my-auto">
+            <div class="row ">
+                <div class="col" style="margin-left: 1vw;padding: 1vh 0.5vw;">
+                    <p class="mb-0"><b th:text="${aproduct.productName}"></b></p><small class="text-muted" th:text="${aproduct.brandName}"></small>
+                </div>
+            </div>
+        </div>
+      </div>
+           <!-- <div id="ajax_div"></div> -->
+    </div>
+
+    <div class="col-md-3"style="display: flex; flex-direction: column;">
+        <div class="row col-md-3" style="border: 1px solid yellow;" th:each="proCount : ${productCountList}" >
+            <div class="pl-0 flex-sm-col col-auto my-auto"  >
+                                    
+                <p class="boxed-1" th:text="${proCount.count}"></p>
+
+            </div>
+            <div class=" pl-0 flex-sm-col col-auto my-auto " >
+                <p><b th:text="${proCount.multipliedPrice}"></b></p>
+           </div>
+        
+        </div>
+    </div>
+    <!-- <div class="col-md-4"style="height: 50vh;border: 1px solid yellow; border-radius: 10px; margin-left: auto;">
+        <div id="deliveryAddressDiv" style="margin-top:5vh" >
+         <a th:href="@{/MEDICARE/cart/address}"><button class="btn btn-lg btn-blue" style="background-color: #236865; width:100%;color:white;"> Add Delivery Address</button></a>
+        </div>
+           <div id="freeDeliveryDiv" style="margin-top:2vh;border:1px dotted #7CBC96;border-radius:15px;background-color:#F2FFF8;" >
+         <p style="margin-top:1.5vh;margin-left:1.5vw;color:#ABBF96;font-weight:500;"> Free Delivery With Cart Value above   ₹1000</p>
+         
+         
+        </div>
+        
+     </div> -->
+    </div>
+
+    
+
+    </div>
+
+
+    <script>
+
+        function changeCount(productId){
+
+            alert(productId);
+
+        }
+    </script>
+
+</body>
+
+</html>

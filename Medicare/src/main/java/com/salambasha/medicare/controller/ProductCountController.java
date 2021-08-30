@@ -106,5 +106,17 @@ public class ProductCountController {
 	}
 
 
+	public List<ProductCount> findPastCartDetails(long userId, Object obj) {
+		List<ProductCount> pastCartList = productCountService.findPastCartDetails(userId,obj);
+		// TODO Auto-generated method stub
+		return pastCartList;
+	}
+ 
+
+	
+
+
+
+
 
 }

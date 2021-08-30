@@ -84,6 +84,13 @@ public class ProductCountService {
 		// TODO Auto-generated method stub
 		productCountRepo.updatePurchaseTime(timestamp,countTableId);
 	}
+
+	public List<ProductCount> findPastCartDetails(long userId, Object obj) {
+		
+		
+		List<ProductCount> pastCartList = productCountRepo.findPastCartDetails(userId,obj);
+		return pastCartList;
+	}
 	
 	//productCountRepo.save()
 	

@@ -43,7 +43,18 @@ public class CartController {
 	UserController userController;
 	
 	
-	
+	@GetMapping("/pastcart")
+	public String ShowPastCart(HttpSession session,Model model) {
+		long userId = (long) session.getAttribute("userId");
+		Object obj = "0000-00-00 00:00:00.000000";
+		List<ProductCount> pastProductCountList = productCountController.findPastCartDetails(userId,obj);
+		
+		model.addAttribute("purchasedProductList", pastProductCountList);
+		
+		return "pages/cart/cart-page";
+		
+		
+	}
 
 	@GetMapping("/cart")
 	public String showUserCart(HttpSession session,Model model, PaymentCard paymentCard) {
