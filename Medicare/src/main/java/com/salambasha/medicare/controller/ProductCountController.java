@@ -104,4 +104,7 @@ public class ProductCountController {
 		// TODO Auto-generated method stub
 		productCountService.updatePurchaseTime(timestamp,countTableId);
 	}
+
+
+
 }

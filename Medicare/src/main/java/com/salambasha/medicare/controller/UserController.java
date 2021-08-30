@@ -80,6 +80,7 @@ public class UserController {
 		  		
 		  		if(session.getAttribute("theCart")!=null) {
 		            existingCartId = (long)session.getAttribute("theCart");
+		        
 		           
 		       }else {
 		           
@@ -87,6 +88,8 @@ public class UserController {
 		       }
 		  		
 		  		Cart existingCart = cartService.findByid(existingCartId);
+		  		
+		  		int existingCart_isActive = existingCart.getIsActive();
 		  		
 		  		if((user!=null) && (existingCart!=null)) {
 		  			
@@ -96,8 +99,12 @@ public class UserController {
 		        	   session.setAttribute("userName", user.getFullName());
 			            session.setAttribute("userId", user.getUserId());
 			            session.setAttribute("theCart", existingCart.getCartId());
-			            
 			            System.out.println("Working here user has cart already");
+			           // System.out.println("check for active cart");
+			            
+			           // Cart cart = cartService.findByid()
+			            
+			           
 		           }else {
 		        	   int isActive = 1;
 		        	   session.setAttribute("userName", user.getFullName());

@@ -190,7 +190,8 @@ public class CartController {
 				
 				double offerPrice = savingProduct.getOfferPrice();
 				
-				double totalPrice = offerPrice * count;
+				double totalPricewor = offerPrice * count;
+				 double totalPrice = Math.round(totalPricewor * 100D) / 100D;
 			long productCountId = productCountController.findPCid(productId);
 			
 			productCountController.updateProductCount(count,offerPrice,totalPrice,productCountId);

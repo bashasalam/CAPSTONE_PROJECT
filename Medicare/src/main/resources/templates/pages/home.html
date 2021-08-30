@@ -101,7 +101,8 @@
             
         <div class="col-md-3" style=" border-radius: 10px; height:50vh; margin:3vw; background-color:#007BFF" th:each="aproduct: ${productList}">
 
-            <a > <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image" style="height: 100%; width: 100%; border-radius:10px;" th:onclick="'javascript:showProductPage(' + ${aproduct.productId} + ');'"/>
+            <a > <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image" style="height: 100%; width: 100%; border-radius:10px;" 
+            th:onclick="'javascript:showProductPage(' + ${aproduct.productId} + ');'" id="imageId" />
                     
                 
            </a>

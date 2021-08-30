@@ -17,7 +17,7 @@ public class User {
 	private long userId;
 	private String fullName;
 	private String email;
-	private double mobile;
+	private long mobile;
 	private String password;
 	
 //	@OneToOne(mappedBy="theUser", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,
@@ -43,7 +43,7 @@ public class User {
 	
 	
 	
-	public User(String fullName, String email, double mobile, String password) {
+	public User(String fullName, String email, long mobile, String password) {
 		super();
 		this.fullName = fullName;
 		this.email = email;
@@ -96,10 +96,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public double getMobile() {
+	public long getMobile() {
 		return mobile;
 	}
-	public void setMobile(double mobile) {
+	public void setMobile(long mobile) {
 		this.mobile = mobile;
 	}
 	public String getPassword() {

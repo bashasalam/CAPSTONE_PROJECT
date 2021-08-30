@@ -66,7 +66,7 @@
         <input type="text" id="brandName" name="brandName" placeholder="Brand name.." required />
 
         <label for="subject">Description</label>
-        <textarea id="description" name="description" placeholder="Madicine Details .. " style="height:18vh" ></textarea>
+        <textarea id="description" name="description" placeholder="Madicine Details .. " style="height:18vh" required></textarea>
 
         
         
@@ -74,10 +74,10 @@
       <div class="col-md-6">
     
         <label for="lname">Unit Price</label>
-        <input type="text" id="unitPrice" name="price" placeholder="Unit price.." />
+        <input type="text" id="unitPrice" name="price" placeholder="Unit price.." required / >
     
         <label for="lname"> Offer</label>
-        <input type="number" id="offer" name="offer" placeholder=" Offer" />
+        <input type="number" id="offer" name="offer" placeholder=" Offer"  required />
 
         <label for="country">Category</label>
         <select id="category" name="theCategory" >
@@ -87,7 +87,7 @@
     
         <label for="quantity">Quantity</label>
        
-			<input class="form-control" type="text" name="quantity" id="quantityId" >
+			<input class="form-control" type="text" name="quantity" id="quantityId" required >
          
     </div>
   </div>
@@ -95,22 +95,22 @@
     <div class="col-md-3">
       <label for="fileToUpload">Main Image</label>
         
-			<input class="form-control" type="file" name="fileToUpload" id="imageId" >
+			<input class="form-control" type="file" name="fileToUpload" id="imageId" required >
     </div>
     <div class="col-md-3">
       <label for="fileToUpload">Extra Image 1</label>
         
-			<input class="form-control" type="file" name="extraImage1" id="imageId" >
+			<input class="form-control" type="file" name="extraImage1" id="extraImage1" required >
     </div>
     <div class="col-md-3">
       <label for="fileToUpload">Extra Image 2</label>
         
-			<input class="form-control" type="file" name="extraImage2" id="imageId" >
+			<input class="form-control" type="file" name="extraImage2" id="extraImage2" required >
     </div>
     <div class="col-md-3">
       <label for="fileToUpload">Extra Image 3</label>
         
-			<input class="form-control" type="file" name="extraImage3" id="imageId" >
+			<input class="form-control" type="file" name="extraImage3" id="extraImage3" required >
     </div>
     
     </div>

@@ -39,6 +39,7 @@ public class CategoryController {
 		
 		
 		
+		
 		cateRepo.deleteById(deleteId);
 		
 	  return "redirect:/MEDICARE/admin/";

@@ -82,8 +82,8 @@
                         <div class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">Remember me</label> </div> <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
                     </div> -->
 
-                    <h4 th:style="${currentusernamepasswordmismatch== null} ? 'display:none' : 'display:block' ">  <span  style="color: red;"> Current Username/Password Mismatch </span></h4>
-                    <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Login</button> </div>
+                    <p th:style="${currentusernamepasswordmismatch== null} ? 'display:none' : 'display:block' ">  <span  style="color: red;"> The Admin name or Password You have entered is invalid </span></p>
+                    <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center" id="loginButtonId">Login</button> </div>
                     </form>
                 </div>
             </div>
