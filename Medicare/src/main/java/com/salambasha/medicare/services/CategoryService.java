@@ -1,5 +1,7 @@
 package com.salambasha.medicare.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,11 @@ public class CategoryService {
 	@Autowired
 	CategoryRepository cateRepo;
 
-	public void deleteCategory(long categoryId) {
-		// TODO Auto-generated method stub
-		cateRepo.deleteById(categoryId);
-		
-	}
+//	public void deleteCategory(long categoryId) {
+//		// TODO Auto-generated method stub
+//		cateRepo.deleteById(categoryId);
+//		
+//	}
 
 	public Category findByid(long editId) {
 		
@@ -29,6 +31,14 @@ public class CategoryService {
 		// TODO Auto-generated method stub
 		cateRepo.updateCategory(categoryName,categoryId);
 	}
+	
+	public List<Category> findEngagedCategories(List<Long> categoryIdlist) {
+		
+		List<Category> engagedCategoryList = cateRepo.findEngagedCategories(categoryIdlist);
+		
+		return engagedCategoryList;
+	}
+
 	
 	
 

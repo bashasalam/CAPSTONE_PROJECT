@@ -1,5 +1,6 @@
 package com.salambasha.medicare.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,4 +95,16 @@ public class ProductCountController {
 		productCountService.deleteById(countTableId);
 		
 	}
+
+
+	
+
+
+	public void updatePurchaseTime(Timestamp timestamp, long countTableId) {
+		// TODO Auto-generated method stub
+		productCountService.updatePurchaseTime(timestamp,countTableId);
+	}
+
+
+
 }

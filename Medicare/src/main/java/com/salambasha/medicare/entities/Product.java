@@ -26,8 +26,11 @@ public class Product {
 	private double price;
 	private double offer; 
 	private double offerPrice;
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, 
-			CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
+//	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, 
+//			CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
+//	@JoinColumn(name="category_id")
+//	private Category theCategory;
+	@ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	@JoinColumn(name="category_id")
 	private Category theCategory;
 	private int quantity;

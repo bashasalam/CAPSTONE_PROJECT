@@ -80,13 +80,26 @@ public class ProductController {
 		
 		return "redirect:/MEDICARE/admin/";
 	}
+	@GetMapping("/delete")
+	public String productDelete(@RequestParam long deleteId,Model model) {
+		//int value = 0;
+		productService.deleteProduct(deleteId);	 
+		
+		
+		//System.out.print(disabledproducts);
+		
+		return "redirect:/MEDICARE/admin/";
+	}
+	
 	
 	
 	@PostMapping("/save")	
 	public String saveProduct(@RequestParam("productName") String productName, @RequestParam("brandName") String brandName,@RequestParam("description") String description, @RequestParam("price") double price,@RequestParam("offer") double offer, @RequestParam("theCategory") Category theCategory,@RequestParam("quantity") int quantity, @RequestParam("fileToUpload") MultipartFile file, String image,
 	@RequestParam("extraImage1") MultipartFile file1, String image1,@RequestParam("extraImage2") MultipartFile file2, String image2,@RequestParam("extraImage3") MultipartFile file3, String image3) throws Exception {
 		
-		double offerPrice = price - (price * offer)/100 ;
+		double offerPricewor = price - (price * offer)/100 ;
+		
+		 double offerPrice = Math.round(offerPricewor * 100D) / 100D;
 
 		System.out.println(offerPrice);
 		 StringBuilder fileName = new StringBuilder();

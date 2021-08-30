@@ -2,6 +2,7 @@ package com.salambasha.medicare.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import com.salambasha.medicare.entities.Admin;
 import com.salambasha.medicare.entities.Category;
 import com.salambasha.medicare.entities.Product;
 import com.salambasha.medicare.services.AdminService;
+import com.salambasha.medicare.services.CategoryService;
 import com.salambasha.medicare.services.ProductService;
 
 @Controller
@@ -33,6 +35,9 @@ public class AdminController {
 	
 	@Autowired
 	CategoryRepository cateRepo;
+	
+	@Autowired
+	CategoryService categoryService;
 	
 	@Autowired
 	ProductRepository proRepo;
@@ -48,29 +53,29 @@ public class AdminController {
 		return "pages/admin/login";
 	}
 	@PostMapping("/loginCheck")
-	public String loginCheck(@RequestParam("username") String username,@RequestParam("password") String password,HttpSession session, Model model) {
+	public String loginCheck(@RequestParam("adminName") String adminName,@RequestParam("password") String password,HttpSession session, Model model) {
 //
 //		HttpSession session=request.getSession();
-//		session.setAttribute("userName", userName);
-		Admin admin = adminService.loginCheck(username,password);
+//		session.setAttribute("adminName", adminName);
+		Admin admin = adminService.loginCheck(adminName,password);
 		
-		//System.out.print(admin.getUserName());
+		//System.out.print(admin.getadminName());
 		if(admin != null) {
-				session.setAttribute("userName", admin.getUserName());
+				session.setAttribute("adminName", admin.getUserName());
 			
 			return "redirect:/MEDICARE/admin/"; 
 		}else {
-			String obj = "Current Username and Password Mismatching";
-			model.addAttribute("currentusernamepasswordmismatch", obj);
+			String obj = "Current adminName and Password Mismatching";
+			model.addAttribute("currentadminNamepasswordmismatch", obj);
 			return "pages/admin/login"; 
 		}
 	} 
 	
 	@PostMapping("/changePassword")
-	public String changePassword(@RequestParam("username") String username,@RequestParam("currentPassword") String password,@RequestParam("newPassword") String newPassword,@RequestParam("confirmPassword") String confirmPassword,Model model) {
+	public String changePassword(@RequestParam("adminName") String adminName,@RequestParam("currentPassword") String password,@RequestParam("newPassword") String newPassword,@RequestParam("confirmPassword") String confirmPassword,Model model) {
 
 		if(newPassword.equals(confirmPassword) ) {
-			Admin admin = adminService.loginCheck(username,password);
+			Admin admin = adminService.loginCheck(adminName,password);
 			 
 			
 		if(admin != null) {
@@ -79,8 +84,8 @@ public class AdminController {
 			return "pages/admin/successful";
 			}else {
 				
-				String obj = "Current Username and Password Mismatching";
-				model.addAttribute("currentusernamepasswordmismatch", obj);
+				String obj = "Current adminName and Password Mismatching";
+				model.addAttribute("currentadminNamepasswordmismatch", obj);
 				return("pages/admin/manage-password");
 			}
 			
@@ -111,13 +116,39 @@ public class AdminController {
 		int value = 0;
 		int enableValue=1;
 		
-		if(session.getAttribute("userName")!=null) {
+		if(session.getAttribute("adminName")!=null ) {
+			
+			//String adminName = (String) session.getAttribute("adminName");
+			
+			//Admin admin = adminController.findByadminName
+			
 		
 	List<Category> categories = cateRepo.findAll();
 	
 		model.addAttribute("categoryList", categories);
 		
-//		List<Product> products = proRepo.findAll();
+		List<Product> products = proRepo.findAll();
+		
+		List<Long> categoryIdlist = new ArrayList<Long>();
+		List<Category> categoryList1 = new ArrayList<Category>();
+		
+		for (Product product:products) {
+			
+			categoryList1.add(product.getTheCategory());
+			
+			//categoryIdlist.add(product.getTheCategory());
+		}
+		
+		for (Category category:categoryList1) {
+			
+			categoryIdlist.add(category.getCategoryId());
+		}
+		
+		
+		
+		List<Category> engagedCategories = categoryService.findEngagedCategories(categoryIdlist);
+		
+		
 //		model.addAttribute("productList", products);
 		
 		List<Product> enabledproducts = productService.findEnabledProducts(enableValue);
@@ -125,7 +156,10 @@ public class AdminController {
 		
 		List<Product> disabledproducts = productService.findDisabledProducts(value);
 		model.addAttribute("disabledProductList", disabledproducts );
-		System.out.println(session.getAttribute("userName"));
+		System.out.println(session.getAttribute("adminName"));
+		
+		model.addAttribute("engagedCategories", engagedCategories);
+		//categoryIdlist
 		
 		return "pages/admin/dashboard";
 		}else {
@@ -137,7 +171,7 @@ public class AdminController {
 	@GetMapping("/logout") 
 	public String logout(HttpSession session) {
 		
-		session.setAttribute("userName", null);
+		session.setAttribute("adminName", null);
 		
 		return "pages/admin/login";
 	}
@@ -162,7 +196,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/add-products")
-	public String showAddProducts() {
+	public String showAddProducts() { 
 		
 		return "pages/admin/add-products";
 	}

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.salambasha.medicare.entities.Cart;
+import com.salambasha.medicare.entities.Category;
 import com.salambasha.medicare.entities.User;
 
 @Repository
@@ -27,5 +28,7 @@ public interface CartRepository extends CrudRepository<Cart,Long> {
 	@Modifying
 	@Query(nativeQuery = true, value="UPDATE `cart` SET `is_active` = ? WHERE `cart_id`=?;")
 	void changeIsActive(int isActive,long availableCartId);
+	
+	
 
 }

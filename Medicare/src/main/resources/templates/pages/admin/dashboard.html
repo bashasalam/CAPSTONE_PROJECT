@@ -32,8 +32,10 @@
                 <td th:text="${acategory.categoryName}" />
                 <td> 
                   <input type="hidden" th:value="${acategory.categoryId}" id=${acategory.categoryId}>
-                  <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:categoryEdit(' + ${acategory.categoryId} + ');'"> Edit</button> 
-                  <!-- <button class="btn btn-sm btn-danger" th:onclick="'javascript:categoryDelete(' + ${acategory.categoryId} + ');'"> Delete</button>  -->
+                  <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:categoryEdit(' + ${acategory.categoryId} + ');'"> <i class="fas fa-edit"></i></button> 
+                  <!-- <div th:if="${}"> -->
+                  <!-- <button class="btn btn-sm btn-danger"  th:onclick="'javascript:categoryDelete(' + ${acategory.categoryId} + ');'" > <i class="fas fa-trash"></i></button>  -->
+                </div>
           <!-- <a th:href="@{/category/${acategory.categoryId}" class="btn btn-sm btn-outline-danger">Edit</a>
           <a th:href="@{/delete/acategory.categoryId}" class="btn btn-sm btn-danger">Delete</a> -->
 
@@ -48,7 +50,7 @@
           </table>
 </div>
 <hr>
-<h3 style="text-align: center;"><a th:href="@{/MEDICARE/admin/add-madicine}"><button class="btn btn-primary"> Add Product</button></a></h3>
+<h3 style="text-align: center;"><a th:href="@{/MEDICARE/admin/add-madicine}" id="addProductId" ><button class="btn btn-primary"> Add Product</button></a></h3>
 <div class="col-md-12" style="margin-top: 2vh;">
                            <h3 style="text-align: center;">Active Products</h3>
 <table class="table table-bordered table-striped">
@@ -78,9 +80,11 @@
     <td > 
       
       <input type="hidden" th:value="${aproduct.productId}" id="productId">
-      <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:productEdit(' + ${aproduct.productId} + ');'"> Edit</button>
+      <button class="btn btn-sm btn-info" th:onclick="'javascript:productEdit(' + ${aproduct.productId} + ');'"> <i class="fas fa-edit"></i></button>
    
-      <button class="btn btn-sm btn-danger" th:onclick="'javascript:productInActivate(' + ${aproduct.productId} + ');'" id="disableId"  > Disable</button> 
+      <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:productInActivate(' + ${aproduct.productId} + ');'" id="disableId"  > <i class="fas fa-toggle-off" style = "color:red"></i></button> 
+
+      <button class="btn btn-sm btn-danger" th:onclick="'javascript:productDelete(' + ${aproduct.productId} + ');'" id="deleteId"  > <i class="fas fa-trash"></i></button> 
    
       
      
@@ -126,8 +130,11 @@
     <td ><img type="image/webp" th:srcset="@{${'/'+aproduct1.image}}" alt=" Madicine image" style="height: 100px; width: 100px;"/> </td>
     <td> 
       <input type="hidden" th:value="${aproduct1.productId}" id="productId">
-      <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:productEdit(' + ${aproduct1.productId} + ');'"> Edit</button> 
-      <button class="btn btn-sm btn-primary"  th:onclick="'javascript:productActivate(' + ${aproduct1.productId} + ');'" id="enableId"> Enable</button>
+      <button class="btn btn-sm btn-outline-danger" th:onclick="'javascript:productEdit(' + ${aproduct1.productId} + ');'"> 
+        <i class="fas fa-edit"></i></button> 
+      <button class="btn btn-sm btn-outline-primary"  th:onclick="'javascript:productActivate(' + ${aproduct1.productId} + ');'" id="enableId"> <i class="fas fa-toggle-on" style = "color:blue"></i></button>
+     
+      <button class="btn btn-sm btn-danger" th:onclick="'javascript:productDelete(' + ${aproduct1.productId} + ');'" id="deleteId"  > <i class="fas fa-trash"></i></button> 
       <!-- <button class="btn btn-sm btn-danger" th:onclick="'javascript:productInActivate(' + ${aproduct.productId} + ');'" id="disableId"  > Disable</button>  -->
       <!-- Default disabled -->
 
@@ -170,15 +177,17 @@ function categoryEdit(id){
 var categoryId = id;
 //alert(categoryId);
 
-window.location.replace("/MEDICARE/category?editId="+categoryId);
+window.location.replace("/MEDICARE/category/edit?editId="+categoryId);
 
 }
 function categoryDelete(id){
 var categoryId = id;
 //alert(categoryId);
-if (confirm("Are you sure ?") == true) {
 
-  window.location.replace("?MEDICARE/category?deleteId="+categoryId);
+//alert(" Are you sure to delete this Category Master as it will delete all associated with products?.")
+if (confirm("Are you sure to delete this Category Master as it will delete all associated with products?.")) {
+
+  window.location.replace("/MEDICARE/category/delete?deleteId="+categoryId);
 
 }
 
@@ -209,6 +218,19 @@ $('#enableId').css('display', 'none');
 $('#disableId').css('display', 'block');
 
 }
+
+function productDelete(id){
+
+  if(confirm("Are you sure to delete this Product: "+ id + "?")){
+var productId = id;
+//alert(productId);
+window.location.replace("/MEDICARE/products/delete?deleteId="+productId);
+}
+// $('#enableId').css('display', 'none');
+// $('#disableId').css('display', 'block');
+
+}
+
 
 // function delete_datas(id, tablename)
 //                                                             {

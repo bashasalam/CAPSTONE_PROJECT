@@ -7,8 +7,76 @@
  .image{
      width:80% !important;
      height: 80% !important;
+     margin-top: 2vh;
+     border-radius: 10px;
+     margin-left: 1.5vw;
+  
   
  }
+ .imageClass{
+    border-radius:5px; 
+    margin-left: auto;
+    margin-right: auto;
+     margin-bottom:3px;
+     height: 15vh;
+      width:20vw
+
+ }
+
+ .imageDiv{
+
+    border: 1px solid black;
+     border-radius:5px;
+     height: 60vh; 
+ }
+
+ #quantityId{
+        margin-left: 10vw;
+    }
+
+    #buttonId{
+
+        margin-left: 15vw;
+         margin-top:2vh;
+         margin-bottom:2vh
+    }
+
+ @media only screen and (max-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+
+  .image{ 
+       margin-left: 7vw;
+    }
+
+    #quantityId{
+        margin-left: 15vw;
+    }
+    #buttonId{
+
+margin-left: 25vw;
+ margin-top:2vh;
+ margin-bottom:2vh
+}
+}
+@media only screen and (max-width: 425px){
+	/*Small smartphones [325px -> 425px]*/
+   .image {
+       margin-left: 7vw;
+    }
+    #quantityId{
+        margin-left: 15vw;
+    }
+
+    #buttonId{
+
+margin-left: 25vw;
+ margin-top:2vh;
+ margin-bottom:2vh
+}
+}
 
 </style>
 
@@ -21,27 +89,47 @@
 <div class="container" style="margin-top:5vh;">
 
     <div class="row" th:each="product : ${showProduct}">
-        <div class="col-md-3" style="border: 1px solid black; border-radius:5px; height:60vh">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 imageDiv"  >
 
-            <div style="height: 40vh;">
-            <img type="image/webp" class="image" th:srcset="@{${'/'+product.image}}" alt="product Image"  style="margin-top: 2vh;
-            border-radius: 10px;
-            margin-left: 1.5vw;">
+            <div style="height:40vh;">
+            <img type="image/webp" class="image" th:srcset="@{${'/'+product.image}}" alt="product Image"  >
            </div>
-            <div class = "row"style="height: 15vh;">
-                <div class="col-md-3" style=" border-radius:5px; margin-left: auto;margin-right: auto; margin-bottom:3px;"> <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage1}}" alt="product Image" ></div>
-                <div class="col-md-3" style=" border-radius:5px;  margin-left: auto;margin-right: auto; margin-bottom:3px;"> <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage2}}" alt="product Image" ></div>
-                <div class="col-md-3" style=" border-radius:5px; margin-left: auto;margin-right: auto; margin-bottom:3px;"> <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage3}}" alt="product Image" ></div>
+            <div class = "row" >
+                <div class="col-md-3 col-sm-3 col-xs-3 imageClass" > <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage1}}" alt="product Image" ></div>
+                <div class="col-md-3 col-sm-3 col-xs-3 imageClass"> <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage2}}" alt="product Image" ></div>
+                <div class="col-md-3 col-sm-3 col-xs-3 imageClass" > <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage3}}" alt="product Image" ></div>
             </div>
         </div>
-        <div  class = "col-md-6"style="margin-top:2vw;margin-left:2vw;border: 1px solid black;border-radius:5px;">
-            <div>
-            <h3 th:text="${product.productName}" />  
+        <div  class = "col-md-6 col-lg-6 col-sm-12 col-xs-12"style="margin-top:2vw;margin-left:2vw;border: 1px solid black;border-radius:5px;">
+         
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 ">
+                <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6"> -->
+                    <p style="font-size: 16px;"> MadicineName :  <span th:text="${product.productName}">    </span></p> 
+                    <p style="font-size: 16px;"> BrandName :  <span th:text="${product.brandName}">    </span></p> 
+                <!-- </div>
+                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6"> -->
+                    <p style="font-size: 16px;"> MRP Price :  <span th:text="${product.price}">    </span></p> 
+                    <!-- <p style="font-size: 16px;"> Offer :  <span th:text="${product.offer}">    </span></p>  -->
+                    <p style="font-size: 16px;">Offer Price :  <span th:text="${product.offerPrice}">    </span></p> 
+                    
+                <!-- </div> -->
+
+                
+                 
+<!--             
+            <h5 th:text="${product.brandName}"/>
             
-            <h4 th:text="${product.brandName}"/>
-            
-            <h5 th:text="${product.offerPrice}"/>
+            <h6 th:text="${product.offerPrice}"/> -->
+        
+     
            </div>
+           <div class= "col-md-12 col-lg-12 col-sm-12 col-xs-12">
+
+            <p style="font-size: 16px;" > Description <span th:text="${product.description}"></span>   </p> 
+            <!-- <p style="font-size: 16px;" th:text="${product.description}">   </p>  -->
+                              <!-- <h6 th:text="${product.description}"> </h6> -->
+
+        </div>
             <hr>
             <div>
                 <!-- <h6>Available variant</h6>
@@ -52,7 +140,7 @@
                     <div>
                         Sceond variant
                     </div> -->
-                    <div class="">
+                    <div class="rounded">
                         <form action="/MEDICARE/cart/cartPage" method="POST" th:object="${productCountFormData}" >
                             <input type="hidden" id="productId" name="productId" th:value="${product.productId}" th:field="*{productId}"/>
                             <input type="number" name="count"  id="quantityId" placeholder="Enter the quantity" required th:field="*{count}">
@@ -61,7 +149,7 @@
 
                       </div>
 
-                        <button type="submit" class="btn btn-primary" style="margin-left: 15vw; margin-top:2vh"> Add to Cart</button>
+                        <button type="submit" class="btn btn-primary" id="buttonId"> Add to Cart</button>
                     </form>
                     </div>
 

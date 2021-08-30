@@ -1,4 +1,7 @@
 package com.salambasha.medicare.entities;
+import java.sql.Timestamp;
+
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 
 @Entity
 public class ProductCount {
@@ -35,7 +39,15 @@ public class ProductCount {
 	private String mainImage;
 	private String madicineName;
 	private String brandName;
+	private Timestamp purchaseTime;
 	
+	
+//	
+//	   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//	    LocalDateTime now = LocalDateTime.now();
+	    
+	 //  System.out.println(dtf.format(now));
+	   // LocalDateTime now;
 	
 	
 	 
@@ -187,6 +199,25 @@ public class ProductCount {
 
 	public void setBrandName(String brandName) {
 		this.brandName = brandName;
+	}
+
+
+	public Timestamp getPurchaseTime() {
+		return purchaseTime;
+	}
+
+
+	public void setPurchaseTime(Timestamp purchaseTime) {
+		this.purchaseTime = purchaseTime;
+	}
+
+
+	@Override
+	public String toString() {
+		return "ProductCount [countTableId=" + countTableId + ", productId=" + productId + ", count=" + count
+				+ ", theCart=" + theCart + ", theUser=" + theUser + ", singleProductPrice=" + singleProductPrice
+				+ ", multipliedPrice=" + multipliedPrice + ", mainImage=" + mainImage + ", madicineName=" + madicineName
+				+ ", brandName=" + brandName + ", purchaseTime=" + purchaseTime + "]";
 	}
 
 
