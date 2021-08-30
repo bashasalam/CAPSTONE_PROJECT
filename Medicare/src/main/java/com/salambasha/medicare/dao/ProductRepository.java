@@ -42,7 +42,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 	@Query(nativeQuery = true, value="UPDATE `product` SET `is_active` = ? WHERE `product_id` = ?;")
 	void enableProduct(int enableValue, long productId);
 
-	@Query(nativeQuery = true, value="SELECT * FROM product WHERE category_id=? limit 3")
+	@Query(nativeQuery = true, value="SELECT * FROM product WHERE category_id=?")
 	List<Product> getProducts(long categoryId);
 	
 

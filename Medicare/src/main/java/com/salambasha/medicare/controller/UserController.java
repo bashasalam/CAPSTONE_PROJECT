@@ -89,7 +89,7 @@ public class UserController {
 		  		
 		  		Cart existingCart = cartService.findByid(existingCartId);
 		  		
-		  		int existingCart_isActive = existingCart.getIsActive();
+		  		//int existingCart_isActive = existingCart.getIsActive();
 		  		
 		  		if((user!=null) && (existingCart!=null)) {
 		  			

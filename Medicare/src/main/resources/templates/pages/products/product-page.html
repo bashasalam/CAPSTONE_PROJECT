@@ -4,6 +4,20 @@
 
 <head th:replace="layouts :: header"></head>
 <style>
+/* 
+
+.zoom {
+  padding: 50px;
+  background-color: green;
+  transition: transform .2s; 
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+} */
+
+.zoom:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
  .image{
      width:80% !important;
      height: 80% !important;
@@ -92,12 +106,18 @@ margin-left: 25vw;
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 imageDiv"  >
 
             <div style="height:40vh;">
-            <img type="image/webp" class="image" th:srcset="@{${'/'+product.image}}" alt="product Image"  >
+            <img type="image/webp" class="image zoom" th:srcset="@{${'/'+product.image}}" alt="product Image"  >
            </div>
             <div class = "row" >
-                <div class="col-md-3 col-sm-3 col-xs-3 imageClass" > <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage1}}" alt="product Image" ></div>
-                <div class="col-md-3 col-sm-3 col-xs-3 imageClass"> <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage2}}" alt="product Image" ></div>
-                <div class="col-md-3 col-sm-3 col-xs-3 imageClass" > <img type="image/webp" class="image" th:srcset="@{${'/'+product.extraImage3}}" alt="product Image" ></div>
+                <div class="col-md-3 col-sm-3 col-xs-3 imageClass" >
+                     <img type="image/webp" class="image zoom" th:srcset="@{${'/'+product.extraImage1}}" alt="product Image" >
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3 imageClass"> 
+                    <img type="image/webp" class="image zoom" th:srcset="@{${'/'+product.extraImage2}}" alt="product Image" >
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3 imageClass" >
+                     <img type="image/webp" class="image zoom" th:srcset="@{${'/'+product.extraImage3}}" alt="product Image" >
+                </div>
             </div>
         </div>
         <div  class = "col-md-6 col-lg-6 col-sm-12 col-xs-12"style="margin-top:2vw;margin-left:2vw;border: 1px solid black;border-radius:5px;">
@@ -143,7 +163,8 @@ margin-left: 25vw;
                     <div class="rounded">
                         <form action="/MEDICARE/cart/cartPage" method="POST" th:object="${productCountFormData}" >
                             <input type="hidden" id="productId" name="productId" th:value="${product.productId}" th:field="*{productId}"/>
-                            <input type="number" name="count"  id="quantityId" placeholder="Enter the quantity" required th:field="*{count}">
+                            
+                    <p style="text-align: center;"> Add Count       <input type="number" name="count"  id="quantityId" placeholder="Enter the quantity" required th:field="*{count}"></p>
 
                       <div id="ajax_div">
 
