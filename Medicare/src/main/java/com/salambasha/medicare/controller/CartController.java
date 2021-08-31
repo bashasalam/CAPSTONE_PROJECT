@@ -45,14 +45,19 @@ public class CartController {
 	
 	@GetMapping("/pastcart")
 	public String ShowPastCart(HttpSession session,Model model) {
+		if(session.getAttribute("userId") != null) {
 		long userId = (long) session.getAttribute("userId");
-		Object obj = "0000-00-00 00:00:00.000000";
-		List<ProductCount> pastProductCountList = productCountController.findPastCartDetails(userId,obj);
+		
+		//Object obj = "0000-00-00 00:00:00.000000";
+		List<ProductCount> pastProductCountList = productCountController.findPastCartDetails(userId);
 		
 		model.addAttribute("purchasedProductList", pastProductCountList);
 		
 		return "pages/cart/cart-page";
-		
+		}else {
+			
+			return "pages/login/login";
+		}
 		
 	}
 
@@ -200,16 +205,18 @@ public class CartController {
 			}else {
 								
 				System.out.println("inside else");
+				long cartId = cart.getCartId();
 				Product savingProduct = productService.findById(productId);
 				
 				double offerPrice = savingProduct.getOfferPrice();
 				
 				double totalPricewor = offerPrice * count;
 				 double totalPrice = Math.round(totalPricewor * 100D) / 100D;
-			long productCountId = productCountController.findPCid(productId);
+			long productCountId = productCountController.findPCid(productId,cartId);
 			
 			productCountController.updateProductCount(count,offerPrice,totalPrice,productCountId);
-				
+			
+			return "redirect:/MEDICARE/cart/cart";	
 				
 			}
 			

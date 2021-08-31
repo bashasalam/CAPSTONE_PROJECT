@@ -20,8 +20,8 @@ public interface ProductCountRepository extends CrudRepository<ProductCount, Lon
 	@Query(nativeQuery = true, value="SELECT * FROM product_count WHERE product_id=? and cart_id=? and user_id=?")
 	ProductCount findProduct(long productId, long theCart, long theUser);
 
-	@Query(nativeQuery = true, value="SELECT count_table_id FROM product_count WHERE product_id=?")
-	long findPCid(long exitingProductId);
+	@Query(nativeQuery = true, value="SELECT count_table_id FROM product_count WHERE product_id=? AND cart_id=?")
+	long findPCid(long exitingProductId, long cartId);
 
 	
 	@Transactional
@@ -38,7 +38,9 @@ public interface ProductCountRepository extends CrudRepository<ProductCount, Lon
 	void updatePurchaseTime(Timestamp timestamp, long countTableId);
 
 	@Query(nativeQuery = true, value="SELECT * FROM product_count WHERE user_id=?1 AND purchase_time IS NOT NULL ORDER BY purchase_time DESC")
-	List<ProductCount> findPastCartDetails(long userId, Object obj);
+	List<ProductCount> findPastCartDetails(long userId);
+	@Query(nativeQuery = true, value="SELECT * FROM product_count WHERE user_id=?1 AND cart_id=?2 AND purchase_time IS NULL")
+	List<ProductCount> findProductCounts(long user_id, long cart_id);
 
 	
 }

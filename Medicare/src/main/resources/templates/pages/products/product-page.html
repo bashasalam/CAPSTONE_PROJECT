@@ -97,7 +97,7 @@ margin-left: 25vw;
 <body>
 
     <nav th:replace="layouts :: userNavBar" ></nav>
-    <div > category details
+    <div > <p th:each="CategoryNam: ${CategoryName}" > category details : <span th:text="${CategoryNam}" style="font-weight: 500; color: blue;"></span></p>
      </div>
      <hr>
 <div class="container" style="margin-top:5vh;">

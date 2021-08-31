@@ -61,9 +61,9 @@ public class ProductCountController {
 	}
 
 
-	public long findPCid(long exitingProductId) {
+	public long findPCid(long exitingProductId, long cartId) {
 				
-		long productCountId = productCountService.findPCid(exitingProductId);
+		long productCountId = productCountService.findPCid(exitingProductId,cartId);
 		
 		return productCountId;
 	}
@@ -106,10 +106,19 @@ public class ProductCountController {
 	}
 
 
-	public List<ProductCount> findPastCartDetails(long userId, Object obj) {
-		List<ProductCount> pastCartList = productCountService.findPastCartDetails(userId,obj);
+	public List<ProductCount> findPastCartDetails(long userId) {
+		List<ProductCount> pastCartList = productCountService.findPastCartDetails(userId);
 		// TODO Auto-generated method stub
 		return pastCartList;
+	}
+
+
+	public List<ProductCount> findProductCounts(long user_id, long cart_id) {
+		
+		
+		
+		List<ProductCount> productsInCart = productCountService.findProductCounts(user_id,cart_id);
+		return productsInCart;
 	}
  
 

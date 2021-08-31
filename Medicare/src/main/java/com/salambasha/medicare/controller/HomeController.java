@@ -58,6 +58,37 @@ public String showMadicines(@RequestParam("category_id") long categoryId,Model m
 	
 	
 }
+
+@RequestMapping("home/showMadicineList")
+public String showMadicineList(@RequestParam("enteredKey") String enteredKey,Model model) {
+	
+	//categoryId = (long)categoryId;
+	//System.out.println(categoryId);
+	
+	//long category_id = 2;
+	try {
+	
+	List<Product> products = productService.getKeyProducts(enteredKey);
+	
+	System.out.print(products);
+	
+	model.addAttribute("keyProductList", products);
+	
+
+	
+	return "pages/keyProducts";
+	}catch(Exception e ){
+		
+		model.addAttribute("productsNull"," There is No Products Available For Your Search");
+		
+		return "pages/keyProductNull";
+	}
+	
+	
+}
+
+
+
 }
 
 

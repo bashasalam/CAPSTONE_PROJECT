@@ -1,5 +1,7 @@
 package com.salambasha.medicare.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salambasha.medicare.entities.Cart;
+import com.salambasha.medicare.entities.ProductCount;
 import com.salambasha.medicare.entities.User;
 import com.salambasha.medicare.services.CartService;
 import com.salambasha.medicare.services.UserService;
@@ -25,6 +28,8 @@ public class UserController {
 	@Autowired
 	CartService cartService;
 	
+	@Autowired
+	ProductCountController productCountController;
 	@GetMapping("/MEDICARE/")
 	public String showUserHome() {
 		
@@ -100,10 +105,16 @@ public class UserController {
 			            session.setAttribute("userId", user.getUserId());
 			            session.setAttribute("theCart", existingCart.getCartId());
 			            System.out.println("Working here user has cart already");
-			           // System.out.println("check for active cart");
 			            
-			           // Cart cart = cartService.findByid()
+			            long user_id = user.getUserId();
+			            long cart_id= existingCart.getCartId();
 			            
+			            
+			            
+						List<ProductCount> productsInCart = productCountController.findProductCounts(user_id,cart_id);
+			      
+					int noOfProductInCart = 	productsInCart.size();
+					 session.setAttribute("noOfProductInCart", noOfProductInCart);
 			           
 		           }else {
 		        	   int isActive = 1;
@@ -112,6 +123,18 @@ public class UserController {
 			            Cart cart = cartService.findSingleCart(user,isActive);
 				  		session.setAttribute("theCart", cart.getCartId());
 				  		System.out.println("Working here new cart careated");
+				  		
+				  		long user_id = user.getUserId();
+			            long cart_id= cart.getCartId();
+			            
+			            
+			            
+						List<ProductCount> productsInCart = productCountController.findProductCounts(user_id,cart_id);
+			           // System.out.println("check for active cart");
+			            
+			           // Cart cart = cartService.findByid()
+					int noOfProductInCart = 	productsInCart.size();
+					 session.setAttribute("noOfProductInCart", noOfProductInCart);
 		           }
 		            
 		         //   session.setAttribute("theCart", existingCart.getCartId());
@@ -134,6 +157,17 @@ public class UserController {
 		  			session.setAttribute("theCart", exisTingCart.getCartId());
 		  			session.setAttribute("userName", user.getFullName());
 		            session.setAttribute("userId", user.getUserId());
+		            long user_id = user.getUserId();
+		            long cart_id= exisTingCart.getCartId();
+		            
+		            
+		            
+					List<ProductCount> productsInCart = productCountController.findProductCounts(user_id,cart_id);
+		           // System.out.println("check for active cart");
+		            
+		           // Cart cart = cartService.findByid()
+				int noOfProductInCart = 	productsInCart.size();
+				 session.setAttribute("noOfProductInCart", noOfProductInCart);
 		  		}
 		  		
 		  		

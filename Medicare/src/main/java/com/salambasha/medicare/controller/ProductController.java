@@ -46,6 +46,8 @@ public class ProductController {
 		//long product_id = productId;
 		Product product = productService.findById(productId);
 		System.out.print(product);
+		Category category = product.getTheCategory();
+		model.addAttribute("CategoryName",category.getCategoryName());
 		model.addAttribute("showProduct", product);
 		model.addAttribute("productCountFormData", productCount);
 		return "/pages/products/product-page";
@@ -206,6 +208,8 @@ public class ProductController {
 		return "redirect:/MEDICARE/admin/" ;
 		 
 	}
+
+	
 
 	
 }

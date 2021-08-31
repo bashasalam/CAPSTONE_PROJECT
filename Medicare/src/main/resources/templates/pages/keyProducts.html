@@ -1,0 +1,15 @@
+<table class="table table-bordered table-striped">
+    <tbody >
+        <!-- <tr><Option>Select Category</Option></tr> -->
+        <tr th:each="keyProduct:${keyProductList}">
+            <td> <option  th:value="${keyProduct.productId}" th:text="${keyProduct.productName}"
+                th:onclick="'javascript:showProductPage(' + ${keyProduct.productId} + ');'" > 
+        </option>
+        </td>
+        </tr>
+        </tbody>
+    </table>
+   <!-- <select id="selectProductId" onchange="getProductId()" class="form-control">
+            <option value=""> Search List</option>
+
+        </select> -->
