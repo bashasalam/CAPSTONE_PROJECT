@@ -3,62 +3,204 @@
 <html lang="en" xmlns:th="hhtp://www.thymeleaf.org">
 
 <head th:replace="layouts :: header"></head>
+<style>
+
+@media only screen and (max-width: 1600px){
+ #smallTableId{
+     display:none !important;
+ }
+
+ #smallTableDiv
+ {
+     display:none !important;
+ }
 
 
-<body>
 
-    <nav th:replace="layouts :: userNavBar" ></nav>
+ #largeTableId{
+     display:block !important;
+ }
+}
+
+@media only screen and (min-width: 1200px){
+ #smallTableId{
+     display:none !important;
+ }
+
+ #smallTableDiv
+ {
+     display:none !important;
+ }
+
+
+
+ #largeTableId{
+     display:block !important;
+ }
+}
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+
+    #largeTableId{
+     display: none !important;
+ }
+ #smallTableId{
+     display:block !important;
+     padding: 0;margin: 0;
+ }
+}
+@media only screen and (max-width: 425px){
+	/*large smartphones [325px -> 425px]*/
+
+    #largeTableId{
+     display:none !important;
+ }
+ #smallTableId{
+     display:block !important;
+     padding: 0;margin: 0;
+ }
+}
+
+
+
+
+
+</style>
+
+<body >
+
+    <nav th:replace="layouts :: navBar" ></nav>
 <div class="container">
     <div class="heading">
         <!-- <h3>Alhamdhulillaahi rabbil aalameen</h3> -->
-        <h4>Cart Items</h4>
+       
     </div>
-    <div style="display: flex; flex-direction: column;">    
-        <div class="row col-md-5" style="border: 1px solid brown;" th:each="aproduct : ${productList}" >
-     <div class="col-md-3">
-        <img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.image}}" alt=" Madicine image"  width="100%" height="100%" style="border-radius:10px;" />
 
-     </div>
+    <h5 style="text-align: center;">  PURCHASE HISTORY   </h5>
+    <table id="largeTableId" class="table table-striped table-bordered " style="padding: 0;margin: 0;" >
+
+      
+   
+        <tbody>
+            <tr th:each="aproduct : ${purchasedProductList}" >
     
-      <div class="col-md-3">
-        <div class="media-body my-auto">
-            <div class="row ">
-                <div class="col" style="margin-left: 1vw;padding: 1vh 0.5vw;">
-                    <p class="mb-0"><b th:text="${aproduct.productName}"></b></p><small class="text-muted" th:text="${aproduct.brandName}"></small>
+                <!-- <td>
+                    <div class=" pl-0 flex-sm-col col-auto my-auto " >
+                       <button class="btn btn-sm btn-danger" th:onclick="|deleteProduct('${aproduct.productId}',${aproduct.countTableId})|" th:value="${aproduct.count}"> <b> - </b></button>
+                       
+                   </div>
+                  </td> -->
+                <td style="width: 20vw;">
+                    <!-- <div id="image" class="media flex-column">
+                    
+                </div> -->
+    
+                <div class="media flex-sm-row"> 
+                    <a th:href="@{${'/MEDICARE/products/'+aproduct.productId}}"><img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.mainImage}}" alt=" Madicine image"  width="75" height="75" style="border-radius:5px;" /></a>
+                    <div class="media-body my-auto">
+                        <div class="row ">
+                            <div class="col" style="margin-left: 1vw;padding: 1vh 0.20vw;">
+                                <p class="mb-0"><b th:text="${aproduct.madicineName}"></b></p><small class="text-muted" th:text="${aproduct.brandName}"></small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-      </div>
-           <!-- <div id="ajax_div"></div> -->
-    </div>
-
-    <div class="col-md-3"style="display: flex; flex-direction: column;">
-        <div class="row col-md-3" style="border: 1px solid yellow;" th:each="proCount : ${productCountList}" >
-            <div class="pl-0 flex-sm-col col-auto my-auto"  >
-                                    
-                <p class="boxed-1" th:text="${proCount.count}"></p>
-
-            </div>
-            <div class=" pl-0 flex-sm-col col-auto my-auto " >
-                <p><b th:text="${proCount.multipliedPrice}"></b></p>
-           </div>
-        
-        </div>
-    </div>
-    <div class="col-md-4"style="height: 50vh;border: 1px solid yellow; border-radius: 10px; margin-left: auto;">
-        <div id="deliveryAddressDiv" style="margin-top:5vh" >
-         <a th:href="@{/MEDICARE/cart/address}"><button class="btn btn-lg btn-blue" style="background-color: #236865; width:100%;color:white;"> Add Delivery Address</button></a>
-        </div>
-           <div id="freeDeliveryDiv" style="margin-top:2vh;border:1px dotted #7CBC96;border-radius:15px;background-color:#F2FFF8;" >
-         <p style="margin-top:1.5vh;margin-left:1.5vw;color:#ABBF96;font-weight:500;"> Free Delivery With Cart Value above   ₹1000</p>
+              </td>
+              <td style="width:20vw;">
+                <div id="ajax_div">
+                                        
+                    <p class="boxed-1" >
+                         <!-- <input type="number" name="productCount" id="inputId" 
+                        th:onchange="'javascript:changeCount(' + ${aproduct.countTableId}+ ');'" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;" >  -->
+                         <input type="number" name="productCount" id="inputId" 
+                        th:onchange="'javascript:changeCount(' + ${aproduct.productId}+ ');'" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;" > 
+                        <input type="hidden" name="userId" th:value="${session.userId}"  id="userId">
+                        <input type="hidden" name="theCart" th:value="${session.theCart}" id="theCart">
+                        <input type="hidden" name="countTableId" th:value="${aproduct.countTableId}" id="countTableId">
+                    
+                    </p>
+                                        
          
-         
-        </div>
-        
-     </div>
-    </div>
-
     
+                       
+    
+                </div>
+              </td>
+              <td style="width:20vw;">
+                <div >
+                    <p style="width:3vw;"><b th:text="${aproduct.multipliedPrice}"></b></p>
+               </div>
+              </td>
+          
+               
+            </tr>
+        </tbody>
+    
+    
+    </table>
+<!-- <div id="smallTableDiv"> -->
+    <table id="smallTableId"  class="table "   >
+   
+        <tbody>
+            <tr th:each="aproduct : ${purchasedProductList}" >
+    
+              
+                <td style="width: 5vw;">
+                    <!-- <div id="image" class="media flex-column">
+                    
+                </div> -->
+    
+                <div class="media flex-sm-row"> 
+                    <a th:href="@{${'/MEDICARE/products/'+aproduct.productId}}"><img type="image/webp" class="ccc" th:srcset="@{${'/'+aproduct.mainImage}}" alt=" Madicine image"  width="75" height="75" style="border-radius:5px;" /></a>
+                    <div class="media-body my-auto">
+                        <div class="row ">
+                            <div class="col" style="margin-left: 1vw;padding: 1vh 0.5vw;">
+                                <p class="mb-0 ml-5"><b th:text="${aproduct.madicineName}"></b></p>
+                                <!-- <small class="text-muted ml-5" th:text="${aproduct.brandName}"></small> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </td>
+              <td style="width:15vw;">
+                <div id="ajax_div">
+                                        
+                    <p class="boxed-1" >
+                         <!-- <input type="number" name="productCount" id="inputId" 
+                        th:onchange="'javascript:changeCount(' + ${aproduct.countTableId}+ ');'" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;" >  -->
+                         <input type="number" class="mb-0" name="productCount" id="inputId" 
+                        th:onchange="'javascript:changeCount(' + ${aproduct.productId}+ ');'" th:value="${aproduct.count}" style="border:none; color:blue;width:10vw;" > 
+                        <input type="hidden" name="userId" th:value="${session.userId}"  id="userId">
+                        <input type="hidden" name="theCart" th:value="${session.theCart}" id="theCart">
+                        <input type="hidden" name="countTableId" th:value="${aproduct.countTableId}" id="countTableId">
+                    
+                    </p>
+                                        
+                 <!--    <p class="boxed-1" > <input type="number" name="productCount" id="inputId" 
+                        oninput="changeCount(this.val())" th:value="${aproduct.count}" style="border:none; color:blue;width:3vw;"> 
+                        <input type="hidden" name="userId" th:value="${session.userId}"  id="userId">
+                        <input type="hidden" name="theCart" th:value="${session.theCart}" id="theCart">
+                        <input type="hidden" name="countTableId" th:value="${aproduct.countTableId}" id="countTableId">
+                    
+                    </p> -->
+    
+                       
+    
+                </div>
+              </td>
+              <td style="width:5vw;">
+                <div >
+                    <p style="width:3vw;"><b th:text="${aproduct.multipliedPrice}"></b></p>
+               </div>
+              </td>
+          
+               
+            </tr>
+        </tbody>
+    
+    
+    </table>
+<!-- </div>  -->
 
     </div>
 

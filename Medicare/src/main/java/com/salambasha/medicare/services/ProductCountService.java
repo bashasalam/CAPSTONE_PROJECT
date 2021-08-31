@@ -49,9 +49,9 @@ public class ProductCountService {
 		return existingProductCount;
 	}
 
-	public long findPCid(long exitingProductId) {
+	public long findPCid(long exitingProductId, long cartId) {
 		
-		long productCountId = productCountRepo.findPCid(exitingProductId);
+		long productCountId = productCountRepo.findPCid(exitingProductId,cartId);
 		
 		return productCountId;
 	}
@@ -83,6 +83,20 @@ public class ProductCountService {
 	public void updatePurchaseTime(Timestamp timestamp, long countTableId) {
 		// TODO Auto-generated method stub
 		productCountRepo.updatePurchaseTime(timestamp,countTableId);
+	}
+
+	public List<ProductCount> findPastCartDetails(long userId) {
+		
+		
+		List<ProductCount> pastCartList = productCountRepo.findPastCartDetails(userId);
+		return pastCartList;
+	}
+
+	public List<ProductCount> findProductCounts(long user_id, long cart_id) {
+		
+		
+		List<ProductCount> productsInCart = productCountRepo.findProductCounts(user_id,cart_id);
+		return productsInCart;
 	}
 	
 	//productCountRepo.save()

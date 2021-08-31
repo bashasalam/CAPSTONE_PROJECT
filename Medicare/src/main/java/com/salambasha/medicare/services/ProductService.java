@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.salambasha.medicare.dao.ProductRepository;
 import com.salambasha.medicare.entities.Category;
 import com.salambasha.medicare.entities.Product;
+import com.salambasha.medicare.entities.ProductCount;
 
 @Service
 public class ProductService {
@@ -78,6 +79,14 @@ prorepo.updateProduct(productName,brandName, description, price,offer,offerPrice
 		prorepo.deleteById(deleteId);
 		
 	}
+
+	public List<Product> getKeyProducts(String enteredKey) {
+		
+		List<Product> KeyProductList = prorepo.getKeyProducts(enteredKey);
+		
+		return KeyProductList;
+	}
+
 
 
 //	public void deleteProduct(long productId) {

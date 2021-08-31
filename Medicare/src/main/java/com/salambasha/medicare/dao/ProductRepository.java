@@ -44,6 +44,12 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
 	@Query(nativeQuery = true, value="SELECT * FROM product WHERE category_id=?")
 	List<Product> getProducts(long categoryId);
+
+//	@Query(nativeQuery = true, value="select p.product_name, p.product_id from product p where p.product_name LIKE %:enteredKey%")
+//	List<Product> getKeyProducts(String enteredKey);
+	
+	@Query(nativeQuery = true, value="select * from product p where p.product_name LIKE ?1%")
+	List<Product> getKeyProducts(String enteredKey);
 	
 
 	

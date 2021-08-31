@@ -55,7 +55,10 @@
               <a class="nav-item nav-link active btn-facebook" th:href="@{/MEDICARE/cart/pastcart}"> My Orders <i class="fa fa-shopping-cart"></i> </a>
             </li> 
             <li class="nav-item" th:style="${session.userName!= null} ? 'display:block' : 'display:none'">
-              <a class="nav-item nav-link active btn-facebook" th:href="@{/MEDICARE/cart/cart}">Cart <i class="fa fa-shopping-cart"></i> </a>
+              <a class="nav-item nav-link active btn-facebook" th:href="@{/MEDICARE/cart/cart}">Cart <i class="fa fa-shopping-cart">
+               <sup class="rounded" th:text="${session.noOfProductInCart}" style="border-radius:15px; color: red; background-color:yellow; margin-bottom: 5px;margin-right: 5px;margin-left: 0px;padding-left: 0px;font-size: 16px;
+               display: none;"></sup>
+              </i> </a>
             </li> 
 
            
